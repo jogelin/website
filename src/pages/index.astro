@@ -1,128 +1,63 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import ToolBar from '../components/ToolBar.astro';
+import Hero from '../components/Hero.astro';
 ---
 
 <Layout title="Jonathan Gelin">
-	<main>
-		<h1 class="text-5xl">
-			Hi, I'm <span
-				class="underline decoration-green-500 underline-offset-8 decoration-1"
-				><span class="text-green-500">J</span>onathan <span
-					class="text-green-500">G</span
-				>elin</span
-			>
-		</h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br
-			/>
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message
-			above.
-		</p>
+  <main class="grid gap-28 grid-cols-1">
+      <ToolBar />
 
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-			<div class="grid gap-4">
-				<div
-					class="h-auto max-w-full grid place-content-center rounded bg-cyan-950"
-				>
-					<h2 class="text-center uppercase text-5xl mb-12">Blog</h2>
-					<img
-						class="h-48 w-48"
-						src="public/icons/article.svg"
-						alt="Blog"
-					/>
-				</div>
+      <Hero />
 
-				<div>
-					<img
-						class="h-auto max-w-full rounded-lg"
-						src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg"
-						alt=""
-					/>
-				</div>
-				<div>
-					<img
-						class="h-auto max-w-full rounded-lg"
-						src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg"
-						alt=""
-					/>
-				</div>
-			</div>
-			<div class="grid gap-4">
-				<div>
-					<img
-						class="h-auto max-w-full rounded-lg"
-						src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg"
-						alt=""
-					/>
-				</div>
-				<div>
-					<img
-						class="h-auto max-w-full rounded-lg"
-						src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
-						alt=""
-					/>
-				</div>
-				<div>
-					<img
-						class="h-auto max-w-full rounded-lg"
-						src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg"
-						alt=""
-					/>
-				</div>
-			</div>
-			<div class="grid gap-4">
-				<div>
-					<img
-						class="h-auto max-w-full rounded-lg"
-						src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg"
-						alt=""
-					/>
-				</div>
-				<div>
-					<img
-						class="h-auto max-w-full rounded-lg"
-						src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg"
-						alt=""
-					/>
-				</div>
-				<div>
-					<img
-						class="h-auto max-w-full rounded-lg"
-						src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg"
-						alt=""
-					/>
-				</div>
-			</div>
-			<div class="grid gap-4">
-				<div>
-					<img
-						class="h-auto max-w-full rounded-lg"
-						src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
-						alt=""
-					/>
-				</div>
-				<div>
-					<img
-						class="h-auto max-w-full rounded-lg"
-						src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg"
-						alt=""
-					/>
-				</div>
-				<div>
-					<img
-						class="h-auto max-w-full rounded-lg"
-						src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg"
-						alt=""
-					/>
-				</div>
-			</div>
-		</div>
-	</main>
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div class="grid gap-4">
+        <a href="/blog" class="tile bg-sky-700 hover:bg-sky-600">
+          <h2>Blog</h2>
+          <img class="card-icon" src="public/icons/article.svg" alt="Blog" />
+        </a>
+        <a class="tile bg-emerald-700 hover:bg-emerald-600">
+          <h2>Projects</h2>
+          <img class="card-icon" src="public/icons/project.svg" alt="Projects" />
+        </a>
+        <a class="tile bg-amber-700 hover:bg-amber-600">
+          <h2>About</h2>
+          <img class="card-icon" src="public/icons/about.svg" alt="About" />
+        </a>
+      </div>
+      <div class="grid gap-4">
+        <a class="tile bg-rose-700 hover:bg-rose-600">
+          <h2>Skills</h2>
+          <img class="card-icon" src="public/icons/skills.svg" alt="Skills" />
+        </a>
+        <a class="tile bg-teal-700 hover:bg-teal-600">
+          <h2>Contact</h2>
+          <img class="card-icon" src="public/icons/contact.svg" alt="Contact" />
+        </a>
+        <a class="tile bg-orange-700 hover:bg-orange-600">
+          <h2>Resume</h2>
+          <img class="card-icon" src="public/icons/resume.svg" alt="Resume" />
+        </a>
+      </div>
+    </div>
+  </main>
 </Layout>
 
 <style>
-	main {
-		@apply mx-auto px-4 max-w-[800px] w-[calc(100%-2rem)] text-white text-xl leading-relaxed;
-	}
+  main {
+    @apply mx-auto w-[calc(100%-2rem)] max-w-[800px] pt-1 px-4 leading-relaxed;
+  }
+
+  .tile {
+    @apply grid h-auto max-w-full place-content-center rounded p-8 transition-colors duration-300;
+  }
+
+  .card-icon {
+    @apply h-48 w-48;
+  }
+
+  h2 {
+    @apply mb-8 text-center text-5xl uppercase;
+  }
 </style>
+
