@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+---
+
+<Layout title="Jonathan Gelin">
+  <main>
+    <h1 class="text-5xl">
+      Hi, I'm <span class="underline decoration-green-500 decoration-1 underline-offset-8"
+        ><span class="text-green-500">J</span>onathan <span class="text-green-500">G</span>elin</span
+      >
+    </h1>
+    <p class="instructions">
+      To get started, open the directory <code>src/pages</code> in your project.<br />
+      <strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+    </p>
+
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div class="grid gap-4">
+        <div class="grid h-auto max-w-full place-content-center rounded bg-cyan-950">
+          <h2 class="mb-12 text-center text-5xl uppercase">Blog</h2>
+          <img class="h-48 w-48" src="public/icons/article.svg" alt="Blog" />
+        </div>
+
+        <div>
+          <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="" />
+        </div>
+        <div>
+          <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="" />
+        </div>
+      </div>
+      <div class="grid gap-4">
+        <div>
+          <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="" />
+        </div>
+        <div>
+          <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg" alt="" />
+        </div>
+        <div>
+          <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg" alt="" />
+        </div>
+      </div>
+      <div class="grid gap-4">
+        <div>
+          <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg" alt="" />
+        </div>
+        <div>
+          <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg" alt="" />
+        </div>
+        <div>
+          <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg" alt="" />
+        </div>
+      </div>
+      <div class="grid gap-4">
+        <div>
+          <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg" alt="" />
+        </div>
+        <div>
+          <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg" alt="" />
+        </div>
+        <div>
+          <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    @apply mx-auto w-[calc(100%-2rem)] max-w-[800px] px-4 text-xl leading-relaxed text-white;
+  }
+</style>
