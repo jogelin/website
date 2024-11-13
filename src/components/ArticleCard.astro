@@ -1,0 +1,20 @@
+---
+import type { PostData } from '../loaders/hasnode/schemas';
+import Card from './Card.astro';
+
+interface Props {
+  post: PostData
+}
+
+const { post } = Astro.props;
+---
+
+<Card
+    type="ARTICLE"
+    date={post.data.publishedAt}
+    picture={post.data.coverImage.url}
+    href={`https://gelinjo.hashnode.dev/${post.data.slug}`}
+    title={post.data.title}
+    description={post.data.subtitle}
+    readTime={post.data.readTimeInMinutes}
+  />

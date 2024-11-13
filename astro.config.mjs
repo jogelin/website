@@ -5,6 +5,8 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://jonathan-gelin.pro', 
-  integrations: [tailwind()],
+  site: 'https://smartsdlc.dev',
+  integrations: [tailwind({
+    applyBaseStyles: false,
+  })],
 });
