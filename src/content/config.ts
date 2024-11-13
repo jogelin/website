@@ -7,6 +7,6 @@ const posts = defineCollection({
   loader: hashnodePostsLoader({myHashnodeURL})
 });
 
-const talks
+// const talks
 
 export const collections = { posts }

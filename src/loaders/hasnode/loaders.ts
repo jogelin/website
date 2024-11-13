@@ -9,7 +9,7 @@ export interface HashnodePostsLoaderOptions {
 export function hashnodePostsLoader({ myHashnodeURL }: HashnodePostsLoaderOptions): Loader {
   return {
     name: 'hasnode-posts-loader',
-    load: async ({ logger, parseData, store }) => {
+    load: async ({ logger, store }) => {
       logger.info(`Loading posts from ${myHashnodeURL}`);
 
       const result = await getPosts(myHashnodeURL);

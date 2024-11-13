@@ -5,14 +5,12 @@ import Hero from '../components/Hero.astro';
 import { getCollection } from 'astro:content';
 import ArticleCard from '../components/ArticleCard.astro';
 
-const posts = await getCollection('posts', ({ data }) => {
-  return data.type !== true;
-});
+const posts = await getCollection('posts');
 
 const sortedPosts = posts.sort((a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime());
 
-const groupPostsForMasonry = (posts, columns) => {
-  const grouped = Array.from({ length: columns }, () => []);
+function groupPostsForMasonry<T>(posts: T[], columns: number): T[][] {
+  const grouped = Array.from({ length: columns }, () => []) as T[][];
   posts.forEach((post, index) => {
     grouped[index % columns].push(post);
   });
@@ -76,7 +74,7 @@ const currentPath = Astro.url.pathname;
           masonryPosts.map((columnPosts) => (
             <div class="column space-y-2">
               {columnPosts.map((post) => (
-                <ArticleCard post={post} />
+                <ArticleCard post={post.data} />
               ))}
             </div>
           ))
