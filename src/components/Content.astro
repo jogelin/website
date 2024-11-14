@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import ArticleCard from '../components/ArticleCard.astro';
+
+const posts = await getCollection('posts');
+
+const sortedPosts = posts.sort((a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime());
+
+function groupPostsForMasonry<T>(posts: T[], columns: number): T[][] {
+  const grouped = Array.from({ length: columns }, () => []) as T[][];
+  posts.forEach((post, index) => {
+    grouped[index % columns].push(post);
+  });
+  return grouped;
+};
+
+const columns = 3; // Adjust this based on your layout
+const masonryPosts = groupPostsForMasonry(sortedPosts, columns);
+
+// Get the current path to determine active filter
+const currentPath = Astro.url.pathname;
+---
+
+<div class="mb-10 flex justify-center gap-8">
+  {
+    [
+      { href: '/', label: 'ALL' },
+      { href: '/blog', label: 'ARTICLES' },
+      { href: '/blog', label: 'NOTES' },
+      { href: '/talks', label: 'TALKS' },
+      { href: '/videos', label: 'VIDEOS' },
+    ].map(({ href, label }) => (
+      <a href={href} class={currentPath === href ? 'link-primary active' : 'link-primary'}>
+        {label}
+      </a>
+    ))
+  }
+</div>
+
+<div class="mb-2 columns-1 gap-2 md:columns-3">
+{
+  masonryPosts.map((columnPosts) => (
+    <div class="column space-y-2">
+      {columnPosts.map((post) => (
+        <ArticleCard post={post.data} />
+      ))}
+    </div>
+  ))
+}
+</div>
+
+<style>
+  .column {
+    break-inside: avoid; /* Prevents items from breaking between columns */
+  }
+</style>
