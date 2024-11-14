@@ -17,7 +17,7 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <slot />
+      <slot />
   </body>
 </html>
 
@@ -43,7 +43,8 @@ const { title } = Astro.props;
       @apply text-secondary decoration-primary;
     }
 
-    a.link-primary:hover, a.link-primary.active {
+    a.link-primary:hover,
+    a.link-primary.active {
       @apply text-primary underline decoration-1 underline-offset-2;
     }
 

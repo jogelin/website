@@ -7,33 +7,35 @@ import Hero from '../components/Hero.astro';
 ---
 
 <Layout title="Jonathan Gelin">
-  <section class="z-50 mt-2">
-    <div>
-      <ToolBar />
-    </div>
-  </section>
+  <div class="animated-background bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900">
+    <section class="z-50 pt-2">
+      <div>
+        <ToolBar />
+      </div>
+    </section>
 
-  <section class="border-primary h-[calc(100vh-48px)] border-b">
-    <div class="flex h-full items-center justify-center">
-      <Hero />
-    </div>
-  </section>
+    <section class="border-primary h-[calc(100vh-48px)] border-b">
+      <div class="flex h-full items-center justify-center">
+        <Hero />
+      </div>
+    </section>
+  </div>
 
   <section class="border-primary border-b bg-slate-50 py-5">
     <div class="flex h-full items-center justify-center">
-    <div style="overflow:hidden;margin-left:auto;margin-right:auto;border-radius:10px;width:100%;max-width:960px;position:relative">
-      <div style="width:100%;padding-bottom:56.25%"></div>
-      <iframe
-        width="960"
-        height="540"
-        title=""
-        src="https://snappify.com/embed/d44dd44b-e200-4af6-99f2-180bcabfcee2?responsive=1&p=1&b=1"
-        allow="clipboard-write"
-        allowfullscreen=""
-        loading="lazy"
-        style="background:#eee;position:absolute;left:0;top:0;width:100%"
-        frameborder="0"></iframe>
-    </div>
+      <div style="overflow:hidden;margin-left:auto;margin-right:auto;border-radius:10px;width:100%;max-width:960px;position:relative">
+        <div style="width:100%;padding-bottom:56.25%"></div>
+        <iframe
+          width="960"
+          height="540"
+          title=""
+          src="https://snappify.com/embed/d44dd44b-e200-4af6-99f2-180bcabfcee2?responsive=1&p=1&b=1"
+          allow="clipboard-write"
+          allowfullscreen=""
+          loading="lazy"
+          style="background:#eee;position:absolute;left:0;top:0;width:100%"
+          frameborder="0"></iframe>
+      </div>
     </div>
   </section>
 
@@ -55,5 +57,25 @@ import Hero from '../components/Hero.astro';
   }
   .column {
     break-inside: avoid; /* Prevents items from breaking between columns */
+  }
+
+  .animated-background {
+    background-size: 400%;
+
+    -webkit-animation: animation 10s ease infinite;
+    -moz-animation: animation 10s ease infinite;
+    animation: animation 10s ease infinite;
+  }
+
+  @keyframes animation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 </style>
