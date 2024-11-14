@@ -12,7 +12,7 @@ interface Props {
 const { href, title, picture, date, description, type, readTime } = Astro.props;
 ---
 
-<a href={href} class="block shadow-around cursor-pointer group hover:border-2 hover:border-primary" target="_blank">
+<a href={href} class="block shadow-around cursor-pointer group" target="_blank">
   <div class="relative overflow-hidden bg-cover bg-no-repeat bg-center">
       <img class="object-cover w-full h-full transition duration-100 ease-in-out group-hover:scale-110" src={picture} alt="Card Picture" />
   </div>
