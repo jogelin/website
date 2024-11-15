@@ -1,32 +1,39 @@
 ---
 interface Props {
   type: string;
-  picture: string;
-  href: string;
+  picture?: string;
   title: string;
-  date: string;
-  description: string;
+  startDate?: string;
+  endDate?: string | null;
+  description?: string;
   readTime?: number;
+  links: { name: string; href: string }[];
 }
 
-const { href, title, picture, date, description, type, readTime } = Astro.props;
+const { links, title, picture, startDate, endDate, description, type, readTime } = Astro.props;
 ---
 
-<a href={href} class="block shadow-around cursor-pointer group" target="_blank">
-  <div class="relative overflow-hidden bg-cover bg-no-repeat bg-center">
-      <img class="object-cover w-full h-full transition duration-100 ease-in-out group-hover:scale-110" src={picture} alt="Card Picture" />
+<div class="group block shadow-around">
+  <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat">
+    <img class="h-full w-full object-cover transition duration-100 ease-in-out group-hover:scale-110" src={picture} alt="Card Picture" />
   </div>
-  <div class="p-2 bg-slate-50 dark:bg-slate-900">
-    <p class="text-primary mb-2 text-xs">
+  <div class="grid grid-cols-1 gap-2 bg-slate-50 p-2 dark:bg-slate-900">
+    <div class="text-primary mb-2 text-xs">
       {type}
-    </p>
-    <h5 class="mb-2 uppercase text-sm">{title}</h5>
-    <p class="text-secondary mb-4 text-sm">
-      {description}
-    </p>
-    <div class="text-secondary mb-2 flex justify-between text-sm">
-      <div class="">
-        {new Date(date).toLocaleDateString()}
+    </div>
+    <h5 class="mb-2 text-sm uppercase">{title}</h5>
+    {
+      description && (
+        <div class="text-secondary mb-4 text-sm">
+          <span set:html={description} />
+        </div>
+      )
+    }
+
+    <div class="text-secondary mb-2 flex items-center text-sm">
+      <div class="grow">
+        {startDate ? new Date(startDate).toLocaleDateString() : ''}
+        {endDate ? `- ${new Date(endDate).toLocaleDateString()}` : ''}
       </div>
       {
         readTime && (
@@ -41,5 +48,15 @@ const { href, title, picture, date, description, type, readTime } = Astro.props;
         )
       }
     </div>
+
+    <div class="flex items-center justify-center gap-2">
+      {
+        links.map(({ name, href }) => (
+          <a href={href} class="link-primary uppercase" target="_blank">
+            {name}
+          </a>
+        ))
+      }
+    </div>
   </div>
-</a>
+</div>

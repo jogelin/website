@@ -1,0 +1,91 @@
+---
+import { getCollection } from 'astro:content';
+import TalkCard from './TalkCard.astro';
+import PostCard from './PostCard.astro';
+import { isInstanceOfPost } from '../../loaders/hasnode/schemas';
+import { isInstanceOfTalk } from '../../loaders/talks/schemas';
+
+// Get the current path to determine active filter
+const currentPath = Astro.url.pathname;
+const searchParams = Astro.url.searchParams;
+const contentType = searchParams.get('content');
+
+const posts = await getCollection('posts');
+
+const conferences = await getCollection('conferences');
+const cfps = await getCollection('cfps');
+const talks = (await getCollection('talks')).map((talk) => ({
+  ...talk,
+  data: {
+    ...talk.data,
+    properties: {
+      ...talk.data.properties,
+      conference: conferences.find((c) => c.id === talk.data.properties.conference.relation[0].id)?.data?.properties,
+      talk: cfps.find((c) => c.id === talk.data.properties.talk.relation[0].id)?.data?.properties,
+    },
+  },
+}));
+
+const getTime = (content: any) => {
+  if (content.collection === 'talks') {
+    return new Date(content.data.properties.conference.date?.date?.start).getTime();
+  }
+  if (content.collection === 'posts') {
+    return new Date(content.data.publishedAt).getTime();
+  }
+
+  return 0;
+};
+const contents = [...posts, ...talks].sort((a, b) => getTime(b) - getTime(a));
+
+function groupContentsForMasonry<T>(contents: T[], columns: number): T[][] {
+  const grouped = Array.from({ length: columns }, () => []) as T[][];
+  contents.forEach((content, index) => {
+    grouped[index % columns].push(content);
+  });
+  return grouped;
+}
+
+const columns = 3; // Adjust this based on your layout
+const masonryContents = groupContentsForMasonry(contents, columns);
+---
+
+<div class="mb-10 flex justify-center gap-8">
+  {
+    [
+      { href: '/', label: 'ALL' },
+      { href: '/?content=articles', label: 'ARTICLES' },
+      { href: '/?content=notes', label: 'NOTES' },
+      { href: '/?content=talks', label: 'TALKS' },
+      { href: '/?content=videos', label: 'VIDEOS' },
+    ].map(({ href, label }) => (
+      <a href={href} class={currentPath === href ? 'link-primary active' : 'link-primary'}>
+        {label}
+      </a>
+    ))
+  }
+</div>
+
+<div class="mb-2 columns-1 gap-2 md:columns-3">
+  {
+    masonryContents.map((col) => (
+      <div class="column space-y-2">
+        {col.map((content) =>
+          isInstanceOfPost(content.data) ? (
+            <PostCard post={content.data} />
+          ) : isInstanceOfTalk(content.data.properties) ? (
+            <TalkCard talk={content.data.properties} />
+          ) : (
+            'ERROR'
+          ),
+        )}
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .column {
+    break-inside: avoid; /* Prevents items from breaking between columns */
+  }
+</style>

@@ -2,8 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import ToolBar from '../components/ToolBar.astro';
 import Footer from '../components/Footer.astro';
-import Content from '../components/Content.astro';
 import Hero from '../components/Hero.astro';
+import Contents from '../components/content/Contents.astro';
 ---
 
 <Layout title="Jonathan Gelin">
@@ -29,7 +29,7 @@ import Hero from '../components/Hero.astro';
           width="960"
           height="540"
           title=""
-          src="https://snappify.com/embed/d44dd44b-e200-4af6-99f2-180bcabfcee2?responsive=1&p=1&b=1"
+          src="https://snappify.com/embed/d44dd44b-e200-4af6-99f2-180bcabfcee2?responsive=1&p=1&b=1&autoplay=1"
           allow="clipboard-write"
           allowfullscreen=""
           loading="lazy"
@@ -40,7 +40,7 @@ import Hero from '../components/Hero.astro';
 
   <section class="bg-slate-200 py-10 dark:bg-slate-600">
     <div>
-      <Content />
+      <Contents />
     </div>
   </section>
 

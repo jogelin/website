@@ -1,0 +1,36 @@
+---
+import type { Talk } from '../../loaders/talks/schemas';
+import Card from '../Card.astro';
+import { fileToUrl, richTextToPlainText } from 'notion-astro-loader';
+
+interface Props {
+  talk: Talk;
+}
+
+const { talk } = Astro.props;
+
+const picture = talk?.picture?.files?.[0] ? fileToUrl(talk?.picture?.files?.[0]) : undefined;
+const video = talk?.video?.rich_text ? richTextToPlainText(talk?.video?.rich_text) : undefined;
+const slides = talk?.slides?.rich_text ? richTextToPlainText(talk?.slides?.rich_text) : undefined;
+
+const links = [];
+if (slides)
+  links.push({
+    name: 'Slides',
+    href: slides,
+  });
+if (video)
+  links.push({
+    name: 'Recording',
+    href: video,
+  });
+---
+
+<Card
+  type="TALK"
+  startDate={talk.conference.date?.date?.start}
+  endDate={talk.conference.date?.date?.end}
+  picture={picture}
+  title={richTextToPlainText(talk.talk.talk.title)}
+  links={links}
+/>
