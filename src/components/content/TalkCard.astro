@@ -2,6 +2,10 @@
 import type { Talk } from '../../loaders/talks/schemas';
 import Card from '../Card.astro';
 import { fileToUrl, richTextToPlainText } from 'notion-astro-loader';
+import { getImage } from 'astro:assets';
+
+import fs from 'node:fs';
+import path from 'node:path';
 
 interface Props {
   talk: Talk;
@@ -9,7 +13,44 @@ interface Props {
 
 const { talk } = Astro.props;
 
-const picture = talk?.picture?.files?.[0] ? fileToUrl(talk?.picture?.files?.[0]) : undefined;
+async function downloadAndOptimizeImage(imageUrl: string | undefined) {
+  if (!imageUrl) return undefined;
+
+  // Extract filename from the S3 URL (before the query parameters)
+  const urlPath = new URL(imageUrl).pathname;
+  const originalFilename = path.basename(urlPath);
+  const uniqueFilename = `talk-${originalFilename}`;
+  const localDir = path.join(process.cwd(), 'public', 'talks');
+  const localPath = path.join(localDir, uniqueFilename);
+  const publicPath = `/talks/${uniqueFilename}`;
+
+  try {
+    // Check if image already exists
+    if (
+      await fs.promises
+        .access(localPath)
+        .then(() => true)
+        .catch(() => false)
+    ) {
+      return publicPath;
+    }
+
+    // Download image
+    const response = await fetch(imageUrl);
+    if (!response.ok) throw new Error(`Failed to fetch image: ${response.statusText}`);
+
+    const buffer = await response.arrayBuffer();
+    await fs.promises.writeFile(localPath, Buffer.from(buffer));
+
+    return publicPath;
+  } catch (error) {
+    console.error(`Failed to download image ${imageUrl}:`, error);
+    return undefined;
+  }
+}
+
+const picture = await downloadAndOptimizeImage(talk?.picture?.files?.[0] ? fileToUrl(talk?.picture?.files?.[0]) : undefined);
+
 const video = talk?.video?.rich_text ? richTextToPlainText(talk?.video?.rich_text) : undefined;
 const slides = talk?.slides?.rich_text ? richTextToPlainText(talk?.slides?.rich_text) : undefined;
 
