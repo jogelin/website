@@ -26,11 +26,4 @@ if (video)
   });
 ---
 
-<Card
-  type="TALK"
-  startDate={talk.conference.date?.date?.start}
-  endDate={talk.conference.date?.date?.end}
-  picture={picture}
-  title={richTextToPlainText(talk.talk.talk.title)}
-  links={links}
-/>
+<Card type="TALK" startDate={talk.conference.date?.date?.start} picture={picture} title={richTextToPlainText(talk.talk.talk.title)} links={links} />

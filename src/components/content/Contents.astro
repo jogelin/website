@@ -5,11 +5,6 @@ import PostCard from './PostCard.astro';
 import { isInstanceOfPost } from '../../loaders/hasnode/schemas';
 import { isInstanceOfTalk } from '../../loaders/talks/schemas';
 
-// Get the current path to determine active filter
-const currentPath = Astro.url.pathname;
-const searchParams = Astro.url.searchParams;
-const contentType = searchParams.get('content');
-
 const posts = await getCollection('posts');
 
 const conferences = await getCollection('conferences');
@@ -36,7 +31,7 @@ const getTime = (content: any) => {
 
   return 0;
 };
-const contents = [...posts, ...talks].sort((a, b) => getTime(b) - getTime(a));
+const sortedContents = [...posts, ...talks].sort((a, b) => getTime(b) - getTime(a));
 
 function groupContentsForMasonry<T>(contents: T[], columns: number): T[][] {
   const grouped = Array.from({ length: columns }, () => []) as T[][];
@@ -47,25 +42,10 @@ function groupContentsForMasonry<T>(contents: T[], columns: number): T[][] {
 }
 
 const columns = 3; // Adjust this based on your layout
-const masonryContents = groupContentsForMasonry(contents, columns);
+const masonryContents = groupContentsForMasonry(sortedContents, columns);
 ---
 
-<div class="mb-10 flex justify-center gap-8">
-  {
-    [
-      { href: '/', label: 'ALL' },
-      { href: '/?content=articles', label: 'ARTICLES' },
-      { href: '/?content=notes', label: 'NOTES' },
-      { href: '/?content=talks', label: 'TALKS' },
-      { href: '/?content=videos', label: 'VIDEOS' },
-    ].map(({ href, label }) => (
-      <a href={href} class={currentPath === href ? 'link-primary active' : 'link-primary'}>
-        {label}
-      </a>
-    ))
-  }
-</div>
-
+<!--<div class="mb-10 flex justify-center gap-6" id="filter-buttons">--><!--  {--><!--    [--><!--      { type: 'all', label: 'ALL' },--><!--      { type: 'articles', label: 'ARTICLES' },--><!--      { type: 'notes', label: 'NOTES' },--><!--      { type: 'talks', label: 'TALKS' },--><!--      { type: 'videos', label: 'VIDEOS' },--><!--    ].map(({ type, label }) => (--><!--      <button data-filter={type} class:list={['filter-btn', 'link-primary', { active: contentType === type || (type === 'all' && !contentType) }]}>--><!--        {label}--><!--      </button>--><!--    ))--><!--  }--><!--</div>-->
 <div class="mb-2 columns-1 gap-2 md:columns-3">
   {
     masonryContents.map((col) => (

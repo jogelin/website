@@ -1,4 +1,8 @@
 <div class="flex justify-between">
+  <div class="flex items-center">
+    <img src="/icons/strategy-development.svg" class="mr-2 h-8" alt="sdlc" />
+    <a class="curved-underline-slim text-2xl" href="https://smartsdlc.dev" target="_self">smartSDLC.dev</a>
+  </div>
   <!-- Social Media Icons (Left) -->
   <div class="flex">
     <!-- GitHub -->
@@ -37,35 +41,35 @@
   </div>
 
   <!-- Utilities (Right) -->
-  <div class="flex">
-    <!-- RSS Feed -->
-    <!-- <a href="/rss.xml" class="toolbar-icon" aria-label="RSS Feed">
-        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 110-2 1 1 0 010 2z"
-          ></path>
-        </svg>
-      </a> -->
-    <!-- Theme Toggle -->
-    <button id="theme-toggle" class="toolbar-icon" aria-label="Toggle theme">
-      <!-- Sun icon -->
-      <svg class="h-6 w-6 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-        ></path>
-      </svg>
-      <!-- Moon icon -->
-      <svg class="hidden h-6 w-6 dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-      </svg>
-    </button>
-  </div>
+  <!--<div class="flex">-->
+  <!--  &lt;!&ndash; RSS Feed &ndash;&gt;-->
+  <!--  &lt;!&ndash; <a href="/rss.xml" class="toolbar-icon" aria-label="RSS Feed">-->
+  <!--      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
+  <!--        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 110-2 1 1 0 010 2z"-->
+  <!--        ></path>-->
+  <!--      </svg>-->
+  <!--    </a> &ndash;&gt;-->
+  <!--  &lt;!&ndash; Theme Toggle &ndash;&gt;-->
+  <!--  <button id="theme-toggle" class="toolbar-icon" aria-label="Toggle theme">-->
+  <!--    &lt;!&ndash; Sun icon &ndash;&gt;-->
+  <!--    <svg class="h-6 w-6 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
+  <!--      <path-->
+  <!--        stroke-linecap="round"-->
+  <!--        stroke-linejoin="round"-->
+  <!--        stroke-width="2"-->
+  <!--        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"-->
+  <!--      ></path>-->
+  <!--    </svg>-->
+  <!--    &lt;!&ndash; Moon icon &ndash;&gt;-->
+  <!--    <svg class="hidden h-6 w-6 dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
+  <!--      <path-->
+  <!--        stroke-linecap="round"-->
+  <!--        stroke-linejoin="round"-->
+  <!--        stroke-width="2"-->
+  <!--        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>-->
+  <!--    </svg>-->
+  <!--  </button>-->
+  <!--</div>-->
 </div>
 
 <style>
@@ -92,6 +96,6 @@
   // Initialize theme on page load
   document.documentElement.classList.toggle(
     'dark',
-    localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
   );
 </script>
