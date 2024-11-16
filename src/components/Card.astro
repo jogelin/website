@@ -13,7 +13,7 @@ const { links, title, picture, startDate, description, type } = Astro.props;
 
 <div class="group block shadow-around">
   <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat">
-    <img class="h-full w-full object-cover transition duration-100 ease-in-out group-hover:scale-110" src={picture} alt="Card Picture" />
+    <img class="h-full w-full object-cover transition duration-100 ease-in-out group-hover:scale-110" src={picture} alt={title} />
   </div>
   <div class="grid grid-cols-1 gap-4 bg-slate-50 p-2 dark:bg-slate-900">
     <div class="text-secondary flex text-xs">
