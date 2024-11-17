@@ -7,7 +7,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-900 dark:text-slate-100">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
@@ -20,63 +20,3 @@ const { title } = Astro.props;
     <slot />
   </body>
 </html>
-
-<style is:global>
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-
-  @layer base {
-    :root {
-      @apply bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-900 dark:text-slate-100;
-    }
-
-    .text-primary {
-      @apply text-green-700 dark:text-green-500;
-    }
-
-    .text-secondary {
-      @apply text-slate-500 dark:text-slate-400;
-    }
-
-    a.link-primary,
-    button.link-primary {
-      @apply text-secondary decoration-primary;
-    }
-
-    a.link-primary:hover,
-    a.link-primary.active,
-    button.link-primary:hover,
-    button.link-primary.active {
-      @apply text-primary underline decoration-1 underline-offset-2;
-    }
-
-    .decoration-primary {
-      @apply decoration-green-700 dark:decoration-green-500;
-    }
-
-    .border-primary {
-      @apply border-green-700 dark:border-green-500;
-    }
-
-    .curved-underline,
-    .curved-underline-slim {
-      @apply relative;
-    }
-
-    .curved-underline:after {
-      content: '';
-      @apply border-primary absolute left-0 w-full border-t-4;
-      bottom: -20px;
-      border-radius: 80%;
-      height: 20px;
-    }
-    .curved-underline-slim:after {
-      content: '';
-      @apply border-primary absolute left-0 w-full border-t-2;
-      bottom: -20px;
-      border-radius: 80%;
-      height: 20px;
-    }
-  }
-</style>
