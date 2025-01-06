@@ -1,0 +1,220 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ToolBar from '../components/ToolBar.astro';
+import cv from '../content/cv/cv.json';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Smart SDLC">
+  <div class="animated-background bg-gradient-to-r from-slate-50 via-slate-200 to-slate-50 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900">
+    <section class="z-50 pt-2">
+      <div>
+        <ToolBar />
+      </div>
+    </section>
+
+    <section class="pb-10 pt-20">
+      <div>
+        <h2 class="mb-6 text-5xl"><span class="text-primary">Jonathan</span> Gelin</h2>
+        <div class="flex flex-col gap-2 text-gray-600 dark:text-gray-300">
+          <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+              ></path>
+            </svg>
+            <a href={`mailto:${cv.email}`} class="hover:text-primary">{cv.email}</a>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
+              ></path>
+            </svg>
+            {new Date(cv.birthDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </div>
+          <div class="flex items-center gap-4">
+            {
+              cv.languages.map((lang) => (
+                <div class="flex items-center gap-2">
+                  <span class="text-xl">{lang.language === 'French' ? '🇫🇷' : lang.language === 'English' ? '🇬🇧' : ''}</span>
+                  <span>
+                    {lang.language} ({lang.fluency})
+                  </span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <section class="border-primary border-b bg-slate-50 py-10 text-slate-900">
+    <div>
+      <div class="mb-6 flex flex-row items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-2 h-6 w-6">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+          ></path>
+        </svg>
+        <h3 class="text-3xl"><span class="text-primary">S</span>ummary</h3>
+      </div>
+      <p>
+        {
+          cv.summary.split('\n').map((line) => (
+            <>
+              {line}
+              <br />
+            </>
+          ))
+        }
+      </p>
+    </div>
+  </section>
+  <section class="bg-slate-200 py-10 dark:bg-slate-600">
+    <div>
+      <div class="mb-6 flex flex-row items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-2 h-6 w-6">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z"
+          ></path>
+        </svg>
+        <h3 class="text-3xl"><span class="text-primary">E</span>xperiences</h3>
+      </div>
+      <div class="flex flex-col gap-8">
+        {
+          cv.experiences.map((exp, index) => {
+            const startDate = new Date(exp.startDate);
+            const endDate = exp.endDate === 'Present' ? new Date() : new Date(exp.endDate);
+            const monthDiff = (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth());
+            const years = Math.floor(monthDiff / 12);
+            const months = monthDiff % 12;
+            const duration =
+              years > 0
+                ? months > 0
+                  ? `${years} yr${years > 1 ? 's' : ''} ${months} mo${months > 1 ? 's' : ''}`
+                  : `${years} yr${years > 1 ? 's' : ''}`
+                : `${months} mo${months > 1 ? 's' : ''}`;
+
+            return (
+              <div class={`flex gap-4 ${index >= 4 ? 'expand-experiences hidden' : ''}`}>
+                <div class="h-16 w-16 flex-shrink-0">
+                  <img src={exp.companyLogo} alt={`${exp.companyName} logo`} class="h-full w-full object-contain" />
+                </div>
+                <div class="flex-grow">
+                  <h4 class="text-xl font-semibold">{exp.role}</h4>
+                  <p class="uppercase text-gray-600 dark:text-gray-300">{exp.companyName}</p>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                    {startDate.toLocaleString('en-US', { month: 'short', year: 'numeric' })} -{' '}
+                    {exp.endDate === 'Present' ? 'Present' : endDate.toLocaleString('en-US', { month: 'short', year: 'numeric' })} · {duration}
+                  </p>
+                  <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">{exp.location}</p>
+                  <p class="mb-4">
+                    {exp.description.split('\n').map((line) => (
+                      <>
+                        {line}
+                        <br />
+                      </>
+                    ))}
+                  </p>
+                  <ul class="mb-4 list-inside list-disc space-y-1">
+                    {exp.accomplishments.map((acc) => (
+                      <li class="text-gray-600 dark:text-gray-300">{acc}</li>
+                    ))}
+                  </ul>
+                  <div class="flex flex-wrap gap-2">
+                    {exp.skills.map((skill) => (
+                      <span class="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700 dark:bg-gray-800 dark:text-gray-300">{skill}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        }
+        {
+          cv.experiences.length > 4 && (
+            <div class="my-2 text-center">
+              <button
+                class="text-md border-primary link-primary w-fit cursor-pointer rounded border bg-slate-50 px-3 py-2 uppercase shadow-lg hover:underline dark:bg-slate-900"
+                onclick="document.querySelectorAll('.expand-experiences').forEach(el => el.classList.remove('hidden')); this.style.display='none';"
+              >
+                Show all {cv.experiences.length} experiences
+              </button>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="py-10">
+    <div>
+      <div class="mb-6 flex flex-row items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-2 h-6 w-6">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+          ></path>
+        </svg>
+        <h3 class="text-3xl"><span class="text-primary">R</span>ecommendations</h3>
+      </div>
+      <div class="flex flex-col gap-8">
+        {
+          cv.recommendations.map((rec, index) => (
+            <div class={`flex gap-4 ${index >= 4 ? 'expand-recommendations hidden' : ''}`}>
+              <div class="h-16 w-16 flex-shrink-0">
+                <img src={rec.picture} alt={`${rec.name}'s picture`} class="h-full w-full rounded-full object-cover" />
+              </div>
+              <div class="flex-grow">
+                <h4 class="text-xl font-semibold">{rec.name}</h4>
+                <p class="uppercase text-gray-600 dark:text-gray-300">{rec.role}</p>
+                <p class="mt-2">
+                  {rec.content.split('\n').map((line) => (
+                    <>
+                      {line}
+                      <br />
+                    </>
+                  ))}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+        {
+          cv.recommendations.length > 4 && (
+            <div class="my-2 text-center">
+              <button
+                class="text-md border-primary link-primary w-fit cursor-pointer rounded border bg-slate-50 px-3 py-2 uppercase shadow-lg hover:underline dark:bg-slate-900"
+                onclick="document.querySelectorAll('.expand-recommendations').forEach(el => el.classList.remove('hidden')); this.style.display='none';"
+              >
+                Show all {cv.recommendations.length} recommendations
+              </button>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="border-primary border-t">
+    <div>
+      <Footer />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  section > :first-child {
+    @apply container mx-auto;
+  }
+</style>
