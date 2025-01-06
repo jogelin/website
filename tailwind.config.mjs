@@ -18,36 +18,35 @@ export default {
       boxShadow: {
         around: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
       },
-      textColor: {
-        primary: {
-          DEFAULT: colors.green[700],
-          dark: colors.green[500],
-        },
-        secondary: {
-          DEFAULT: colors.slate[500],
-          dark: colors.slate[400],
-        },
-      },
-      // Border colors
-      borderColor: {
-        primary: {
-          DEFAULT: colors.green[700],
-          dark: colors.green[500],
-        },
-      },
-      // Text decoration colors
-      textDecorationColor: {
-        primary: {
-          DEFAULT: colors.green[700],
-          dark: colors.green[500],
-        },
-      },
     },
   },
   plugins: [
-    // Plugin for the curved underline
     function ({ addComponents }) {
       addComponents({
+        '.text-primary': {
+          color: colors.green[700],
+          '.dark &': {
+            color: colors.green[500],
+          },
+        },
+        '.text-secondary': {
+          color: colors.slate[500],
+          '.dark &': {
+            color: colors.slate[400],
+          },
+        },
+        '.border-primary': {
+          borderColor: colors.green[700],
+          '.dark &': {
+            borderColor: colors.green[500],
+          },
+        },
+        '.bg-primary': {
+          backgroundColor: colors.green[700],
+          '.dark &': {
+            backgroundColor: colors.green[500],
+          },
+        },
         '.curved-underline': {
           position: 'relative',
           '&:after': {
@@ -59,9 +58,9 @@ export default {
             borderTopWidth: '4px',
             borderRadius: '80%',
             height: '20px',
-            borderColor: 'rgb(21 128 61)',
+            borderColor: colors.green[700],
             '.dark &': {
-              borderColor: 'rgb(34 197 94)',
+              borderColor: colors.green[500],
             },
           },
         },
@@ -76,9 +75,25 @@ export default {
             borderTopWidth: '2px',
             borderRadius: '80%',
             height: '20px',
-            borderColor: 'rgb(21 128 61)',
+            borderColor: colors.green[700],
             '.dark &': {
-              borderColor: 'rgb(34 197 94)',
+              borderColor: colors.green[500],
+            },
+          },
+        },
+        '.link-primary': {
+          color: colors.slate[500],
+          textDecorationColor: colors.green[700],
+          '&:hover, &.active': {
+            color: colors.green[700],
+            textDecoration: 'underline',
+            textDecorationThickness: '1px',
+            textUnderlineOffset: '2px',
+          },
+          '.dark &': {
+            textDecorationColor: colors.green[500],
+            '&:hover, &.active': {
+              color: colors.green[500],
             },
           },
         },
