@@ -1,10 +1,29 @@
 <div class="flex justify-between">
-  <div class="flex items-center">
-    <img src="/icons/strategy-development.svg" class="mr-2 h-8" alt="sdlc" />
-    <a class="curved-underline-slim text-2xl" href="/" target="_self">smartSDLC.dev</a>
+  <div class="flex">
+    <div class="flex items-center">
+      <img src="/icons/strategy-development.svg" class="mr-2 h-8" alt="sdlc" />
+      <a class="curved-underline-slim text-2xl" href="/" target="_self">smartSDLC.dev</a>
+    </div>
   </div>
   <!-- Social Media Icons (Left) -->
   <div class="flex">
+    <nav class="flex items-center space-x-2 md:space-x-4">
+      <a class={`link-primary ${Astro.url.pathname === '/' ? 'active' : ''}`} aria-label="Home" href="/">
+        <div class="flex items-center">
+          <span>Home</span>
+        </div>
+      </a>
+      <a class={`link-primary ${Astro.url.pathname === '/#content' ? 'active' : ''}`} aria-label="Blog" href="/#content">
+        <div class="flex items-center">
+          <span>Blog</span>
+        </div>
+      </a>
+      <a class={`link-primary ${Astro.url.pathname === '/cv' ? 'active' : ''}`} aria-label="My Resume" href="/cv">
+        <div class="flex items-center">
+          <span>Resume</span>
+        </div>
+      </a>
+    </nav>
     <div class="fixed right-2 top-1/2 z-50 flex -translate-y-1/2 flex-col gap-2">
       <!-- GitHub -->
       <a href="https://github.com/jogelin" class="social-icon" aria-label="GitHub" target="_blank">
@@ -41,11 +60,6 @@
       </a>
     </div>
 
-    <style>
-      .social-icon {
-        @apply rounded-full bg-slate-800 p-2 text-slate-400 transition-all duration-200 hover:scale-110 hover:text-white;
-      }
-    </style>
     <!-- Utilities (Right) -->
     <!--<div class="flex">-->
     <!--  &lt;!&ndash; RSS Feed &ndash;&gt;-->
@@ -81,6 +95,9 @@
   <style>
     .toolbar-icon {
       @apply rounded p-2 text-slate-400 transition-colors duration-200 hover:bg-slate-800 hover:text-white;
+    }
+    .social-icon {
+      @apply rounded-full bg-slate-800 p-2 text-slate-400 transition-all duration-200 hover:scale-110 hover:text-white;
     }
   </style>
 
