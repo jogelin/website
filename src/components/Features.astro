@@ -1,0 +1,83 @@
+<div class="container mx-auto max-w-7xl px-4">
+  <div class="mb-8 flex flex-col items-center justify-center gap-6">
+    <div class="flex items-end justify-center gap-8">
+      <img class="badge-image" src="/nx-champion.png" alt="nx-champion" />
+      <img class="badge-image" src="/nx-expert.png" alt="nx-expert" />
+    </div>
+    <p class="max-w-3xl text-center text-xl font-light text-slate-700 dark:text-slate-200">
+      I help your teams in implementing and optimizing the wide range of features within the <a href="https://nx.dev/" class="link-primary active"
+        >Nx ecosystem</a
+      >
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div class="feature-card">
+      <div class="feature-icon">🔄</div>
+      <h3 class="feature-title">Incremental Nx Migration</h3>
+      <p class="feature-description">
+        by <span class="text-primary">unifying</span> and <span class="text-primary">integrating</span> your <span class="text-primary">workflows</span> without
+        disruption
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3 class="feature-title">Accelerate CI/CD Pipelines</h3>
+      <p class="feature-description">
+        by <span class="text-primary">improving</span> existing <span class="text-primary">pipelines</span> or migrating to Nx Cloud
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💰</div>
+      <h3 class="feature-title">Cost Optimization</h3>
+      <p class="feature-description">
+        by <span class="text-primary">reducing resource</span> usage and <span class="text-primary">automating</span> repetitive development <span
+          class="text-primary">processes</span
+        >
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">✨</div>
+      <h3 class="feature-title">Codebase Simplification</h3>
+      <p class="feature-description">
+        by <span class="text-primary">leveraging</span> conventions with an <span class="text-primary">Nx Plugin Architecture</span>
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👨‍🏫</div>
+      <h3 class="feature-title">Empower Your Teams</h3>
+      <p class="feature-description">
+        by providing hands-on <span class="text-primary">training</span> and expert <span class="text-primary">guidance</span> on Nx best practices
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛠️</div>
+      <h3 class="feature-title">Support Multi-Technologies</h3>
+      <p class="feature-description">
+        by <span class="text-primary">tailoring</span> Nx to integrate with <span class="text-primary">any technology stack</span> your team uses
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .feature-card {
+    @apply rounded-lg border border-slate-200 p-4 transition-all hover:scale-105 hover:shadow-sm dark:border-slate-700;
+  }
+
+  .feature-icon {
+    @apply mb-2 text-3xl transition-transform;
+  }
+
+  .feature-title {
+    @apply mb-2 text-lg font-bold leading-tight text-slate-800 dark:text-slate-100;
+  }
+
+  .feature-description {
+    @apply text-sm text-slate-600 dark:text-slate-300;
+  }
+
+  .badge-image {
+    @apply h-32 transition-transform hover:scale-105;
+  }
+</style>
