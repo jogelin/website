@@ -110,8 +110,8 @@ import Footer from '../components/Footer.astro';
                 : `${months} mo${months > 1 ? 's' : ''}`;
 
             return (
-              <div class={`flex gap-4 ${index >= 4 ? 'expand-experiences hidden' : ''}`}>
-                <div class="h-16 w-16 flex-shrink-0">
+              <div class={`flex flex-col gap-4 sm:flex-row ${index >= 4 ? 'expand-experiences hidden' : ''}`}>
+                <div class="h-16 w-16 flex-shrink-0 self-center sm:self-start">
                   <img src={exp.companyLogo} alt={`${exp.companyName} logo`} class="h-full w-full object-contain" />
                 </div>
                 <div class="flex-grow">
@@ -176,8 +176,8 @@ import Footer from '../components/Footer.astro';
       <div class="flex flex-col gap-8">
         {
           cv.recommendations.map((rec, index) => (
-            <div class={`flex gap-4 ${index >= 4 ? 'expand-recommendations hidden' : ''}`}>
-              <div class="h-16 w-16 flex-shrink-0">
+            <div class={`flex flex-col gap-4 sm:flex-row ${index >= 4 ? 'expand-recommendations hidden' : ''}`}>
+              <div class="h-16 w-16 flex-shrink-0 self-center sm:self-start">
                 <img src={rec.picture} alt={`${rec.name}'s picture`} class="h-full w-full rounded-full object-cover" />
               </div>
               <div class="flex-grow">
