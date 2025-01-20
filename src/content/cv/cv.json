@@ -606,24 +606,6 @@
       "content": "I've had the privilege of collaborating with Jonathan for over two years at our organization, and I am thoroughly impressed by what he was able to achieve as a freelance Frontend Architect. Jonathan was entrusted with the challenge of leading our teams through the migration of a substantial legacy frontend codebase to a modern, state-of-the-art monorepo, employing a micro-frontend architecture utilizing Angular and Nx. This transition was monumental.\n\nBy the time of his departure, he had not only revolutionized our frontend development landscape but also equipped us with a solid foundation and the essential knowledge to keep innovating further. It felt to me like he moved a mountain, and it's incredible how much I learned from him.\n\nI highly recommend Jonathan to any organization seeking a visionary in modern frontend solutions."
     },
     {
-      "name": "Yannick Stockmans",
-      "picture": "https://media.licdn.com/dms/image/v2/D4E03AQGZVOTslLSNEg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1648903719230?e=1741824000&amp;v=beta&amp;t=ufAH4RQpeGsjMtlNm7L7yTH29AXOzjZJjqLETI-HfAY",
-      "role": ".NET Developer",
-      "content": "Jonathan always had great advice and a clear vision on how to proceed."
-    },
-    {
-      "name": "Steve Keyen",
-      "picture": "https://media.licdn.com/dms/image/v2/C4E03AQEJNWedEGH4ng/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1652349740970?e=1741824000&amp;v=beta&amp;t=jxTPase8BbtsGSTWETvCeVIEShXbkypVMbpwM4ry4ws",
-      "role": "Full Stack Software Engineer",
-      "content": "Working with Jon was a bliss, must-hire!"
-    },
-    {
-      "name": "Igor Kalders",
-      "picture": "https://media.licdn.com/dms/image/v2/C5603AQGO2Oy4wXylPQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1516263978011?e=1741824000&amp;v=beta&amp;t=rnz173Al9GEWk3oZ_qCFC4qRQxJ1q7mcMYGp0N29eAM",
-      "role": "Engineering Manager at Marigold",
-      "content": "Jonathan is an extremely skilled front-end architect with the right mix of knowledge, patience and network to weigh in with authority. Apart from that, he sports a can-do mentality and manages to raise the quality bar across an Engineering department. Sound boarding with him does not get boring: never condescending, always enlightening.\n\nHe is one of those rare talents not everyone is lucky enough to work with in their lifetime. If you do, prepare to learn a lot."
-    },
-    {
       "name": "Maarten Cardinaels",
       "picture": "https://media.licdn.com/dms/image/v2/C4E03AQH86Gx-lAgpWQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1517676341353?e=1741824000&amp;v=beta&amp;t=kcRv9V_Pwzu1znje0jjw48NaWnepfhILW5-QZkwSoXs",
       "role": "Tech lead at AvioBook",
@@ -634,6 +616,24 @@
       "picture": "https://media.licdn.com/dms/image/v2/C4D03AQEwt6a5xIFToA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1563102941086?e=1741824000&amp;v=beta&amp;t=dFspJhDDM_ngOaW13E0-I3Fk7J51hKeC7LjMe597TPY",
       "role": "Software Engineer bij Selligent Marketing Cloud",
       "content": "Jonathan was the architect when we migrated from AngularJS to Angular.\n\nHe brought a lot (and I mean a lot) of knowledge to the company.\n\nFor me personally, he was able to break down difficult things into small bits so we/I could understand them.\nEven for domain specific things, he would come up with solid solutions.\nI have never learned this much from anyone, I'm not shy to say he made me a better frontend developer.\n\nAmazing asset to the company and a genuine nice person who cares a lot about his job!"
+    },
+    {
+      "name": "Igor Kalders",
+      "picture": "https://media.licdn.com/dms/image/v2/C5603AQGO2Oy4wXylPQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1516263978011?e=1741824000&amp;v=beta&amp;t=rnz173Al9GEWk3oZ_qCFC4qRQxJ1q7mcMYGp0N29eAM",
+      "role": "Engineering Manager at Marigold",
+      "content": "Jonathan is an extremely skilled front-end architect with the right mix of knowledge, patience and network to weigh in with authority. Apart from that, he sports a can-do mentality and manages to raise the quality bar across an Engineering department. Sound boarding with him does not get boring: never condescending, always enlightening.\n\nHe is one of those rare talents not everyone is lucky enough to work with in their lifetime. If you do, prepare to learn a lot."
+    },
+    {
+      "name": "Yannick Stockmans",
+      "picture": "https://media.licdn.com/dms/image/v2/D4E03AQGZVOTslLSNEg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1648903719230?e=1741824000&amp;v=beta&amp;t=ufAH4RQpeGsjMtlNm7L7yTH29AXOzjZJjqLETI-HfAY",
+      "role": ".NET Developer",
+      "content": "Jonathan always had great advice and a clear vision on how to proceed."
+    },
+    {
+      "name": "Steve Keyen",
+      "picture": "https://media.licdn.com/dms/image/v2/C4E03AQEJNWedEGH4ng/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1652349740970?e=1741824000&amp;v=beta&amp;t=jxTPase8BbtsGSTWETvCeVIEShXbkypVMbpwM4ry4ws",
+      "role": "Full Stack Software Engineer",
+      "content": "Working with Jon was a bliss, must-hire!"
     },
     {
       "name": "Hanaé Lépine",
