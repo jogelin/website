@@ -27,3 +27,4 @@ pnpm-debug.log*
 
 .nx/cache
 .nx/workspace-data
+.aider*
