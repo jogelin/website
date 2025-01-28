@@ -73,8 +73,8 @@ export default {
             width: '100%',
             bottom: '-20px',
             borderTopWidth: '2px',
-            borderRadius: '80%',
-            height: '20px',
+            borderRadius: '50%',
+            height: '15px',
             borderColor: colors.green[700],
             '.dark &': {
               borderColor: colors.green[500],
