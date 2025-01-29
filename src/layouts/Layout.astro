@@ -36,3 +36,20 @@ const { title } = Astro.props;
     <slot />
   </body>
 </html>
+
+<style>
+  :global(.calendly-badge-widget .calendly-badge-content) {
+    @apply bg-green-500 !important;
+    @apply text-slate-900 !important;
+    @apply text-xl !important;
+    @apply p-4 !important;
+    @apply rounded-md !important;
+  }
+
+  @media (max-width: 768px) {
+    :global(.calendly-badge-widget .calendly-badge-content) {
+      @apply text-lg !important;
+      @apply p-3 !important;
+    }
+  }
+</style>
