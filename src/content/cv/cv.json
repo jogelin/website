@@ -31,14 +31,59 @@
   ],
   "experiences": [
     {
+      "role": "Nx Consultant & Software Development Acceleration",
+      "companyName": "Julius Baer",
+      "companyLogo": "/companies/julius-baer.jpeg",
+      "companyURL": "https://www.linkedin.com/company/julius-baer/",
+      "location": "Remote",
+      "description": "Partnered with the Software Development Acceleration department to streamline and modernize the Software Development Lifecycle across a large distributed repositories ecosystem. My work focused on introducing a scalable architecture powered by Nx, improving consistency, performance, and developer experience across dozens of heterogeneous codebases, while also bringing AI-assisted tooling into key engineering workflows.",
+      "startDate": "2025-03-01",
+      "endDate": "Present",
+      "accomplishments": [
+        "Designed and implemented a new polyglot build system built on Nx with a full plugin architecture",
+        "Integrated Nx across distributed repositories using Java, Go, Jib, Helm, Python, and npm",
+        "Built a polyglot release engine to unify and standardize release processes across stacks",
+        "Automated GitLab CI pipeline generation, removing manual overhead and improving long-term maintainability",
+        "Enhanced CI/CD performance through Distributed Task Execution and optimized caching across multiple GitLab runners",
+        "Implemented end-to-end test coverage with Playwright, along with targeted test suites validating the build system to ensure reliability, reproducibility, and architectural integrity",
+        "Introduced AI-powered tooling to assist with code analysis, architecture validation, and developer workflows, improving productivity and decision-making across teams",
+        "Provided continuous coaching and support to engineering teams adopting Nx and modern development practices",
+        "Planned and initiated the migration of hundreds of repositories into the internal cloud platform"
+      ],
+      "skills": [
+        "Monorepo (Nrwl/Nx)",
+        "TypeScript",
+        "Maven",
+        "GitLab",
+        "OpenAPI Specification (OAS)",
+        "Cypress",
+        "Playwright",
+        "ReactJS",
+        "npm",
+        "pnpm",
+        "mise",
+        "Continuous Integration (CI)",
+        "Micro Frontends Architecture",
+        "Single SPA",
+        "SystemJS",
+        "Webpack Module Federation",
+        "Java",
+        "Go",
+        "Python",
+        "Helm",
+        "Jib",
+        "AI-assisted Development"
+      ]
+    },
+    {
       "role": "Nx Consultant & Full Stack Development Architecture",
       "companyName": "Caseware",
-      "companyLogo": "https://media.licdn.com/dms/image/v2/C560BAQGJhlDESPqGoQ/company-logo_100_100/company-logo_100_100/0/1652882935129/caseware_international_inc_logo?e=1744243200&v=beta&t=TI502Sg3-sUA6QS3fB4LKDKUO8jvShTe6DhXnz9zGGk",
+      "companyLogo": "/companies/caseware.jpeg",
       "companyURL": "https://www.linkedin.com/company/caseware-international-inc/posts/?feedView=all",
       "location": "Remote",
       "description": "Collaborated with the Dev Success Team to maintain and improve a large Central Monorepo (~900 projects) alongside multiple Distributed Monorepos. As an Nx expert, implemented an architecture designed to maximize the benefits of the Nx ecosystem.",
       "startDate": "2024-03-01",
-      "endDate": "Present",
+      "endDate": "2025-02-28",
       "accomplishments": [
         "Upgraded Nx from v16 to v19.8",
         "Refactored custom utilities from legacy Project Configuration to Nx's Project Graph",
@@ -78,7 +123,7 @@
     {
       "role": "Architect Team Lead",
       "companyName": "Entain",
-      "companyLogo": "https://media.licdn.com/dms/image/v2/D4E0BAQHb88J4qkzdyw/company-logo_100_100/company-logo_100_100/0/1688372057780/entain_logo?e=1744243200&v=beta&t=w58cOWBoIFmwnMJLvEWhhUaqUM-JPQILCv6ZwLyZWto",
+      "companyLogo": "/companies/entain.jpeg",
       "companyURL": "https://www.linkedin.com/company/entain/posts/?feedView=all",
       "location": "Remote",
       "description": "Oversaw the migration of multiple repositories and projects into an Nx monorepo for Entain. Developed the migration strategy, conducted coaching and pairing sessions with developers, configured the CI/CD pipeline, and ensured effective use of tools to uphold best development practices.",
@@ -111,7 +156,7 @@
     {
       "role": "Software Architect & Tech Lead & Mentoring",
       "companyName": "Selligent Marketing Cloud",
-      "companyLogo": "https://media.licdn.com/dms/image/v2/C4E0BAQEVkZRNtUmalQ/company-logo_100_100/company-logo_100_100/0/1674083495535/meet_marigold_logo?e=1744243200&v=beta&t=L2b1YyOlYXEI7FItxo0EzxwP_y_yFT-AxDRFwSvgB-0",
+      "companyLogo": "/companies/marigold.jpeg",
       "companyURL": "https://www.linkedin.com/company/meet-marigold/posts/?feedView=all",
       "location": "Hasselt, Flanders Region, Belgium · Remote",
       "description": "Established the new frontend architecture across multiple teams, including coaching/pairing with developers, configuring CI/CD pipelines, and ensuring adherence to best development practices. Migrated a large AngularJS application to a micro-frontend architecture.",
@@ -160,7 +205,7 @@
     {
       "role": "Software Architect & Tech Lead & Agile Coach",
       "companyName": "Thalys",
-      "companyLogo": "https://media.licdn.com/dms/image/v2/D4E0BAQEz8UwnRvIaDA/company-logo_100_100/company-logo_100_100/0/1688719434224/thalys_international_logo?e=1744243200&v=beta&t=0UwFqsg8FupZVxn1961YDyiYjHPQCv7k2o4LW8a45rY",
+      "companyLogo": "/companies/thalys.jpeg",
       "companyURL": "https://www.linkedin.com/company/thalys-international/posts/?feedView=all",
       "location": "Brussels Region, Belgium · Hybrid",
       "description": "Configured and led a full-stack software development team, following the Spotify squad model. Supported the team by implementing core architectural components and coaching them on eXtreme Programming (XP) principles. Acted as a bridge between customers and users, guiding them through Agile principles and fostering a continuous development workflow.",
@@ -209,7 +254,7 @@
     {
       "role": "Software Architect & Mentoring",
       "companyName": "Fednot",
-      "companyLogo": "https://media.licdn.com/dms/image/v2/C560BAQGXtaUS7aPL0Q/company-logo_100_100/company-logo_100_100/0/1630626904067/fednot_2_logo?e=1744243200&v=beta&t=EOhKeX7Q_mZ1xdjeDdhoHMzxnWSD7uxeYghL5ZvnW9w",
+      "companyLogo": "/companies/fednot.jpeg",
       "companyURL": "https://www.linkedin.com/company/fednot/posts/?feedView=all",
       "location": "Brussels Region, Belgium · On-site",
       "description": "Served as the Angular expert, responsible for the frontend architecture used by new Fednot applications. Provided pair coaching and maintained code quality by creating common best practices and components. Also acted as a scrum master, sharing experience in Agile, backend development, and DevOps.",
@@ -247,7 +292,7 @@
     {
       "role": "Software, Front-end Architect",
       "companyName": "Sodexo",
-      "companyLogo": "https://media.licdn.com/dms/image/v2/D4E0BAQGlvBxOcBV-pw/company-logo_100_100/company-logo_100_100/0/1719819668533/sodexo_logo?e=1744243200&v=beta&t=8Jyg8t014ZKqPEovPrv_MbtAsfBcYWjv5yGzBsdlFzs",
+      "companyLogo": "/companies/sodexo.jpeg",
       "companyURL": "https://www.linkedin.com/company/sodexo/posts/?feedView=all",
       "location": "Remote",
       "description": "Responsible for the new front-end architecture for all Sodexo applications. Provided proof of concepts, samples, documentation, coaching, patterns, and ways of working.",
@@ -292,7 +337,7 @@
     {
       "role": "Senior Java/AngularJS Developer",
       "companyName": "SWIFT",
-      "companyLogo": "https://media.licdn.com/dms/image/v2/D4E0BAQF3iBkx55H5qQ/company-logo_100_100/company-logo_100_100/0/1719854836454/swift_logo?e=1744243200&v=beta&t=W845_EDXM7nOR_zvW6IRgvwOaFQzjSIW0Rhb6qLiUig",
+      "companyLogo": "/companies/swift.jpeg",
       "companyURL": "https://www.linkedin.com/company/swift/posts/?feedView=all",
       "location": "La Hulpe, Walloon Region, Belgium · On-site",
       "description": "Responsible for architecture and development (frontend and backend) of a web application used to screen customers.",
@@ -333,7 +378,7 @@
     {
       "role": "Senior Node.js Developer",
       "companyName": "RTBF",
-      "companyLogo": "https://media.licdn.com/dms/image/v2/C4E0BAQHJBlqVxYQIyw/company-logo_100_100/company-logo_100_100/0/1630626597094/rtbf_logo?e=1744243200&v=beta&t=IO8nTuulTJWnfPewcMzjW-ZdRSNvSU3CQLcjVmeluj8",
+      "companyLogo": "/companies/rtbf.jpeg",
       "companyURL": "https://www.linkedin.com/company/rtbf/posts/?feedView=all",
       "location": "Schaerbeek, Brussels Region, Belgium · On-site",
       "description": "Responsible for the analysis, development, and architecture of an application to register user behaviors for a future recommendation algorithm.",
@@ -352,7 +397,7 @@
     {
       "role": "Senior AngularJS Developer",
       "companyName": "Edebex, Belgium",
-      "companyLogo": "https://media.licdn.com/dms/image/v2/C4D0BAQEE0m4qjJ-Xmg/company-logo_100_100/company-logo_100_100/0/1630488516882/edebex_logo?e=1744243200&v=beta&t=HwxKRKSw4XyrevT2O9DhjOeNaD5g0riBZ5oAuxPwqUo",
+      "companyLogo": "/companies/edebex.jpeg",
       "companyURL": "https://www.linkedin.com/company/edebex/posts/?feedView=all",
       "location": null,
       "description": "Responsible for analysis, development, and architecture (frontend and backend) of a web application to help companies sell invoices at lower prices.",
@@ -390,7 +435,7 @@
     {
       "role": "Java Senior Developer & Scrum Master",
       "companyName": "Thales, Belgium",
-      "companyLogo": "https://media.licdn.com/dms/image/v2/C4D0BAQEmnUAXTuLkJQ/company-logo_100_100/company-logo_100_100/0/1631366051478/thales_logo?e=1744243200&v=beta&t=EEVzjwsGmFX9MH0mzQx-uWNZvsOBV_9dPPrPRPNgFy8",
+      "companyLogo": "/companies/thales.jpeg",
       "companyURL": "https://www.linkedin.com/company/thales/posts/?feedView=all",
       "location": "Tubize",
       "description": "Responsible for development and architecture of an easy-to-use application to set networks of different radio systems.  Worked within a six-programmer team.",
@@ -429,7 +474,7 @@
     {
       "role": "Java/JS Lead Developer",
       "companyName": "ADNEOM",
-      "companyLogo": "https://media.licdn.com/dms/image/v2/C4D0BAQFbwn_VZbz7iQ/company-logo_100_100/company-logo_100_100/0/1631303538033?e=1744243200&v=beta&t=43en_dmaCGw0WxuEoQiHWkX-aWkkH3ABHJQnHlqNS8U",
+      "companyLogo": "/companies/adneom.jpeg",
       "companyURL": "https://www.linkedin.com/company/adneom/posts/?feedView=all",
       "location": "Brussels, Belgium",
       "description": "Responsible for development and architecture of a new web application (PC & Mobile) with three main tools: Aperform (tracking external employee progress), Atranet (managing internal tools), and Avolution (supporting employee career progression). Worked within a three-programmer team.",
@@ -466,7 +511,7 @@
     {
       "role": "Senior J2Ee Developer",
       "companyName": "Roularta Media Group",
-      "companyLogo": "https://media.licdn.com/dms/image/v2/C4D0BAQFT4wYKuAc-Tw/company-logo_100_100/company-logo_100_100/0/1630520838316/roularta_media_logo?e=1744243200&v=beta&t=DR7IxCYPjMf5TIL5IEwFOqmIAa1CVpthtITP4LWuZXk",
+      "companyLogo": "/companies/roularta.jpeg",
       "companyURL": "https://www.linkedin.com/company/roularta-media-group/",
       "location": "Louvain-La-Neuve, Belgium",
       "description": "Responsible for development and analysis of the 'International Information Gateway' (IIG) application, used to request data on international companies via web services.",
@@ -502,7 +547,7 @@
     {
       "role": "Consultant Java/JEE",
       "companyName": "Thalys International (ADNEOM)",
-      "companyLogo": "https://media.licdn.com/dms/image/v2/D4E0BAQEz8UwnRvIaDA/company-logo_100_100/company-logo_100_100/0/1688719434224/thalys_international_logo?e=1744243200&v=beta&t=0UwFqsg8FupZVxn1961YDyiYjHPQCv7k2o4LW8a45rY",
+      "companyLogo": "/companies/thalys.jpeg",
       "companyURL": "https://www.linkedin.com/company/thalys-international/posts/?feedView=all",
       "location": "Brussels, Belgium",
       "description": "Lead developer (1-4 developers) on a fixed-price maintenance contract for two Thalys applications: Localys (real-time traffic monitoring) and Opalys (statistical reporting).",
@@ -545,7 +590,7 @@
     {
       "role": "JEE Developer",
       "companyName": "I.R.I.S. Product and Technologies (European Commission)",
-      "companyLogo": "https://media.licdn.com/dms/image/v2/C4E0BAQGWrLgBPEUmPg/company-logo_200_200/company-logo_200_200/0/1677660972184/irisgroup_logo?e=1744243200&v=beta&t=69wkL6yn67D8NEV87iLFU8CNWfmuVer_OMivfsH8uBk",
+      "companyLogo": "/companies/iris.jpeg",
       "companyURL": "https://www.linkedin.com/company/irisgroup/",
       "location": "Brussels, Belgium",
       "description": "Responsible for analysis, development, and maintenance of two applications: TMS (resource booking and management) and JCSWeb (reporting application based on TMS data). Worked within a four-developer team.",
@@ -582,7 +627,7 @@
     {
       "role": "Cold Fusion Developer",
       "companyName": "European Commission",
-      "companyLogo": "https://media.licdn.com/dms/image/v2/D4E0BAQGG4tYa6RqBNw/company-logo_200_200/company-logo_200_200/0/1733038630925/european_commission_logo?e=1744243200&v=beta&t=SPvmiBTdg_iVFWp7PgJ26yvIPV0ei47qNQZhrQLliBM",
+      "companyLogo": "/companies/european-commission.jpeg",
       "companyURL": "https://www.linkedin.com/company/european-commission/",
       "location": "Brussels, Belgium",
       "description": "Maintained the iPerseus application used by European delegations for reporting economic data.  Also implemented new HTML/ColdFusion forms and various applications for DG ELARG.",
@@ -600,86 +645,92 @@
   ],
   "recommendations": [
     {
+      "name": "Ekaterina Zaytseva",
+      "picture": "/people/ekaterina-zaytseva.svg",
+      "role": "Dev Success @ Caseware",
+      "content": "I had the pleasure of working alongside Jonathan during his time with our team, where he made an invaluable impact as an expert in Nx and Typescript. Jonathan immediately set himself apart by designing a clear and actionable path from our current state to the ideal state of monorepo management. His strategic vision, combined with his ability to communicate complex technical concepts in an understandable way, was a key driver in our team's success.\n\nJonathan's approach to challenging the status quo was marked by a great deal of empathy and thoroughness. His ability to balance constructive critique with a focus on long-term improvement was invaluable.\n\nHis commitment to mentoring developers across the organization and producing extensive documentation played a crucial role in making complex processes accessible to the broader team.\n\nJonathan is a true professional—highly knowledgeable, collaborative, and dedicated to improving the development experience for everyone around him. I wholeheartedly recommend him for any role requiring deep technical expertise and a passion for driving impactful change."
+    },
+    {
       "name": "Karel Frederix",
-      "picture": "https://media.licdn.com/dms/image/v2/C4D03AQHyt4vvxM2M9Q/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1595270635067?e=1741824000&amp;v=beta&amp;t=IQKuY-Y5kRefstHLNI0vZ2fURErmlIz_HoEQgVX9RhA",
+      "picture": "/people/karel-frederix.jpeg",
       "role": "Senior Software Engineer at Marigold",
       "content": "I've had the privilege of collaborating with Jonathan for over two years at our organization, and I am thoroughly impressed by what he was able to achieve as a freelance Frontend Architect. Jonathan was entrusted with the challenge of leading our teams through the migration of a substantial legacy frontend codebase to a modern, state-of-the-art monorepo, employing a micro-frontend architecture utilizing Angular and Nx. This transition was monumental.\n\nBy the time of his departure, he had not only revolutionized our frontend development landscape but also equipped us with a solid foundation and the essential knowledge to keep innovating further. It felt to me like he moved a mountain, and it's incredible how much I learned from him.\n\nI highly recommend Jonathan to any organization seeking a visionary in modern frontend solutions."
     },
     {
       "name": "Maarten Cardinaels",
-      "picture": "https://media.licdn.com/dms/image/v2/C4E03AQH86Gx-lAgpWQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1517676341353?e=1741824000&amp;v=beta&amp;t=kcRv9V_Pwzu1znje0jjw48NaWnepfhILW5-QZkwSoXs",
+      "picture": "/people/maarten-cardinaels.jpeg",
       "role": "Tech lead at AvioBook",
       "content": "Working with Jonathan for some years now. He has proven to be a skilled architect, always aiming for solid,  clean and maintainable solutions.\n\nAt the same time he's a great mentor and coach, taking the time (over and over again) to explain complex topics in an understandable way, while challenging people allowing them to improve.\n\nLearned a lot from him both from a technical point of view as well as good developer mindset.\n\nDefinitely recommending him for a broad range of projects!"
     },
     {
       "name": "Ben Beckers",
-      "picture": "https://media.licdn.com/dms/image/v2/C4D03AQEwt6a5xIFToA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1563102941086?e=1741824000&amp;v=beta&amp;t=dFspJhDDM_ngOaW13E0-I3Fk7J51hKeC7LjMe597TPY",
+      "picture": "/people/ben-beckers.jpeg",
       "role": "Software Engineer bij Selligent Marketing Cloud",
       "content": "Jonathan was the architect when we migrated from AngularJS to Angular.\n\nHe brought a lot (and I mean a lot) of knowledge to the company.\n\nFor me personally, he was able to break down difficult things into small bits so we/I could understand them.\nEven for domain specific things, he would come up with solid solutions.\nI have never learned this much from anyone, I'm not shy to say he made me a better frontend developer.\n\nAmazing asset to the company and a genuine nice person who cares a lot about his job!"
     },
     {
       "name": "Igor Kalders",
-      "picture": "https://media.licdn.com/dms/image/v2/C5603AQGO2Oy4wXylPQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1516263978011?e=1741824000&amp;v=beta&amp;t=rnz173Al9GEWk3oZ_qCFC4qRQxJ1q7mcMYGp0N29eAM",
+      "picture": "/people/igor-kalders.jpeg",
       "role": "Engineering Manager at Marigold",
       "content": "Jonathan is an extremely skilled front-end architect with the right mix of knowledge, patience and network to weigh in with authority. Apart from that, he sports a can-do mentality and manages to raise the quality bar across an Engineering department. Sound boarding with him does not get boring: never condescending, always enlightening.\n\nHe is one of those rare talents not everyone is lucky enough to work with in their lifetime. If you do, prepare to learn a lot."
     },
     {
       "name": "Yannick Stockmans",
-      "picture": "https://media.licdn.com/dms/image/v2/D4E03AQGZVOTslLSNEg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1648903719230?e=1741824000&amp;v=beta&amp;t=ufAH4RQpeGsjMtlNm7L7yTH29AXOzjZJjqLETI-HfAY",
+      "picture": "/people/yannick-stockmans.jpeg",
       "role": ".NET Developer",
       "content": "Jonathan always had great advice and a clear vision on how to proceed."
     },
     {
       "name": "Steve Keyen",
-      "picture": "https://media.licdn.com/dms/image/v2/C4E03AQEJNWedEGH4ng/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1652349740970?e=1741824000&amp;v=beta&amp;t=jxTPase8BbtsGSTWETvCeVIEShXbkypVMbpwM4ry4ws",
+      "picture": "/people/steve-keyen.jpeg",
       "role": "Full Stack Software Engineer",
       "content": "Working with Jon was a bliss, must-hire!"
     },
     {
       "name": "Hanaé Lépine",
-      "picture": "https://media.licdn.com/dms/image/v2/C4D03AQG0Y3_ZCAMeBw/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1600067276753?e=1741824000&amp;v=beta&amp;t=TNsIK45ywZqvjGyQhkwACe5GGzQJNasdVZs5jQcf-2E",
+      "picture": "/people/hanae-lepine.jpeg",
       "role": "En transition",
       "content": "J'ai travaillé avec Jonathan sur un projet de développement d'un outil IT pour les équipes Escales Thalys.\n\nJonathan a eu à cœur de transmettre ses connaissances avec le reste de l'équipe et a été garant du respect des principes Agile tout au long de notre projet. Son efficacité, son pragmatisme et son expérience nous ont permis de rester au plus près des besoins des utilisateurs et de leur proposer des design novateurs et intuitifs.\n\nJ'ai beaucoup appris à ses côtés."
     },
     {
       "name": "Sébastien Barbieri",
-      "picture": "https://media.licdn.com/dms/image/v2/C4D03AQE-6oU0UNhZ4A/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1592486958920?e=1741824000&amp;v=beta&amp;t=UfrIBELecWIZe-nq5bnrZ-M0xP3x-zcRCA0fMmi67jc",
+      "picture": "/people/sebastien-barbieri.jpeg",
       "role": "Research And Development Manager at RTBF",
       "content": "Jonathan has been working on a big data Proof of Concept project on a very short term notice. The project was successful and helped us setup a bunch of data to work on.\nHe is a person ready to take the opportunity to do something he doesn't know yet and learn from it.\nHe took the opportunity to enhance his javascript knowledge with us while we had the opportunity to see his ability to handle, document, present and manage a project till the end."
     },
     {
       "name": "Thierry Melkebeke",
-      "picture": "https://media.licdn.com/dms/image/v2/C4E03AQHmk0ZjoOmNkg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1537186156675?e=1741824000&amp;v=beta&amp;t=TSLHrWHTX_FcgvT6oPqXpxHi7G7-C2Eb4kIXgs_DWdE",
+      "picture": "/people/theirry-melkebeke.jpeg",
       "role": "Project Manager chez MEDIAGENIX",
       "content": "Jonathan a passé environ un mois en nos murs avec pour mission de développer du js le plus light possible dans le but final de proposer une contenu adapté à nos internautes. Tous s'est très bien passé, Techniquement, ses connaissances en js sont excellentes et c'est un collègue sympathique."
     },
     {
       "name": "Jon McLennan",
-      "picture": "https://media.licdn.com/dms/image/v2/D4E03AQE0UfRZfMlq8w/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1683299564095?e=1741824000&amp;v=beta&amp;t=P946gYIbLqkH5_dVPwDLy2I5sJGGdWwXS14N0ERZtnI",
+      "picture": "/people/jon-mclennan.jpeg",
       "role": "CTO/VP Engineering/Tech Lead",
       "content": "Jonathan was a tremendous asset for Edebex. He quickly integrated himself into the team, helped solidify our code and improved efficiency for the entire group. He is very knowledgable of many technical domains and can be counted on as a leader and a mentor."
     },
     {
       "name": "Oleg Korolenko",
-      "picture": "https://media.licdn.com/dms/image/v2/C4E03AQEXK1l0xpBqUg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1567023473268?e=1741824000&amp;v=beta&amp;t=ZV12pBCLtJXzIf4DPSR6S-9cOg7xvg5IYxISxRoSOP0",
+      "picture": "/people/oleg-korolenko.jpeg",
       "role": "Lead Engineer at Disney Streaming",
       "content": "Jonathan joined our team as Senior Angular JS / Java developer in a quite difficult moment and accomplished a tremendous work in putting in place a front-end architecture with Angular Js using best practices and providing some quality code. Jonathan is great at coaching and challenging other team members to always go further to arrive to a better product."
     },
     {
       "name": "Jean-Louis Danthine",
-      "picture": "https://media.licdn.com/dms/image/v2/C4E03AQE-IZV-_ShMuA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1516307356564?e=1741824000&amp;v=beta&amp;t=1M8NgAmiCNJE7JS6JtaRX1hXKFlE3X_I46figfbKgH8",
+      "picture": "/people/jean-louis-danthine.jpeg",
       "role": "IT Manager chez Trends Business Information",
       "content": "Jonathan had worked in our IT team during 1 year on a specific project.\nHe is creative and curious, on a technical and also a functional point of view.\nAttentive to the customer's needs, Jonathan delivers high quality outputs.\nHe made important contributions in the project, coordinating some releases and sharing knowledge with his co-workers."
     },
     {
       "name": "Laurent Merckx",
-      "picture": "https://media.licdn.com/dms/image/v2/C5103AQEhpw6igEBRqg/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1516308879341?e=1741824000&amp;v=beta&amp;t=q1IBKNPPkjU7jc_P6FSiOcdLhL7JueePBw8C1iqAcY0",
+      "picture": "/people/laurent-merckx.jpeg",
       "role": "Java Senior Analyst / Developer",
       "content": "I've worked with Jonathan during several months. It was a real pleasure: the work was always qualitative, he had a good knowledge of the project and its implementation, he realized a very good monitoring of pending tasks and issues and the documentation was not forgotten."
     },
     {
       "name": "Richard GUITTER",
-      "picture": "https://media.licdn.com/dms/image/v2/D4E03AQEPujh2Qw-HDQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1710511217315?e=1741824000&amp;v=beta&amp;t=cxrZq2_r0VDG-lriw0JazJ28mD_stfkogGue4K0EAms",
+      "picture": "/people/richard-guitter.jpeg",
       "role": "Enterprise/Data Architect",
       "content": "Jonathan is a confirmed JEE developer.\nFirst of all he is trustworthy, which is the most important for a manager.\nRegarding technology, he is skilled in all the main java framework/API of the moment + some HTML/javascript design concepts. He is precise in his work.\nHumanly, he's a good work fellow: open and demanding."
     }
