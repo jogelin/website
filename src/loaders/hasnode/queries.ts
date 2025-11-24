@@ -6,13 +6,16 @@ const getClient = () => new GraphQLClient('https://gql.hashnode.com');
 
 export const getPosts = async (myHashnodeURL:string) => {
   const client = getClient();
+  let hasNextPage = true;
+  let endCursor: string | null = null;
+  const allEdges: any[] = [];
 
-  const allPosts = await client.request<PostsData>(
-    gql`
-      query allPosts {
+  while (hasNextPage) {
+    const query = gql`
+      query allPosts($after: String) {
         publication(host: "${myHashnodeURL}") {
           title
-          posts(first: 20) {
+          posts(first: 20, after: $after) {
             pageInfo{
               hasNextPage
               endCursor
@@ -36,15 +39,35 @@ export const getPosts = async (myHashnodeURL:string) => {
                 }
                 publishedAt
                 readTimeInMinutes
+                content {
+                  html
+                }
               }
             }
           }
         }
       }
-    `,
-  );
+    `;
 
-  return allPosts;
+    const response: PostsData = await client.request<PostsData>(query, { after: endCursor });
+
+    allEdges.push(...response.publication.posts.edges);
+    hasNextPage = response.publication.posts.pageInfo.hasNextPage;
+    endCursor = response.publication.posts.pageInfo.endCursor;
+  }
+
+  return {
+    publication: {
+      title: allEdges.length > 0 ? 'Hashnode' : '',
+      posts: {
+        pageInfo: {
+          hasNextPage: false,
+          endCursor: endCursor || '',
+        },
+        edges: allEdges,
+      },
+    },
+  };
 };
 
 export const getPost = async (myHashnodeURL:string, slug: string) => {
