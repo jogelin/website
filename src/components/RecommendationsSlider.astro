@@ -1,0 +1,159 @@
+---
+import cv from '../content/cv/cv.json';
+
+// Get first 4 recommendations for testimonials
+const recommendations = cv.recommendations.slice(0, 4);
+---
+
+<div class="container mx-auto max-w-7xl px-4">
+  <div class="testimonials-carousel relative">
+    <div class="testimonials-wrapper">
+      {
+        recommendations.map((rec, index) => (
+          <div class:list={['testimonial-slide', { active: index === 0 }]} data-index={index}>
+            <div class="recommendation-card">
+              <div class="flex flex-col gap-4 sm:flex-row">
+                <div class="h-16 w-16 flex-shrink-0 self-center sm:self-start">
+                  <img src={rec.picture} alt={`${rec.name}'s picture`} class="h-full w-full rounded-full object-cover" />
+                </div>
+                <div class="flex-grow">
+                  <h4 class="text-xl font-semibold text-slate-900 dark:text-slate-100">{rec.name}</h4>
+                  <p class="uppercase text-gray-600 dark:text-gray-300">{rec.role}</p>
+                  <p class="mt-2 text-slate-700 dark:text-slate-300">
+                    {rec.content.split('\n').map((line) => (
+                      <>
+                        {line}
+                        <br />
+                      </>
+                    ))}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <button class="carousel-button prev" aria-label="Previous recommendation">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    <button class="carousel-button next" aria-label="Next recommendation">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+    <div class="carousel-dots">
+      {recommendations.map((_, index) => <button class:list={['dot', { active: index === 0 }]} data-index={index} aria-label={`Go to recommendation ${index + 1}`} />)}
+    </div>
+  </div>
+
+  <div class="mt-8 text-center">
+    <a
+      href="/cv#recommendations"
+      class="text-primary inline-flex items-center gap-2 text-lg font-medium transition-all hover:underline"
+    >
+      View all {cv.recommendations.length} recommendations
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9 5l7 7-7 7"></path>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<script>
+  let currentIndex = 0;
+  const slides = document.querySelectorAll('.testimonial-slide');
+  const dots = document.querySelectorAll('.carousel-dots .dot');
+  const prevButton = document.querySelector('.carousel-button.prev');
+  const nextButton = document.querySelector('.carousel-button.next');
+
+  function showSlide(index: number) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+    currentIndex = index;
+  }
+
+  function nextSlide() {
+    const next = (currentIndex + 1) % slides.length;
+    showSlide(next);
+  }
+
+  function prevSlide() {
+    const prev = (currentIndex - 1 + slides.length) % slides.length;
+    showSlide(prev);
+  }
+
+  prevButton?.addEventListener('click', prevSlide);
+  nextButton?.addEventListener('click', nextSlide);
+
+  dots.forEach((dot) => {
+    dot.addEventListener('click', (e) => {
+      const index = parseInt((e.target as HTMLElement).dataset.index || '0');
+      showSlide(index);
+    });
+  });
+
+  // Auto-advance every 8 seconds
+  setInterval(nextSlide, 8000);
+</script>
+
+<style>
+  .testimonials-carousel {
+    @apply relative mx-auto max-w-5xl;
+  }
+
+  .testimonials-wrapper {
+    @apply relative min-h-[500px] md:min-h-[450px];
+  }
+
+  .testimonial-slide {
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+    pointer-events: none;
+  }
+
+  .testimonial-slide.active {
+    @apply opacity-100;
+    pointer-events: auto;
+  }
+
+  .recommendation-card {
+    @apply flex items-center rounded-lg border border-slate-300 bg-slate-200 p-6 shadow-sm dark:border-slate-500 dark:bg-slate-600;
+    min-height: 400px;
+  }
+
+  .carousel-button {
+    @apply text-primary absolute top-1/2 -translate-y-1/2 rounded-full border border-slate-200 bg-white p-3 shadow-lg transition-all hover:scale-110 hover:shadow-xl dark:border-slate-700 dark:bg-slate-800;
+  }
+
+  .carousel-button.prev {
+    @apply -left-4 md:-left-16;
+  }
+
+  .carousel-button.next {
+    @apply -right-4 md:-right-16;
+  }
+
+  .carousel-button svg {
+    @apply h-6 w-6;
+  }
+
+  .carousel-dots {
+    @apply mt-6 flex justify-center gap-3;
+  }
+
+  .dot {
+    @apply h-3 w-3 rounded-full border-2 border-primary bg-transparent transition-all hover:scale-125;
+  }
+
+  .dot.active {
+    @apply bg-primary;
+  }
+</style>

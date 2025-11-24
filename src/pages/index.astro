@@ -5,6 +5,7 @@ import Features from '../components/Features.astro';
 import Footer from '../components/Footer.astro';
 import Hero from '../components/Hero.astro';
 import Contents from '../components/content/Contents.astro';
+import RecommendationsSlider from '../components/RecommendationsSlider.astro';
 ---
 
 <Layout title="Smart SDLC">
@@ -58,6 +59,12 @@ import Contents from '../components/content/Contents.astro';
   <section class="bg-slate-90 border-primary border-b py-10 dark:bg-slate-900" aria-label="Nx Specialist Features">
     <div>
       <Features />
+    </div>
+  </section>
+
+  <section class="border-primary border-b bg-slate-50 py-10 dark:bg-slate-50" aria-label="Recommendations">
+    <div>
+      <RecommendationsSlider />
     </div>
   </section>
 
