@@ -645,6 +645,12 @@
   ],
   "recommendations": [
     {
+      "name": "Miguel Perez Sanchis",
+      "picture": "/people/miguel-perez-sanchis.jpeg",
+      "role": "Software Engineer at Julius Baer",
+      "content": "I have had the pleasure to work with Jonathan for around a year, and I can only recommend him for any software development team.\n\nHe has the energy and passion, the vision, and technical expertise to drive a team, suggest roadmaps, and implement solutions at an amazing speed and quality. Our project had to manage a wide range of technologies (Maven, Typescript in Node, Jib, Helm, GitLab pipelines, build caching, parallel builds, etc.) and he has been helpful in all aspects.\n\nI am glad I have had the opportunity of working with him, and so will be the engineers of any project he will decide to join in the future."
+    },
+    {
       "name": "Ekaterina Zaytseva",
       "picture": "/people/ekaterina-zaytseva.svg",
       "role": "Dev Success @ Caseware",
