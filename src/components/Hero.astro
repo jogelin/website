@@ -1,28 +1,672 @@
-<div class="flex h-full flex-col items-center justify-center">
-  <div class="-mt-32 flex items-center justify-center">
-    <img alt="sdlc" src="/icons/strategy-development.svg" class="mx-auto h-32 animate-[spin_10s_linear_infinite] 2xl:h-48" />
+---
+
+---
+
+<section class="hero-section">
+  <!-- Sticky Availability Bar -->
+  <div class="availability-bar">
+    <span class="availability-bar__text">
+      <span class="availability-bar__dot"></span>
+      Available for new projects in 2026 -
+      <a
+        href="#"
+        onclick="Calendly.showPopupWidget('https://calendly.com/gelin-jonathan/30min');return false;"
+        class="availability-bar__link"
+      >
+        Get in touch
+      </a>
+    </span>
   </div>
-  <div class="mt-24 flex flex-col justify-center text-center text-5xl md:text-7xl">
-    <p class="mx-auto text-center text-4xl leading-tight md:text-7xl">
-      <span class="text-yellow-500">Smarter</span><br />
-      <span class="text-primary">S</span>oftware <span class="text-primary">D</span>evelopment <span class="text-primary">L</span>ife <span class="text-primary"
-        >C</span
-      >ycle
-    </p>
+
+  <!-- Header/Navbar -->
+  <header class="header">
+    <a href="/" class="logo">
+      <img src="/icons/strategy-development.svg" alt="" class="logo-icon" />
+      smartSDLC.dev
+    </a>
+    <nav class="nav">
+      <a href="/" class="active">Home</a>
+      <a href="/#content">Blog</a>
+      <a href="/cv">Resume</a>
+    </nav>
+  </header>
+
+  <!-- Social Media Icons (Fixed Right) -->
+  <div class="social-sidebar">
+    <a href="https://github.com/jogelin" class="social-icon" aria-label="GitHub" target="_blank">
+      <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+        <path
+          fill-rule="evenodd"
+          d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+          clip-rule="evenodd"></path>
+      </svg>
+    </a>
+    <a href="https://x.com/jonathan_gelin" class="social-icon" aria-label="X" target="_blank">
+      <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+        ></path>
+      </svg>
+    </a>
+    <a href="https://bsky.app/profile/smartsdlc.dev" class="social-icon" aria-label="Bluesky" target="_blank">
+      <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+        <path
+          d="M 5.203125 3.160156 C 7.953125 5.164062 10.914062 9.226562 12 11.40625 L 12 17.167969 C 12 17.046875 11.953125 17.183594 11.847656 17.484375 C 11.277344 19.097656 9.066406 25.40625 4 20.363281 C 1.332031 17.710938 2.566406 15.054688 7.421875 14.253906 C 4.644531 14.710938 1.523438 13.953125 0.667969 10.984375 C 0.421875 10.128906 0 4.863281 0 4.152344 C 0 0.59375 3.21875 1.710938 5.203125 3.160156 Z M 18.796875 3.160156 C 16.046875 5.164062 13.085938 9.226562 12 11.40625 L 12 17.167969 C 12 17.046875 12.046875 17.183594 12.152344 17.484375 C 12.722656 19.097656 14.933594 25.40625 20 20.363281 C 22.667969 17.710938 21.433594 15.054688 16.578125 14.253906 C 19.355469 14.710938 22.476562 13.953125 23.332031 10.984375 C 23.578125 10.128906 24 4.863281 24 4.152344 C 24 0.59375 20.785156 1.710938 18.796875 3.160156 Z M 18.796875 3.160156"
+        ></path>
+      </svg>
+    </a>
+    <a href="https://linkedin.com/in/jonathan-gelin" class="social-icon" aria-label="LinkedIn" target="_blank">
+      <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+        <path
+          d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+        ></path>
+      </svg>
+    </a>
   </div>
-  <div class="mt-14 flex flex-col justify-center">
-    <p class="text-secondary text-center text-lg sm:text-2xl">
-      by leveraging <a href="https://nx.dev/" class="link-primary active">Nx</a> to make scalable <span class="text-primary">Monorepos</span>, dynamic <span
-        class="text-primary">Micro Frontends</span
-      >, cohesive <span class="text-primary"> Design Systems</span>, and efficient <span class="text-primary">Testing Strategies</span>
-    </p>
-    <p class="mt-5 text-center text-xl text-yellow-500 sm:text-3xl">- Supercharged by AI -</p>
-  </div>
-  <div class="mt-10 flex justify-center">
-    <div class="rounded-md border border-yellow-500/30 bg-yellow-50/50 px-6 py-3 dark:bg-yellow-900/10">
-      <p class="text-center text-base text-yellow-700 dark:text-yellow-400 sm:text-lg">
-        Available for new projects in 2026 - <a href="#" onclick="Calendly.showPopupWidget('https://calendly.com/gelin-jonathan/30min');return false;" class="underline hover:text-yellow-600 dark:hover:text-yellow-300">Get in touch</a>
+
+  <!-- Hero Content -->
+  <div class="hero">
+    <!-- Left: Content -->
+    <div class="hero-content">
+      <!-- Photo -->
+      <img src="/avatar.png" alt="Jonathan Gelin" class="hero-photo" />
+
+      <h1 class="hero-title">
+        <span class="hl">D</span>eveloper <span class="hl">E</span>xperience,<br /><span class="hl">E</span>ngineered.
+      </h1>
+
+      <p class="hero-subtitle">
+        I design <span class="hl">AI-powered workflows</span> and <span class="hl">engineering foundations</span> that make teams faster, happier, and more
+        consistent.
       </p>
+
+      <!-- Tags with logos -->
+      <div class="hero-tags">
+        <!-- Claude Code -->
+        <span class="hero-tag">
+          <img src="/icons/claude.svg" alt="" class="tag-icon" />
+          Claude Code Plugins
+        </span>
+
+        <!-- Nx -->
+        <span class="hero-tag">
+          <img src="/icons/nx.svg" alt="" class="tag-icon" />
+          Nx Ecosystem
+        </span>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="hero-cta">
+        <a href="#" onclick="Calendly.showPopupWidget('https://calendly.com/gelin-jonathan/30min');return false;" class="btn btn-primary">Get in Touch</a>
+        <a href="/cv" class="btn btn-secondary">View Resume</a>
+      </div>
+    </div>
+
+    <!-- Right: Diagram -->
+    <div class="diagram-container">
+      <div class="layer layer--dx">
+        <div class="layer__label">Outcome</div>
+        <h3 class="layer__title">Developer Experience</h3>
+      </div>
+
+      <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M12 20V4M12 4L6 10M12 4L18 10" stroke="url(#g1)" stroke-width="2" stroke-linecap="round"></path>
+        <defs>
+          <linearGradient id="g1" x1="12" y1="20" x2="12" y2="4">
+            <stop stop-color="#a855f7"></stop>
+            <stop offset="1" stop-color="#fbbf24"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <div class="layer layer--ai">
+        <div class="layer__label">Enabler</div>
+        <h3 class="layer__title">AI Orchestration</h3>
+      </div>
+
+      <svg class="arrow arrow--delay" width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M12 20V4M12 4L6 10M12 4L18 10" stroke="url(#g2)" stroke-width="2" stroke-linecap="round"></path>
+        <defs>
+          <linearGradient id="g2" x1="12" y1="20" x2="12" y2="4">
+            <stop stop-color="#06b6d4"></stop>
+            <stop offset="1" stop-color="#a855f7"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <div class="layer layer--foundation">
+        <div class="layer__label">Architecture</div>
+        <h3 class="layer__title">Engineering Foundations</h3>
+      </div>
     </div>
   </div>
-</div>
+</section>
+
+<style>
+  .hero-section {
+    background: linear-gradient(135deg, #0f1117 0%, #1a1d2e 25%, #0f1117 50%, #151828 75%, #0f1117 100%);
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(251, 191, 36, 0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* ========== AVAILABILITY BAR (STICKY) ========== */
+  .availability-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(251, 191, 36, 0.08);
+    border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+    padding: 10px 16px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+  }
+
+  .availability-bar__text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fbbf24;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .availability-bar__dot {
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  .availability-bar__link {
+    color: #fbbf24;
+    text-decoration: underline;
+    transition: color 0.2s;
+  }
+
+  .availability-bar__link:hover {
+    color: #fcd34d;
+  }
+
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(0.9);
+    }
+  }
+
+  /* ========== HEADER ========== */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 15px;
+    color: #e2e8f0;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .nav {
+    display: flex;
+    gap: 24px;
+  }
+
+  .nav a {
+    color: rgba(226, 232, 240, 0.7);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav a:hover,
+  .nav a.active {
+    color: #e2e8f0;
+  }
+
+  /* ========== SOCIAL SIDEBAR ========== */
+  .social-sidebar {
+    position: fixed;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(30, 41, 59, 0.8);
+    color: #94a3b8;
+    transition: all 0.2s;
+    backdrop-filter: blur(10px);
+  }
+
+  .social-icon:hover {
+    background: rgba(30, 41, 59, 1);
+    color: #e2e8f0;
+    transform: scale(1.1);
+  }
+
+  /* ========== HERO ========== */
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    padding: 48px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .diagram-container {
+    flex: 1;
+  }
+
+  /* Left Column */
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .hero-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid rgba(16, 185, 129, 0.5);
+    box-shadow: 0 0 24px rgba(16, 185, 129, 0.2);
+  }
+
+  .hero-title {
+    font-size: clamp(32px, 5vw, 44px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: #ffffff;
+  }
+
+  .hero-title .hl {
+    color: #10b981;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(16px, 2.5vw, 18px);
+    color: rgba(226, 232, 240, 0.75);
+    line-height: 1.7;
+    max-width: 480px;
+  }
+
+  .hero-subtitle .hl {
+    color: #10b981;
+    font-weight: 600;
+  }
+
+  /* Tags */
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .hero-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 16px;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: 24px;
+    color: #10b981;
+    transition: all 0.2s;
+  }
+
+  .hero-tag:hover {
+    background: rgba(16, 185, 129, 0.12);
+    border-color: rgba(16, 185, 129, 0.4);
+  }
+
+  .tag-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  /* CTA */
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: rgba(226, 232, 240, 0.8);
+    border: 1px solid rgba(226, 232, 240, 0.2);
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(226, 232, 240, 0.4);
+    color: #e2e8f0;
+  }
+
+  /* ========== DIAGRAM ========== */
+  .diagram-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .layer {
+    border-radius: 14px;
+    padding: 20px 32px;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .layer:hover {
+    transform: translateY(-2px);
+  }
+
+  .layer__label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .layer__title {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+
+  /* Layer colors */
+  .layer--dx {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.08);
+  }
+  .layer--dx:hover {
+    box-shadow: 0 0 40px rgba(251, 191, 36, 0.15);
+  }
+  .layer--dx .layer__label {
+    color: rgba(251, 191, 36, 0.7);
+  }
+  .layer--dx .layer__title {
+    color: #fbbf24;
+  }
+
+  .layer--ai {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.08);
+  }
+  .layer--ai:hover {
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.15);
+  }
+  .layer--ai .layer__label {
+    color: rgba(168, 85, 247, 0.7);
+  }
+  .layer--ai .layer__title {
+    color: #a855f7;
+  }
+
+  .layer--foundation {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(34, 211, 238, 0.05) 100%);
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.08);
+  }
+  .layer--foundation:hover {
+    box-shadow: 0 0 40px rgba(6, 182, 212, 0.15);
+  }
+  .layer--foundation .layer__label {
+    color: rgba(6, 182, 212, 0.7);
+  }
+  .layer--foundation .layer__title {
+    color: #06b6d4;
+  }
+
+  /* Arrows */
+  .arrow {
+    opacity: 0.6;
+    animation: pulse-arrow 3s ease-in-out infinite;
+  }
+  .arrow--delay {
+    animation-delay: 0.5s;
+  }
+
+  @keyframes pulse-arrow {
+    0%,
+    100% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 900px) {
+    .hero {
+      flex-direction: column;
+      gap: 32px;
+      padding: 24px 16px;
+      text-align: center;
+    }
+
+    .hero-content {
+      align-items: center;
+    }
+
+    .hero-subtitle {
+      max-width: 100%;
+    }
+
+    .hero-tags {
+      justify-content: center;
+    }
+
+    .hero-cta {
+      justify-content: center;
+    }
+
+    .diagram-container {
+      width: 100%;
+      margin-top: 16px;
+      padding: 0 8px;
+    }
+
+    .layer {
+      max-width: 100%;
+      padding: 16px 24px;
+    }
+
+    .layer__title {
+      font-size: 15px;
+    }
+
+    .social-sidebar {
+      display: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .header {
+      padding: 10px 12px;
+    }
+
+    .nav {
+      gap: 12px;
+    }
+
+    .nav a {
+      font-size: 13px;
+    }
+
+    .logo {
+      font-size: 14px;
+    }
+
+    .logo-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .hero {
+      padding: 20px 12px;
+      gap: 24px;
+    }
+
+    .hero-photo {
+      width: 70px;
+      height: 70px;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      padding: 6px 12px;
+    }
+
+    .tag-icon {
+      width: 14px;
+      height: 14px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 14px 20px;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .availability-bar {
+      padding: 8px 12px;
+    }
+
+    .availability-bar__text {
+      font-size: 11px;
+    }
+
+    .diagram-container {
+      padding: 0 4px;
+    }
+
+    .layer {
+      padding: 14px 20px;
+    }
+
+    .layer__label {
+      font-size: 9px;
+    }
+
+    .layer__title {
+      font-size: 14px;
+    }
+
+    .hero-cta {
+      flex-wrap: nowrap;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .nav {
+      display: none;
+    }
+  }
+</style>
