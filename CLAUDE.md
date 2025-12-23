@@ -110,3 +110,37 @@ Typography:
 
 - Strict mode enabled (extends `astro/tsconfigs/strict`)
 - Zod schemas for all external API data validation
+
+## Social Media Banners
+
+Banner SVG files are stored in `public/` and exported as high-resolution PNGs for uploading.
+
+### Files
+
+| Platform | SVG | PNG | Dimensions |
+|----------|-----|-----|------------|
+| LinkedIn | `linkedin-banner.svg` | `linkedin-banner.png` | 1584×396 (exported at 2x: 3168×792) |
+| Twitter/X | `twitter-banner.svg` | `twitter-banner.png` | 1500×500 (exported at 2x: 3000×1000) |
+| Bluesky | `bluesky-banner.svg` | `bluesky-banner.png` | 3000×1000 (exported at 2x: 6000×2000) |
+
+### Regenerating PNGs
+
+After editing SVG files, regenerate PNGs using `rsvg-convert` (from librsvg):
+
+```bash
+# LinkedIn (2x resolution)
+rsvg-convert -w 3168 -h 792 public/linkedin-banner.svg -o public/linkedin-banner.png
+
+# Twitter/X (2x resolution)
+rsvg-convert -w 3000 -h 1000 public/twitter-banner.svg -o public/twitter-banner.png
+
+# Bluesky (2x resolution)
+rsvg-convert -w 6000 -h 2000 public/bluesky-banner.svg -o public/bluesky-banner.png
+```
+
+### Design Notes
+
+- Banners match website design: dark gradient background, 3-layer diagram (DX/AI/Foundations)
+- Brand: `</>  smartSDLC.dev` with green `</>` and white underlined domain
+- Tagline: "Build on **Foundations**, Scale with **AI**."
+- Export at 2x resolution for sharp display on social platforms

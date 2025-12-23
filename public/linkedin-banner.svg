@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1584 396" width="1584" height="396">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1f2e"/>
+      <stop offset="50%" stop-color="#252b3d"/>
+      <stop offset="100%" stop-color="#1a1f2e"/>
+    </linearGradient>
+
+    <!-- Glow effects -->
+    <radialGradient id="glow-cyan" cx="70%" cy="70%" r="40%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow-purple" cx="60%" cy="50%" r="35%">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow-yellow" cx="50%" cy="30%" r="30%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Arrow gradients (like Hero) -->
+    <linearGradient id="arrow-1" x1="12" y1="20" x2="12" y2="4" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#06b6d4"/>
+      <stop offset="1" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="arrow-2" x1="12" y1="20" x2="12" y2="4" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a855f7"/>
+      <stop offset="1" stop-color="#fbbf24"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1584" height="396" fill="url(#bg-grad)"/>
+  <rect width="1584" height="396" fill="url(#glow-cyan)"/>
+  <rect width="1584" height="396" fill="url(#glow-purple)"/>
+  <rect width="1584" height="396" fill="url(#glow-yellow)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.03">
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffffff" stroke-width="1"/>
+    </pattern>
+    <rect width="1584" height="396" fill="url(#grid)"/>
+  </g>
+
+  <!-- Center: Text content -->
+  <g transform="translate(420, 145)">
+    <!-- Tagline (2 lines like Hero) -->
+    <text font-family="Inter, sans-serif" font-size="52" font-weight="800" fill="#ffffff">
+      Build on <tspan fill="#10b981">Foundations</tspan>,
+    </text>
+    <text y="60" font-family="Inter, sans-serif" font-size="52" font-weight="800" fill="#ffffff">
+      Scale with <tspan fill="#10b981">AI</tspan>.
+    </text>
+
+    <!-- Brand -->
+    <text y="130" font-family="JetBrains Mono, monospace" font-size="24" font-weight="600">
+      <tspan fill="#10b981">&lt;/&gt;</tspan><tspan fill="#ffffff">  </tspan><tspan fill="#ffffff" text-decoration="underline">smartSDLC.dev</tspan>
+    </text>
+  </g>
+
+  <!-- Right side: Three-layer diagram (larger) -->
+  <g transform="translate(1170, 28)">
+    <!-- Foundation Layer (bottom) -->
+    <rect x="0" y="250" width="320" height="80" rx="12" fill="rgba(6, 182, 212, 0.1)" stroke="rgba(6, 182, 212, 0.3)" stroke-width="1"/>
+    <text x="22" y="280" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="rgba(6, 182, 212, 0.7)" letter-spacing="1.5">ARCHITECTURE</text>
+    <text x="22" y="310" font-family="Inter, sans-serif" font-size="22" font-weight="700" fill="#06b6d4">Engineering Foundations</text>
+
+    <!-- Arrow 1 (small, centered - like Hero) -->
+    <g transform="translate(150, 222)">
+      <path d="M10 20V2M10 2L4 10M10 2L16 10" stroke="url(#arrow-1)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    </g>
+
+    <!-- AI Layer (middle) -->
+    <rect x="0" y="130" width="320" height="80" rx="12" fill="rgba(168, 85, 247, 0.1)" stroke="rgba(168, 85, 247, 0.3)" stroke-width="1"/>
+    <text x="22" y="160" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="rgba(168, 85, 247, 0.7)" letter-spacing="1.5">ENABLER</text>
+    <text x="22" y="190" font-family="Inter, sans-serif" font-size="22" font-weight="700" fill="#a855f7">AI Orchestration</text>
+
+    <!-- Arrow 2 (small, centered - like Hero) -->
+    <g transform="translate(150, 102)">
+      <path d="M10 20V2M10 2L4 10M10 2L16 10" stroke="url(#arrow-2)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    </g>
+
+    <!-- DX Layer (top) -->
+    <rect x="0" y="10" width="320" height="80" rx="12" fill="rgba(251, 191, 36, 0.1)" stroke="rgba(251, 191, 36, 0.3)" stroke-width="1"/>
+    <text x="22" y="40" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="rgba(251, 191, 36, 0.7)" letter-spacing="1.5">OUTCOME</text>
+    <text x="22" y="70" font-family="Inter, sans-serif" font-size="22" font-weight="700" fill="#fbbf24">Developer Experience</text>
+  </g>
+</svg>
