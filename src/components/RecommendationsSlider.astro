@@ -1,32 +1,39 @@
 ---
 import cv from '../content/cv/cv.json';
 
-// Get first 4 recommendations for testimonials
 const recommendations = cv.recommendations.slice(0, 4);
 ---
 
-<div class="container mx-auto max-w-7xl px-4">
-  <div class="testimonials-carousel relative">
+<div class="recommendations-container">
+  <div class="section-header">
+    <span class="section-label">Testimonials</span>
+    <h2 class="section-title">What People Say</h2>
+  </div>
+
+  <div class="testimonials-carousel">
     <div class="testimonials-wrapper">
       {
         recommendations.map((rec, index) => (
           <div class:list={['testimonial-slide', { active: index === 0 }]} data-index={index}>
             <div class="recommendation-card">
-              <div class="flex flex-col gap-4 sm:flex-row">
-                <div class="h-16 w-16 flex-shrink-0 self-center sm:self-start">
-                  <img src={rec.picture} alt={`${rec.name}'s picture`} class="h-full w-full rounded-full object-cover" />
-                </div>
-                <div class="flex-grow">
-                  <h4 class="text-xl font-semibold text-slate-900 dark:text-slate-100">{rec.name}</h4>
-                  <p class="uppercase text-gray-600 dark:text-gray-300">{rec.role}</p>
-                  <p class="mt-2 text-slate-700 dark:text-slate-300">
-                    {rec.content.split('\n').map((line) => (
-                      <>
-                        {line}
-                        <br />
-                      </>
-                    ))}
-                  </p>
+              <div class="quote-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                </svg>
+              </div>
+              <p class="recommendation-content">
+                {rec.content.split('\n').map((line) => (
+                  <>
+                    {line}
+                    <br />
+                  </>
+                ))}
+              </p>
+              <div class="recommendation-author">
+                <img src={rec.picture} alt={`${rec.name}'s picture`} class="author-image" />
+                <div class="author-info">
+                  <h4 class="author-name">{rec.name}</h4>
+                  <p class="author-role">{rec.role}</p>
                 </div>
               </div>
             </div>
@@ -51,13 +58,10 @@ const recommendations = cv.recommendations.slice(0, 4);
     </div>
   </div>
 
-  <div class="mt-8 text-center">
-    <a
-      href="/cv#recommendations"
-      class="text-primary inline-flex items-center gap-2 text-lg font-medium transition-all hover:underline"
-    >
+  <div class="view-all">
+    <a href="/cv#recommendations" class="view-all-link">
       View all {cv.recommendations.length} recommendations
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9 5l7 7-7 7"></path>
       </svg>
     </a>
@@ -101,59 +105,248 @@ const recommendations = cv.recommendations.slice(0, 4);
     });
   });
 
-  // Auto-advance every 8 seconds
   setInterval(nextSlide, 8000);
 </script>
 
 <style>
+  .recommendations-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(16, 185, 129, 0.7);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: 700;
+    color: #10b981;
+  }
+
   .testimonials-carousel {
-    @apply relative mx-auto max-w-5xl;
+    position: relative;
   }
 
   .testimonials-wrapper {
-    @apply relative min-h-[500px] md:min-h-[450px];
+    position: relative;
+    min-height: 320px;
   }
 
   .testimonial-slide {
-    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
     pointer-events: none;
   }
 
   .testimonial-slide.active {
-    @apply opacity-100;
+    opacity: 1;
     pointer-events: auto;
   }
 
   .recommendation-card {
-    @apply flex items-center rounded-lg border border-slate-300 bg-slate-200 p-6 shadow-sm dark:border-slate-500 dark:bg-slate-600;
-    min-height: 400px;
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 16px;
+    padding: 32px;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .quote-icon {
+    width: 32px;
+    height: 32px;
+    color: rgba(16, 185, 129, 0.4);
+    margin-bottom: 16px;
+  }
+
+  .quote-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .recommendation-content {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(226, 232, 240, 0.8);
+    flex-grow: 1;
+    margin-bottom: 24px;
+  }
+
+  .recommendation-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid rgba(16, 185, 129, 0.15);
+    padding-top: 20px;
+  }
+
+  .author-image {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(16, 185, 129, 0.3);
+  }
+
+  .author-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 2px;
+  }
+
+  .author-role {
+    font-size: 13px;
+    color: rgba(226, 232, 240, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .carousel-button {
-    @apply text-primary absolute top-1/2 -translate-y-1/2 rounded-full border border-slate-200 bg-white p-3 shadow-lg transition-all hover:scale-110 hover:shadow-xl dark:border-slate-700 dark:bg-slate-800;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #10b981;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .carousel-button:hover {
+    background: rgba(16, 185, 129, 0.2);
+    transform: translateY(-50%) scale(1.1);
   }
 
   .carousel-button.prev {
-    @apply -left-4 md:-left-16;
+    left: -60px;
   }
 
   .carousel-button.next {
-    @apply -right-4 md:-right-16;
+    right: -60px;
   }
 
   .carousel-button svg {
-    @apply h-6 w-6;
+    width: 20px;
+    height: 20px;
   }
 
   .carousel-dots {
-    @apply mt-6 flex justify-center gap-3;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
   }
 
   .dot {
-    @apply h-3 w-3 rounded-full border-2 border-primary bg-transparent transition-all hover:scale-125;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(16, 185, 129, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .dot:hover {
+    background: rgba(16, 185, 129, 0.4);
   }
 
   .dot.active {
-    @apply bg-primary;
+    background: #10b981;
+  }
+
+  .view-all {
+    text-align: center;
+    margin-top: 32px;
+  }
+
+  .view-all-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #10b981;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .view-all-link:hover {
+    text-decoration: underline;
+  }
+
+  .view-all-link svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  @media (max-width: 1000px) {
+    .carousel-button.prev {
+      left: -20px;
+    }
+
+    .carousel-button.next {
+      right: -20px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .recommendations-container {
+      padding: 0 8px;
+    }
+
+    .recommendation-card {
+      padding: 24px 20px;
+      min-height: 300px;
+    }
+
+    .carousel-button {
+      width: 36px;
+      height: 36px;
+    }
+
+    .carousel-button.prev {
+      left: -8px;
+    }
+
+    .carousel-button.next {
+      right: -8px;
+    }
+
+    .carousel-button svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .testimonials-wrapper {
+      min-height: 380px;
+    }
+
+    .recommendation-content {
+      font-size: 15px;
+    }
   }
 </style>

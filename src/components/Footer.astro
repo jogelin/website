@@ -1,1 +1,21 @@
-<div class="text-secondary py-1 text-center">© 2025 made with Astro by Jonathan Gelin</div>
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <p class="copyright">© {currentYear} Jonathan Gelin. Made with Astro.</p>
+</footer>
+
+<style>
+  .footer {
+    background: #0f1117;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 24px;
+    text-align: center;
+  }
+
+  .copyright {
+    font-size: 13px;
+    color: rgba(226, 232, 240, 0.4);
+  }
+</style>

@@ -1,0 +1,92 @@
+---
+
+---
+
+<div class="availability-bar">
+  <span class="availability-bar__text">
+    <span class="availability-bar__dot"></span>
+    Available for new projects in 2026 -
+    <a
+      href="#"
+      onclick="Calendly.showPopupWidget('https://calendly.com/gelin-jonathan/30min');return false;"
+      class="availability-bar__link"
+    >
+      Get in touch
+    </a>
+  </span>
+</div>
+<div class="availability-bar-spacer"></div>
+
+<style>
+  .availability-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(16, 185, 129, 0.1);
+    border-bottom: 1px solid rgba(16, 185, 129, 0.25);
+    padding: 10px 24px;
+    text-align: center;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+
+  .availability-bar-spacer {
+    height: 41px;
+  }
+
+  @media (max-width: 600px) {
+    .availability-bar {
+      padding: 8px 12px;
+    }
+
+    .availability-bar__text {
+      font-size: 11px;
+    }
+
+    .availability-bar-spacer {
+      height: 35px;
+    }
+  }
+
+  .availability-bar__text {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fbbf24;
+  }
+
+  .availability-bar__dot {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  .availability-bar__link {
+    color: #fbbf24;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity 0.2s;
+  }
+
+  .availability-bar__link:hover {
+    opacity: 0.8;
+  }
+
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.2);
+    }
+  }
+</style>

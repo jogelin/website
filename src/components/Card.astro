@@ -9,38 +9,171 @@ interface Props {
 }
 
 const { links, title, picture, startDate, description, type } = Astro.props;
+
+const typeColors: Record<string, string> = {
+  ARTICLE: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
+  NOTE: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
+  TALK: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400',
+};
 ---
 
-<div class="group block shadow-around">
-  <div class="relative overflow-hidden bg-cover bg-center bg-no-repeat">
-    <img class="h-full w-full object-cover transition duration-100 ease-in-out group-hover:scale-110" src={picture} alt={title} />
-  </div>
-  <div class="grid grid-cols-1 gap-4 bg-slate-50 p-2 dark:bg-slate-900">
-    <div class="text-secondary flex text-xs">
-      <div class="grow uppercase">
-        {startDate ? new Date(startDate).toLocaleDateString('en-US', { day: '2-digit', month: 'long', year: 'numeric' }) : ''}
-      </div>
-      <div class="">
-        #{type}
-      </div>
+<div class="card group">
+  {picture && (
+    <div class="card-image">
+      <img src={picture} alt={title} />
+      <span class:list={['card-type', typeColors[type] || 'bg-slate-100 text-slate-700']}>
+        {type}
+      </span>
     </div>
-    <h5 class="text-lg">{title}</h5>
-    {
-      description && (
-        <div class="text-secondary text-sm">
-          <span set:html={description} />
-        </div>
-      )
-    }
-
-    <div class="flex items-center justify-around border-t border-t-slate-200 dark:border-t-slate-800">
-      {
-        links.map(({ name, href }) => (
-          <a href={href} class="link-primary pt-2 uppercase" target="_blank">
-            {name}
-          </a>
-        ))
-      }
+  )}
+  <div class="card-content">
+    <div class="card-meta">
+      {startDate && (
+        <time class="card-date">
+          {new Date(startDate).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' })}
+        </time>
+      )}
+    </div>
+    <h3 class="card-title">{title}</h3>
+    {description && (
+      <p class="card-description" set:html={description} />
+    )}
+    <div class="card-links">
+      {links.map(({ name, href }) => (
+        <a href={href} class="card-link" target="_blank">
+          {name}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      ))}
     </div>
   </div>
 </div>
+
+<style>
+  .card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+  }
+
+  :global(.dark) .card {
+    background: #1e293b;
+  }
+
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+
+  :global(.dark) .card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover .card-image img {
+    transform: scale(1.05);
+  }
+
+  .card-type {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  .card-content {
+    padding: 20px;
+  }
+
+  .card-meta {
+    margin-bottom: 8px;
+  }
+
+  .card-date {
+    font-size: 12px;
+    color: #64748b;
+  }
+
+  :global(.dark) .card-date {
+    color: #94a3b8;
+  }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #1e293b;
+    margin-bottom: 8px;
+  }
+
+  :global(.dark) .card-title {
+    color: #e2e8f0;
+  }
+
+  .card-description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #64748b;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  :global(.dark) .card-description {
+    color: #94a3b8;
+  }
+
+  .card-links {
+    display: flex;
+    gap: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  :global(.dark) .card-links {
+    border-top-color: #334155;
+  }
+
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #10b981;
+    text-decoration: none;
+    transition: gap 0.2s ease;
+  }
+
+  .card-link:hover {
+    gap: 10px;
+  }
+
+  .card-link svg {
+    width: 14px;
+    height: 14px;
+  }
+</style>

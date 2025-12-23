@@ -1,0 +1,88 @@
+---
+interface Props {
+  activeLink?: 'home' | 'blog' | 'resume';
+}
+
+const { activeLink = 'home' } = Astro.props;
+---
+
+<header class="navbar">
+  <a href="/" class="logo">
+    <span class="logo-brackets">&lt;/&gt;</span>
+    smartSDLC.dev
+  </a>
+  <nav class="nav">
+    <a href="/" class:list={{ active: activeLink === 'home' }}>Home</a>
+    <a href="/#content" class:list={{ active: activeLink === 'blog' }}>Blog</a>
+    <a href="/cv" class:list={{ active: activeLink === 'resume' }}>Resume</a>
+  </nav>
+</header>
+
+<style>
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 15px;
+    color: #e2e8f0;
+    text-decoration: none;
+  }
+
+  .logo-brackets {
+    color: #10b981;
+    font-weight: 700;
+  }
+
+  .nav {
+    display: flex;
+    gap: 24px;
+  }
+
+  .nav a {
+    color: rgba(226, 232, 240, 0.7);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav a:hover,
+  .nav a.active {
+    color: #e2e8f0;
+  }
+
+  @media (max-width: 600px) {
+    .navbar {
+      padding: 12px 16px;
+    }
+
+    .nav {
+      gap: 16px;
+    }
+
+    .nav a {
+      font-size: 13px;
+    }
+
+    .logo {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .nav {
+      display: none;
+    }
+  }
+</style>

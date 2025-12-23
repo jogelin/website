@@ -1,0 +1,371 @@
+---
+const foundations = [
+  {
+    title: "Build System",
+    description: "Nx-powered builds for monorepo or polyrepo. Plugin-based auto-discovery. Out-of-the-box tasks ready without setup.",
+    icon: "M13 10V3L4 14h7v7l9-11h-7z"
+  },
+  {
+    title: "Conformance & Quality",
+    description: "Repository standards enforcement. Automated fixes via generators. Consistent project structure validation.",
+    icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+  },
+  {
+    title: "Config Synchronization",
+    description: "CI/CD pipelines generated and in sync. Version compatibility checks. Dev and CI environment parity.",
+    icon: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+  },
+  {
+    title: "Unified Release",
+    description: "Single workflow for JS, Java, Helm. Conventional commits with auto-changelog. Technology-aware publishing.",
+    icon: "M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+  }
+];
+
+const aiOrchestration = [
+  {
+    title: "Claude Code Plugins",
+    description: "Custom plugins with agents, skills, commands, and hooks tailored to your codebase.",
+    icon: "/icons/claude.svg",
+    isImage: true
+  },
+  {
+    title: "Architecture Awareness",
+    description: "AI that understands your project graph, boundaries, and conventions.",
+    icon: "M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
+  },
+  {
+    title: "Context & Memory",
+    description: "Token optimization, memory management, and MCP servers for external integrations.",
+    icon: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
+  },
+  {
+    title: "Multi-AI Support",
+    description: "Integrate Claude, ChatGPT Codex, Gemini CLI, and other AI tools.",
+    icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+  }
+];
+
+const developerExperience = [
+  {
+    title: "CI Auto-Fix",
+    description: "Automatic fixes for CI failures, reducing manual intervention.",
+    icon: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+  },
+  {
+    title: "Auto-Support",
+    description: "AI-powered support channel for instant developer assistance.",
+    icon: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+  },
+  {
+    title: "Augmented IDE",
+    description: "Enhanced development experience with AI-assisted coding.",
+    icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+  },
+  {
+    title: "Training & Enablement",
+    description: "Hands-on coaching and workshops on Nx and AI best practices.",
+    icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+  }
+];
+---
+
+<!-- Engineering Foundations -->
+<section class="diagram-section section--foundation">
+
+  <div class="section-container">
+    <div class="section-header">
+      <span class="section-label">Architecture</span>
+      <h2 class="section-title">Engineering Foundations</h2>
+      <p class="section-subtitle">Strong conventions and architecture are required to scale teams and enable AI tooling</p>
+    </div>
+
+    <div class="cards-grid">
+      {foundations.map(item => (
+        <div class="card card--foundation">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d={item.icon} />
+            </svg>
+          </div>
+          <h3 class="card-title">{item.title}</h3>
+          <p class="card-description">{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Arrow: Foundations → AI -->
+<div class="section-arrow">
+  <svg class="arrow-svg" width="60" height="80" viewBox="0 0 60 80">
+    <path class="arrow-line" d="M30 0V60" stroke="url(#arrow-grad-1)" stroke-width="3" stroke-linecap="round" />
+    <path class="arrow-head" d="M30 60L20 45M30 60L40 45" stroke="url(#arrow-grad-1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    <defs>
+      <linearGradient id="arrow-grad-1" x1="30" y1="0" x2="30" y2="60">
+        <stop stop-color="#06b6d4" />
+        <stop offset="1" stop-color="#a855f7" />
+      </linearGradient>
+    </defs>
+  </svg>
+</div>
+
+<!-- AI Orchestration -->
+<section class="diagram-section section--ai">
+
+  <div class="section-container">
+    <div class="section-header">
+      <span class="section-label">Enabler</span>
+      <h2 class="section-title">AI Orchestration</h2>
+      <p class="section-subtitle">Intelligent tooling that respects your conventions</p>
+    </div>
+
+    <div class="cards-grid">
+      {aiOrchestration.map(item => (
+        <div class="card card--ai">
+          <div class="card-icon">
+            {item.isImage ? (
+              <img src={item.icon} alt="" class="icon-img" />
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d={item.icon} />
+              </svg>
+            )}
+          </div>
+          <h3 class="card-title">{item.title}</h3>
+          <p class="card-description">{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Arrow: AI → DX -->
+<div class="section-arrow section-arrow--delay">
+  <svg class="arrow-svg" width="60" height="80" viewBox="0 0 60 80">
+    <path class="arrow-line" d="M30 0V60" stroke="url(#arrow-grad-2)" stroke-width="3" stroke-linecap="round" />
+    <path class="arrow-head" d="M30 60L20 45M30 60L40 45" stroke="url(#arrow-grad-2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    <defs>
+      <linearGradient id="arrow-grad-2" x1="30" y1="0" x2="30" y2="60">
+        <stop stop-color="#a855f7" />
+        <stop offset="1" stop-color="#fbbf24" />
+      </linearGradient>
+    </defs>
+  </svg>
+</div>
+
+<!-- Developer Experience -->
+<section class="diagram-section section--dx">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="section-label">Outcome</span>
+      <h2 class="section-title">Developer Experience</h2>
+      <p class="section-subtitle">Concrete outcomes when foundations and AI work together</p>
+    </div>
+
+    <div class="cards-grid">
+      {developerExperience.map(item => (
+        <div class="card card--dx">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d={item.icon} />
+            </svg>
+          </div>
+          <h3 class="card-title">{item.title}</h3>
+          <p class="card-description">{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .diagram-section {
+    padding: 60px 16px;
+    position: relative;
+  }
+
+  .section--foundation {
+    background: #0f1117;
+  }
+
+  .section--ai {
+    background: #0f1117;
+  }
+
+  .section--dx {
+    background: #0f1117;
+  }
+
+  .section-arrow {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    margin: -1px 0;
+    background: #0f1117;
+  }
+
+  .arrow-svg {
+    animation: arrow-pulse 2.5s ease-in-out infinite;
+  }
+
+  .section-arrow--delay .arrow-svg {
+    animation-delay: 0.5s;
+  }
+
+  .arrow-line {
+    stroke-dasharray: 60;
+    stroke-dashoffset: -60;
+    animation: arrow-draw 2.5s ease-in-out infinite;
+  }
+
+  .section-arrow--delay .arrow-line {
+    animation-delay: 0.5s;
+  }
+
+  @keyframes arrow-pulse {
+    0%, 100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes arrow-draw {
+    0% {
+      stroke-dashoffset: -60;
+    }
+    50%, 100% {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .section-container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .section--foundation .section-label { color: rgba(6, 182, 212, 0.7); }
+  .section--ai .section-label { color: rgba(168, 85, 247, 0.7); }
+  .section--dx .section-label { color: rgba(251, 191, 36, 0.7); }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .section--foundation .section-title { color: #06b6d4; }
+  .section--ai .section-title { color: #a855f7; }
+  .section--dx .section-title { color: #fbbf24; }
+
+  .section-subtitle {
+    font-size: 16px;
+    color: rgba(226, 232, 240, 0.6);
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    padding: 24px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+  }
+
+  .card--foundation {
+    background: rgba(6, 182, 212, 0.05);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+  }
+  .card--foundation:hover {
+    box-shadow: 0 8px 30px rgba(6, 182, 212, 0.15);
+  }
+
+  .card--ai {
+    background: rgba(168, 85, 247, 0.05);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+  }
+  .card--ai:hover {
+    box-shadow: 0 8px 30px rgba(168, 85, 247, 0.15);
+  }
+
+  .card--dx {
+    background: rgba(251, 191, 36, 0.05);
+    border: 1px solid rgba(251, 191, 36, 0.2);
+  }
+  .card--dx:hover {
+    box-shadow: 0 8px 30px rgba(251, 191, 36, 0.15);
+  }
+
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 16px;
+  }
+
+  .card-icon svg,
+  .card-icon .icon-img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .card--foundation .card-icon { color: #06b6d4; }
+  .card--ai .card-icon { color: #a855f7; }
+  .card--dx .card-icon { color: #fbbf24; }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #e2e8f0;
+  }
+
+  .card-description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(226, 232, 240, 0.6);
+  }
+
+  @media (max-width: 600px) {
+    .diagram-section {
+      padding: 40px 12px;
+    }
+
+    .cards-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      padding: 20px;
+    }
+
+    .section-title {
+      font-size: 24px;
+    }
+  }
+</style>
