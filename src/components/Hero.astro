@@ -20,7 +20,7 @@ const recommendations = cv.recommendations.slice(0, 7);
       <img src="/avatar.png" alt="Jonathan Gelin" class="hero-photo" />
 
       <h1 class="hero-title">
-        <span class="hl">D</span>eveloper <span class="hl">E</span>xperience,<br /><span class="hl">E</span>ngineered.
+        Build on <span class="hl">Foundations</span>,<br />Scale with <span class="hl">AI</span>.
       </h1>
 
       <p class="hero-subtitle">
@@ -55,6 +55,12 @@ const recommendations = cv.recommendations.slice(0, 7);
       <div class="layer layer--dx">
         <div class="layer__label">Outcome</div>
         <h3 class="layer__title">Developer Experience</h3>
+        <div class="layer__features">
+          <span class="feature-tag feature-tag--dx">Auto-Fix</span>
+          <span class="feature-tag feature-tag--dx">Support</span>
+          <span class="feature-tag feature-tag--dx">IDE</span>
+          <span class="feature-tag feature-tag--dx">Training</span>
+        </div>
       </div>
 
       <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -70,6 +76,12 @@ const recommendations = cv.recommendations.slice(0, 7);
       <div class="layer layer--ai">
         <div class="layer__label">Enabler</div>
         <h3 class="layer__title">AI Orchestration</h3>
+        <div class="layer__features">
+          <span class="feature-tag feature-tag--ai">AI Plugins</span>
+          <span class="feature-tag feature-tag--ai">Contextual</span>
+          <span class="feature-tag feature-tag--ai">Memory</span>
+          <span class="feature-tag feature-tag--ai">Multi-AI</span>
+        </div>
       </div>
 
       <svg class="arrow arrow--delay" width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -85,6 +97,12 @@ const recommendations = cv.recommendations.slice(0, 7);
       <div class="layer layer--foundation">
         <div class="layer__label">Architecture</div>
         <h3 class="layer__title">Engineering Foundations</h3>
+        <div class="layer__features">
+          <span class="feature-tag feature-tag--foundation">Build System</span>
+          <span class="feature-tag feature-tag--foundation">Quality</span>
+          <span class="feature-tag feature-tag--foundation">CI/CD</span>
+          <span class="feature-tag feature-tag--foundation">Release</span>
+        </div>
       </div>
     </div>
   </div>
@@ -335,6 +353,41 @@ const recommendations = cv.recommendations.slice(0, 7);
     letter-spacing: -0.3px;
   }
 
+  .layer__features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .feature-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+
+  .feature-tag--dx {
+    background: rgba(251, 191, 36, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+  }
+
+  .feature-tag--ai {
+    background: rgba(168, 85, 247, 0.15);
+    color: #a855f7;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+  }
+
+  .feature-tag--foundation {
+    background: rgba(6, 182, 212, 0.15);
+    color: #06b6d4;
+    border: 1px solid rgba(6, 182, 212, 0.3);
+  }
+
   /* Layer colors */
   .layer--dx {
     background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
@@ -520,6 +573,10 @@ const recommendations = cv.recommendations.slice(0, 7);
       font-size: 15px;
     }
 
+    .feature-tag {
+      font-size: 8px;
+      padding: 3px 6px;
+    }
   }
 
   @media (max-width: 600px) {

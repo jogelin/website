@@ -2,69 +2,69 @@
 const foundations = [
   {
     title: "Build System",
-    description: "Nx-powered builds for monorepo or polyrepo. Plugin-based auto-discovery. Out-of-the-box tasks ready without setup.",
+    labels: ["Nx-powered", "Monorepo", "Polyrepo", "Plugin Base", "Polyglot"],
     icon: "M13 10V3L4 14h7v7l9-11h-7z"
   },
   {
-    title: "Conformance & Quality",
-    description: "Repository standards enforcement. Automated fixes via generators. Consistent project structure validation.",
+    title: "Quality",
+    labels: ["Sync Generators", "Conformance", "Auto Fixes", "Consistent"],
     icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
   },
   {
-    title: "Config Synchronization",
-    description: "CI/CD pipelines generated and in sync. Version compatibility checks. Dev and CI environment parity.",
+    title: "CI/CD",
+    labels: ["Generated", "Polyglot", "Remote Cache", "Distributed"],
     icon: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
   },
   {
-    title: "Unified Release",
-    description: "Single workflow for JS, Java, Helm. Conventional commits with auto-changelog. Technology-aware publishing.",
+    title: "Release",
+    labels: ["Unified", "Changelog", "Tech-aware", "Single Version"],
     icon: "M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
   }
 ];
 
 const aiOrchestration = [
   {
-    title: "Claude Code Plugins",
-    description: "Custom plugins with agents, skills, commands, and hooks tailored to your codebase.",
+    title: "AI Plugins",
+    labels: ["Agents", "Skills", "MCPs", "Commands", "Hooks"],
     icon: "/icons/claude.svg",
     isImage: true
   },
   {
-    title: "Architecture Awareness",
-    description: "AI that understands your project graph, boundaries, and conventions.",
+    title: "Contextual",
+    labels: ["Project Graph", "Conventions", "Architecture", "Design System"],
     icon: "M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
   },
   {
-    title: "Context & Memory",
-    description: "Token optimization, memory management, and MCP servers for external integrations.",
+    title: "Memory",
+    labels: ["Token Optim", "Management", "Compression"],
     icon: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
   },
   {
-    title: "Multi-AI Support",
-    description: "Integrate Claude, ChatGPT Codex, Gemini CLI, and other AI tools.",
+    title: "Multi-AI",
+    labels: ["Claude", "Codex", "Gemini", "Goose", "Llama"],
     icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
   }
 ];
 
 const developerExperience = [
   {
-    title: "CI Auto-Fix",
-    description: "Automatic fixes for CI failures, reducing manual intervention.",
+    title: "Auto-Fix",
+    labels: ["CI Failure", "PR Review", "PR Suggest", "Conformance"],
     icon: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
   },
   {
-    title: "Auto-Support",
-    description: "AI-powered support channel for instant developer assistance.",
+    title: "Support",
+    labels: ["Contextual Chat", "Generated Docs"],
     icon: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
   },
   {
-    title: "Augmented IDE",
-    description: "Enhanced development experience with AI-assisted coding.",
+    title: "Development",
+    labels: ["Auto Complete", "Design System", "Architecture", "AI Assisted"],
     icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
   },
   {
-    title: "Training & Enablement",
-    description: "Hands-on coaching and workshops on Nx and AI best practices.",
+    title: "Training",
+    labels: ["Pair Review", "Coaching", "Nx Training", "AI Practices"],
     icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
   }
 ];
@@ -89,7 +89,7 @@ const developerExperience = [
             </svg>
           </div>
           <h3 class="card-title">{item.title}</h3>
-          <p class="card-description">{item.description}</p>
+          <p class="card-keywords card-keywords--foundation">{item.labels.join(' · ')}</p>
         </div>
       ))}
     </div>
@@ -133,7 +133,7 @@ const developerExperience = [
             )}
           </div>
           <h3 class="card-title">{item.title}</h3>
-          <p class="card-description">{item.description}</p>
+          <p class="card-keywords card-keywords--ai">{item.labels.join(' · ')}</p>
         </div>
       ))}
     </div>
@@ -172,7 +172,7 @@ const developerExperience = [
             </svg>
           </div>
           <h3 class="card-title">{item.title}</h3>
-          <p class="card-description">{item.description}</p>
+          <p class="card-keywords card-keywords--dx">{item.labels.join(' · ')}</p>
         </div>
       ))}
     </div>
@@ -348,6 +348,46 @@ const developerExperience = [
     font-size: 14px;
     line-height: 1.6;
     color: rgba(226, 232, 240, 0.6);
+  }
+
+  .card-keywords {
+    font-size: 13px;
+    line-height: 1.8;
+    margin: 0;
+    color: rgba(226, 232, 240, 0.6);
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 0% 2px;
+    padding-bottom: 4px;
+    transition: background-size 0.3s ease, color 0.3s ease;
+  }
+
+  .card:hover .card-keywords {
+    background-size: 100% 2px;
+  }
+
+  .card-keywords--foundation {
+    background-image: linear-gradient(90deg, #06b6d4, #22d3ee);
+  }
+
+  .card:hover .card-keywords--foundation {
+    color: rgba(6, 182, 212, 0.9);
+  }
+
+  .card-keywords--ai {
+    background-image: linear-gradient(90deg, #a855f7, #c084fc);
+  }
+
+  .card:hover .card-keywords--ai {
+    color: rgba(168, 85, 247, 0.9);
+  }
+
+  .card-keywords--dx {
+    background-image: linear-gradient(90deg, #fbbf24, #fcd34d);
+  }
+
+  .card:hover .card-keywords--dx {
+    color: rgba(251, 191, 36, 0.9);
   }
 
   @media (max-width: 600px) {
