@@ -5,7 +5,8 @@
 <div class="availability-bar">
   <span class="availability-bar__text">
     <span class="availability-bar__dot"></span>
-    Available for new projects in 2026 -
+    <span class="availability-bar__full">Available for new projects in 2026 -</span>
+    <span class="availability-bar__short">Available 2026 -</span>
     <a
       href="#"
       onclick="Calendly.showPopupWidget('https://calendly.com/gelin-jonathan/30min');return false;"
@@ -57,6 +58,19 @@
     font-size: 13px;
     font-weight: 600;
     color: #fbbf24;
+  }
+
+  .availability-bar__short {
+    display: none;
+  }
+
+  @media (max-width: 480px) {
+    .availability-bar__full {
+      display: none;
+    }
+    .availability-bar__short {
+      display: inline;
+    }
   }
 
   .availability-bar__dot {
