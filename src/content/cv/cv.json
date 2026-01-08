@@ -645,6 +645,12 @@
   ],
   "recommendations": [
     {
+      "name": "Jose Badeau",
+      "picture": "/people/jose-badeau.jpeg",
+      "role": "Head of Technical Excellence at Caseware",
+      "content": "Jonathan joined us on a short six-month contract to help plug a gap in our team and tidy up some internal build tooling. Very quickly, it became clear he was having a much bigger impact, and he ended up staying with us for a year. During that time, he reshaped how we think about and work with our tooling from the ground up.\n\nHe reworked our build setup into a clean, Nx-based architecture with clear conformance standards, making day-to-day development simpler and more consistent while raising the bar on quality and maintainability. Jonathan also brought strong AI skills to the table, introducing AI carefully and intentionally, only where it genuinely made sense for the team and the product.\n\nOn a personal level, Jonathan is enthusiastic about new technology but refreshingly pragmatic and outcome-focused. He is deeply test-driven and helped us put snapshot-based end-to-end testing in place, which massively increased our confidence in releases and noticeably improved the overall developer experience.\n\nIf you're a company looking to streamline your tooling, improve engineering standards, and make life easier for your developers, I couldn't recommend Jonathan more highly."
+    },
+    {
       "name": "Miguel Perez Sanchis",
       "picture": "/people/miguel-perez-sanchis.jpeg",
       "role": "Software Engineer at Julius Baer",
