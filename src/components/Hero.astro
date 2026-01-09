@@ -153,6 +153,8 @@ const recommendations = cv.recommendations.slice(0, 7);
     min-height: 100vh;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
   .hero-section::before {
@@ -181,6 +183,19 @@ const recommendations = cv.recommendations.slice(0, 7);
     }
   }
 
+  /* ========== FLEX LAYOUT FOR CHILD COMPONENTS ========== */
+  :global(.availability-bar-spacer) {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  :global(.navbar) {
+    width: 100%;
+    max-width: 1200px;
+    align-self: center;
+    flex-shrink: 0;
+  }
+
   /* ========== HERO ========== */
   .hero {
     display: flex;
@@ -190,6 +205,9 @@ const recommendations = cv.recommendations.slice(0, 7);
     padding: 48px 24px;
     max-width: 1100px;
     margin: 0 auto;
+    margin-top: auto;
+    width: 100%;
+    align-self: center;
     position: relative;
     z-index: 1;
   }
@@ -459,8 +477,12 @@ const recommendations = cv.recommendations.slice(0, 7);
 
   /* ========== TESTIMONIALS ========== */
   .hero-testimonials {
+    width: 100%;
     max-width: 700px;
+    align-self: center;
     margin: 0 auto;
+    margin-bottom: auto;
+    flex-shrink: 0;
     padding: 40px 24px 60px;
     text-align: center;
   }
