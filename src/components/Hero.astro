@@ -24,8 +24,7 @@ const recommendations = cv.recommendations.slice(0, 7);
       </h1>
 
       <p class="hero-subtitle">
-        I design <span class="hl">AI-powered workflows</span> and <span class="hl">engineering foundations</span> that make teams faster, happier, and more
-        consistent.
+        I design <span class="hl">AI-powered workflows</span> and <span class="hl">engineering foundations</span> that make teams faster, happier, and more consistent.
       </p>
 
       <!-- Tags with logos -->
@@ -52,7 +51,7 @@ const recommendations = cv.recommendations.slice(0, 7);
 
     <!-- Right: Diagram -->
     <div class="diagram-container">
-      <div class="layer layer--dx">
+      <a href="#developer-experience" class="layer layer--dx">
         <div class="layer__label">Outcome</div>
         <h3 class="layer__title">Developer Experience</h3>
         <div class="layer__features">
@@ -61,7 +60,7 @@ const recommendations = cv.recommendations.slice(0, 7);
           <span class="feature-tag feature-tag--dx">IDE</span>
           <span class="feature-tag feature-tag--dx">Training</span>
         </div>
-      </div>
+      </a>
 
       <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none">
         <path d="M12 20V4M12 4L6 10M12 4L18 10" stroke="url(#g1)" stroke-width="2" stroke-linecap="round"></path>
@@ -73,16 +72,16 @@ const recommendations = cv.recommendations.slice(0, 7);
         </defs>
       </svg>
 
-      <div class="layer layer--ai">
+      <a href="#ai-orchestration" class="layer layer--ai">
         <div class="layer__label">Enabler</div>
         <h3 class="layer__title">AI Orchestration</h3>
         <div class="layer__features">
-          <span class="feature-tag feature-tag--ai">AI Plugins</span>
+          <span class="feature-tag feature-tag--ai">AI Framework</span>
           <span class="feature-tag feature-tag--ai">Contextual</span>
           <span class="feature-tag feature-tag--ai">Memory</span>
           <span class="feature-tag feature-tag--ai">Multi-AI</span>
         </div>
-      </div>
+      </a>
 
       <svg class="arrow arrow--delay" width="20" height="20" viewBox="0 0 24 24" fill="none">
         <path d="M12 20V4M12 4L6 10M12 4L18 10" stroke="url(#g2)" stroke-width="2" stroke-linecap="round"></path>
@@ -94,7 +93,7 @@ const recommendations = cv.recommendations.slice(0, 7);
         </defs>
       </svg>
 
-      <div class="layer layer--foundation">
+      <a href="#foundations" class="layer layer--foundation">
         <div class="layer__label">Architecture</div>
         <h3 class="layer__title">Engineering Foundations</h3>
         <div class="layer__features">
@@ -103,24 +102,26 @@ const recommendations = cv.recommendations.slice(0, 7);
           <span class="feature-tag feature-tag--foundation">CI/CD</span>
           <span class="feature-tag feature-tag--foundation">Release</span>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 
   <!-- Testimonials -->
   <div class="hero-testimonials">
     <div class="testimonials-track">
-      {recommendations.map((rec, index) => (
-        <a href="/cv#recommendations" class:list={['testimonial', { active: index === 0 }]} data-index={index}>
-          <p class="testimonial-content">"{rec.content.split('\n')[0]}"</p>
-          <div class="testimonial-author">
-            <img src={rec.picture} alt={rec.name} class="testimonial-avatar" />
-            <span class="testimonial-name">{rec.name}</span>
-            <span class="testimonial-sep">·</span>
-            <span class="testimonial-role">{rec.role}</span>
-          </div>
-        </a>
-      ))}
+      {
+        recommendations.map((rec, index) => (
+          <a href="/cv#recommendations" class:list={['testimonial', { active: index === 0 }]} data-index={index}>
+            <p class="testimonial-content">« {rec.content.split('\n')[0]} »</p>
+            <div class="testimonial-author">
+              <img src={rec.picture} alt={rec.name} class="testimonial-avatar" />
+              <span class="testimonial-name">{rec.name}</span>
+              <span class="testimonial-sep">·</span>
+              <span class="testimonial-role">{rec.role}</span>
+            </div>
+          </a>
+        ))
+      }
     </div>
   </div>
 </section>
@@ -323,12 +324,15 @@ const recommendations = cv.recommendations.slice(0, 7);
   }
 
   .layer {
+    display: block;
     border-radius: 14px;
     padding: 20px 32px;
     width: 100%;
     max-width: 380px;
     text-align: center;
     backdrop-filter: blur(10px);
+    text-decoration: none;
+    cursor: pointer;
     transition:
       transform 0.3s ease,
       box-shadow 0.3s ease;
@@ -471,7 +475,9 @@ const recommendations = cv.recommendations.slice(0, 7);
     inset: 0;
     opacity: 0;
     transform: translateY(10px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
     pointer-events: none;
     text-decoration: none;
     display: flex;
@@ -540,6 +546,7 @@ const recommendations = cv.recommendations.slice(0, 7);
       gap: 32px;
       padding: 24px 16px;
       text-align: center;
+      justify-content: center;
     }
 
     .hero-content {
