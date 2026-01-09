@@ -2,8 +2,7 @@
 title: "You Don’t Need NVM, SDKMAN, Pyenv, Rustup, Homebrew or even Nix. Try Mise Instead."
 subtitle: "Mise unifies your development environment, replacing the need fo"
 publishedAt: 2025-11-24
-coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1763964094816/7ee9fb65-09ec-450b-aa13-9703e1a76a8e.jpeg
-canonicalUrl: https://gelinjo.hashnode.dev/you-dont-need-nvm-sdkman-pyenv-rustup-homebrew-or-even-nix-try-mise-instead
+coverImage: /blog/covers/you-dont-need-nvm-sdkman-pyenv-rustup-homebrew-or-even-nix-try-mise-instead.jpeg
 tags:
   - nx
   - monorepo
@@ -13,14 +12,12 @@ tags:
   - ci-cd
 author:
   name: Jonathan Gelin
-  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+  profilePicture: /avatar.png
 type: article
 draft: false
 ---
 
 import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
-
-[![](https://miro.medium.com/v2/resize:fit:1400/1*0ajYZwDOIFsp6J078hcekQ.png)](https://smartsdlc.dev/)
 
 # **Why I Rely on Mise in Large, Polyglot Codebases**
 
@@ -28,7 +25,7 @@ I often work inside large repositories mixing multiple technologies. My main mis
 
 Most of the time, this means integrating Nx — a polyglot toolchain and ecosystem that unifies how we build, test, lint, release, and cache projects, no matter the stack.
 
-![](https://miro.medium.com/v2/resize:fit:1400/0*GOVJNQcMZMErdUBW.png)
+![](\/blog/images/0*GOVJNQcMZMErdUBW.png)
 
 But today I wanted to highlight a tool that quietly transformed my daily workflow: **Mise (**[**mise-en-place**](https://mise.jdx.dev/environments/)**)**.
 
@@ -64,7 +61,7 @@ That’s it. No extra steps.
 
 If you juggle multiple repos with different tool versions, Mise can automatically switch tools when you `cd` into a directory.
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*JZu2qsqQLnoq5HSFZKKIJg.jpeg)
+![](\/blog/images/1*JZu2qsqQLnoq5HSFZKKIJg.jpeg)
 
 **For bash:**
 
@@ -120,7 +117,7 @@ There are many ways to handle toolchains in CI/CD, but most strategies have prob
 
 Press enter or click to view image in full size
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*Q_mpSuZbVUK1Tm-rdxinfQ.jpeg)
+![](\/blog/images/1*Q_mpSuZbVUK1Tm-rdxinfQ.jpeg)
 
 Common approaches to handling polyglot dependencies in CI/CD often lead to slow builds (giant images), complex matrix management (multiple images), or unmaintainable scripts (manual installation).
 
@@ -208,7 +205,7 @@ That’s all. Same experience, just using Nix under the hood.
 
 Nx has been expanding support for more ecosystems like **Gradle**, **Maven**, .**NET, etc**.
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*ICXlFIHJZ8DQ40hIIzaXTg.jpeg)
+![](\/blog/images/1*ICXlFIHJZ8DQ40hIIzaXTg.jpeg)
 
 To make the developer experience smoother, the Nx team adopted Mise internally:
 
@@ -243,4 +240,4 @@ Big thanks to **José Badeau** and **Miguel Sanchez** who introduced me to Mise.
 
 If you’re curious about using Mise with Nx or integrating it into complex CI/CD pipelines, feel free to reach out — I’m always happy to share real-world setups and practical tips:
 
-[![](https://miro.medium.com/v2/resize:fit:1400/1*lJIM_U_TGPJmSZtKA2-gPg.png)](https://smartsdlc.dev/)
+[![](\/blog/images/1*lJIM_U_TGPJmSZtKA2-gPg.png)](https://smartsdlc.dev/)

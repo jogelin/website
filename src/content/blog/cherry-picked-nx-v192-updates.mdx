@@ -2,8 +2,7 @@
 title: "🍒 Cherry-Picked Nx v19.2 Updates"
 subtitle: "Exploring My Selected Features from Nx Releases"
 publishedAt: 2024-06-05
-coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1717604234007/5fcd8f7f-623d-43cd-9a95-2f1634d1da52.webp
-canonicalUrl: https://gelinjo.hashnode.dev/cherry-picked-nx-v192-updates
+coverImage: /blog/covers/cherry-picked-nx-v192-updates.webp
 tags:
   - nx
   - monorepo
@@ -12,14 +11,12 @@ tags:
   - nodejs
 author:
   name: Jonathan Gelin
-  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+  profilePicture: /avatar.png
 type: article
 draft: false
 ---
 
 import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
-
-[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)
 
 <UrlEmbed url="https://github.com/nrwl/nx/releases/tag/19.2.0" /> 
 
@@ -117,17 +114,17 @@ A new interesting field [`buildLibsFromSource`](https://nx.dev/nx-api/webpack/ex
 
 To remember what is **incremental build**, let’s take that simple example:
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*Q4uu0MobV0PlaO6kPk-chg.png)
+![](\/blog/images/1*Q4uu0MobV0PlaO6kPk-chg.png)
 
 If you use **imports** between libs and you want to build `my-app` or `my-other-app` you’ll have to build **all files** from **all libs**:
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*IfpUo41baq3xh6YfvztemA.png)
+![](\/blog/images/1*IfpUo41baq3xh6YfvztemA.png)
 
 In that use case, each time something is modified in the app, even if `ui-lib` didn’t change, the entire app is rebuilt including the files in the `ui-lib`.
 
 But if you use **incremental build**, you’ll build `ui-lib` separately:
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*PrK3gj1598eYkWzbuaqhkA.png)
+![](\/blog/images/1*PrK3gj1598eYkWzbuaqhkA.png)
 
 With that approach, we can re-use the bundle of the previous build for the build of `my-app` or any other app that depends on it.
 
@@ -137,11 +134,11 @@ With that approach, we can re-use the bundle of the previous build for the build
 
 If you want to inject configurations in projects dynamically, you have to use the method `createNode`:
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*aIAlWGDnwsTSWK_YfmDUUw.png)
+![](\/blog/images/1*aIAlWGDnwsTSWK_YfmDUUw.png)
 
 But a new method `createNodesV2` and instead of invoking the plugin for each matching file, it runs just once with all files:
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*CBPc3Yzuv-1nQIZYd43LhQ.png)
+![](\/blog/images/1*CBPc3Yzuv-1nQIZYd43LhQ.png)
 
 With that approach, you’ll:
 
@@ -172,7 +169,7 @@ export const createNodesV2: CreateNodesV2 = ['**/config.json', async (configFile
 
 This new function will replace the `createNodes` function in Nx v21:
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*kTLEfTaC9jnzjbfQMD8HDw.png)
+![](\/blog/images/1*kTLEfTaC9jnzjbfQMD8HDw.png)
 
 More info in the video:
 
@@ -186,4 +183,4 @@ More info in the video:
 
 ---
 
-[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)
+[![](/blog/images/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)

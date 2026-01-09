@@ -2,8 +2,7 @@
 title: "🩹 Nx Crystal Plugin Picking the Essentials"
 subtitle: "Exploring Workarounds and Custom Solutions for Early Days of Nx 18"
 publishedAt: 2024-03-23
-coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1711192648342/08052194-52e9-44e8-b955-1bb521c25761.png
-canonicalUrl: https://gelinjo.hashnode.dev/nx-crystal-plugin-picking-the-essentials
+coverImage: /blog/covers/nx-crystal-plugin-picking-the-essentials.png
 tags:
   - nx
   - monorepo
@@ -13,14 +12,12 @@ tags:
   - npm
 author:
   name: Jonathan Gelin
-  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+  profilePicture: /avatar.png
 type: article
 draft: false
 ---
 
 import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
-
-[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
 
 As specified in my article, [⛔ Target Exclusions in Nx Project Crystal](https://medium.com/@jgelin/target-exclusions-in-nx-project-crystal-fbabce816b21), there are use cases that necessitate extending the Nx Project Crystal. However, it is not possible to hook only a specific part of the plugin. You either take it all or you don’t use it at all. Only the `createNode` function is exposed, but that function does more than one thing.
 
@@ -36,7 +33,7 @@ I pursued this solution because I appreciate the Nx Project Configuration infere
 
 However, with the current plugins, it is not possible because they enforce that only projects containing a `project.json` will be taken into account. For example, I would like to keep the benefit of dynamic test target assignment from the `@nx/jest/plugin` but without the filter on the `project.json`.
 
-You can check the section [Create Your Cyrstal Plugin](https://jgelin.medium.com/discovering-nx-project-crystals-magic-7f42faf2a135#8a48) of my article [💎 Discovering Nx Project Crystal’s Magic](https://jgelin.medium.com/discovering-nx-project-crystals-magic-7f42faf2a135) if you want to know what I am talking about 🙃
+You can check the section [Create Your Crystal Plugin](/blog/discovering-nx-project-crystals-magic#heading-create-your-crystal-plugin) of my article [💎 Discovering Nx Project Crystal's Magic](/blog/discovering-nx-project-crystals-magic) if you want to know what I am talking about 🙃
 
 So, if I want to use the `@nx/jest/plugin` for the generation of the `test` target, I’ll need to expose the internal function [`buildJestTargets`](https://github.com/nrwl/nx/blob/286e83dbe9233bd4fb227658a27bc79796694b85/packages/jest/src/plugins/plugin.ts#L116). To do so, I'll need to patch the `@nx/jest/plugin` library 😈
 
@@ -194,7 +191,7 @@ Got more ideas? Feel free to share, and I’ll eagerly incorporate them. Let’s
 
 ---
 
-[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
+[![](/blog/images/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
 
 [  
 ](https://medium.com/tag/npm?source=post_page-----16688f05228c---------------npm-----------------)

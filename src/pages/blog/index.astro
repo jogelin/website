@@ -3,12 +3,23 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/Footer.astro';
 import Navbar from '../../components/Navbar.astro';
-import Card from '../../components/Card.astro';
+import PostCard from '../../components/content/PostCard.astro';
 
 const posts = await getCollection('posts', ({ data }) => !data.draft);
 const sortedPosts = posts.sort(
   (a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
 );
+
+function groupContentsForMasonry<T>(contents: T[], columns: number): T[][] {
+  const grouped = Array.from({ length: columns }, () => []) as T[][];
+  contents.forEach((content, index) => {
+    grouped[index % columns].push(content);
+  });
+  return grouped;
+}
+
+const columns = 3;
+const masonryPosts = groupContentsForMasonry(sortedPosts, columns);
 ---
 
 <Layout title="Blog | Jonathan Gelin">
@@ -23,17 +34,14 @@ const sortedPosts = posts.sort(
         </p>
       </header>
 
-      <div class="posts-grid">
+      <div class="posts-masonry">
         {
-          sortedPosts.map((post) => (
-            <Card
-              type={post.data.type === 'article' ? 'ARTICLE' : 'NOTE'}
-              startDate={post.data.publishedAt.toISOString()}
-              picture={post.data.coverImage ?? ''}
-              links={[{ name: 'Read More', href: `/blog/${post.id}` }]}
-              title={post.data.title}
-              description={post.data.subtitle}
-            />
+          masonryPosts.map((col) => (
+            <div class="column">
+              {col.map((post) => (
+                <PostCard post={post as { id: string; data: any }} />
+              ))}
+            </div>
           ))
         }
       </div>
@@ -98,22 +106,22 @@ const sortedPosts = posts.sort(
     color: #94a3b8;
   }
 
-  .posts-grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 24px;
+  .posts-masonry {
+    columns: 1;
+    gap: 16px;
   }
 
-  @media (min-width: 640px) {
-    .posts-grid {
-      grid-template-columns: repeat(2, 1fr);
+  @media (min-width: 768px) {
+    .posts-masonry {
+      columns: 3;
     }
   }
 
-  @media (min-width: 1024px) {
-    .posts-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+  .column {
+    break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .empty-state {

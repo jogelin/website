@@ -2,8 +2,7 @@
 title: "💎 Discovering Nx Project Crystal’s Magic"
 subtitle: "Navigating the Evolution of Nx Configuration Towards Effortless Development"
 publishedAt: 2024-02-26
-coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1708965023428/d43cb50e-af43-4b73-b37c-d4ba90ec0c61.webp
-canonicalUrl: https://gelinjo.hashnode.dev/discovering-nx-project-crystals-magic
+coverImage: /blog/covers/discovering-nx-project-crystals-magic.webp
 tags:
   - nx
   - angularjs
@@ -12,25 +11,23 @@ tags:
   - monorepo
 author:
   name: Jonathan Gelin
-  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+  profilePicture: /avatar.png
 type: article
 draft: false
 ---
 
-[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
+import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
+import BlogEmbed from "../../components/embeds/BlogEmbed.astro";
 
 # **Overview**
 
-After delving into this feature in my previous articles:
+If you want to explore more about Nx plugins and configurations, check out my related articles:
 
-* [🚡 Nx Targets Elevated (Part One)](https://jgelin.medium.com/nx-targets-elevated-part-one-f421062818e6),
-    
-* [🚡 Nx Targets Elevated (Part Two)](https://jgelin.medium.com/nx-targets-elevated-part-two-9edc56cf1a00)
-    
-* [✌️ Nx Plugin v2: Dynamic Project Configurations](https://jgelin.medium.com/%EF%B8%8F-nx-plugin-v2-dynamic-project-configurations-6055ba700105)
-    
+<BlogEmbed slug="poly-monorepos-with-nx" title="Poly-Monorepos with Nx" />
 
-I’m excited to discuss again one of my favorite Nx features: **“The Inferred Project Configurations.”** The [Nx](https://medium.com/u/2817fb68583?source=post_page-----7f42faf2a135--------------------------------) team now introduces a unified approach known as [**Nx Project Crystal**](https://nx.dev/concepts/inferred-tasks) 💎.
+<BlogEmbed slug="10-tips-for-successful-nx-plugin-architecture" title="10 Tips for Successful Nx Plugin Architecture" />
+
+I'm excited to discuss again one of my favorite Nx features: **“The Inferred Project Configurations.”** The [Nx](https://medium.com/u/2817fb68583?source=post_page-----7f42faf2a135--------------------------------) team now introduces a unified approach known as [**Nx Project Crystal**](https://nx.dev/concepts/inferred-tasks) 💎.
 
 **In this article, I’ll cover:**
 
@@ -49,7 +46,7 @@ To grasp the concept of [**Nx Project Crystal**](https://nx.dev/concepts/inferre
 
 ***“In the beginning, there was nothing”.*** The [Nx](https://medium.com/u/2817fb68583?source=post_page-----7f42faf2a135--------------------------------) team began defining a monorepo structure for apps and libs using [`angular.json`](https://angular.io/guide/workspace-config), tied to [Angular CLI](https://angular.io/cli):
 
-![](https://miro.medium.com/v2/resize:fit:700/1*RrRcFAXXkvJPrV0ySuoguA.png)
+![](\/blog/images/1*RrRcFAXXkvJPrV0ySuoguA.png)
 
 However, this initial approach was specific to Angular, lacking generality and extensibility.
 
@@ -57,7 +54,7 @@ However, this initial approach was specific to Angular, lacking generality and e
 
 A v2 schema introduced the[`workspace.json`](https://nx.dev/deprecated/workspace-json#workspacejson) files\*\*.\*\* Some concepts were generalized such as the [executors (instead of a builder) or the generators (instead of schematics).](https://nx.dev/concepts/more-concepts/nx-and-angular#executors-vs-builders-generators-vs-schematics)
 
-![](https://miro.medium.com/v2/resize:fit:700/1*usOhxs-zq8yXvGtPwschbQ.png)
+![](\/blog/images/1*usOhxs-zq8yXvGtPwschbQ.png)
 
 The new format proved useful due to its extensibility and generality. However, maintaining a large codebase within a single file presented challenges. Consequently, the demand for greater flexibility and project-specific specifications increased.
 
@@ -65,7 +62,7 @@ The new format proved useful due to its extensibility and generality. However, m
 
 Thus, the concept of distributed configuration emerged with the [`project.json`](https://nx.dev/core-tutorial/02-create-cli#projectjson-syntax) (or package.json) file. It maintained the same format but was divided and specified at the root of each project.
 
-![](https://miro.medium.com/v2/resize:fit:700/1*nGFYkV2T3f3nmIsArw_0bg.png)
+![](\/blog/images/1*nGFYkV2T3f3nmIsArw_0bg.png)
 
 Defining a project has become straightforward — simply add that file, and you’re done. However, the proliferation of files implies challenging maintenance due to significant duplication. This situation necessitated the development of migration scripts to manage these configurations effectively.
 
@@ -75,17 +72,17 @@ Additionally, there emerged a requirement to support technologies not adhering t
 
 Then, **project inference** appeared, introducing the possibility of assigning project configurations simply through **glob pattern matching**. [An Nx plugin](https://nx.dev/extending-nx/tutorials/create-plugin) exposes specific functions that are automatically loaded by the Nx core, and voilà, you have dynamic configuration :)
 
-It began with [Plugin v1](https://nx.dev/deprecated/v1-nx-plugin-api), which only assigned a list of targets for existing projects (see [🚡 Nx Targets Elevated](https://jgelin.medium.com/nx-targets-elevated-part-one-f421062818e6)).
+It began with [Plugin v1](https://nx.dev/deprecated/v1-nx-plugin-api), which only assigned a list of targets for existing projects (see [🏘️ Poly-Monorepos with Nx](/blog/poly-monorepos-with-nx)).
 
-![](https://miro.medium.com/v2/resize:fit:700/1*qU_0WQZU7QJrjOB93HYwOw.png)
+![](\/blog/images/1*qU_0WQZU7QJrjOB93HYwOw.png)
 
-Then came [Plugin v2](https://nx.dev/extending-nx/recipes/project-graph-plugins), offering the ability to dynamically add project nodes with full configuration, even if they do not exist in your codebase (see [✌️ Nx Plugin v2: Dynamic Project Configurations](https://jgelin.medium.com/%EF%B8%8F-nx-plugin-v2-dynamic-project-configurations-6055ba700105)).
+Then came [Plugin v2](https://nx.dev/extending-nx/recipes/project-graph-plugins), offering the ability to dynamically add project nodes with full configuration, even if they do not exist in your codebase (see [💡 10 Tips for Successful Nx Plugin Architecture](/blog/10-tips-for-successful-nx-plugin-architecture)).
 
-![](https://miro.medium.com/v2/resize:fit:700/1*mcfSzTVAJm_3TRIdKxCKCA.png)
+![](\/blog/images/1*mcfSzTVAJm_3TRIdKxCKCA.png)
 
 And finally, a consolidated approach to that concept was integrated into Nx:
 
-![](https://miro.medium.com/v2/resize:fit:700/0*TImMnQrUaEGs0KTH.jpg)
+![](\/blog/images/0*TImMnQrUaEGs0KTH.jpg)
 
 # **Project Crystal in a Nutshell**
 
@@ -103,7 +100,7 @@ nx add @nx/vite
 
 Automatically, all projects that contain a `vite.config.*` file will have new tasks assigned. You will be able to use `build`, `preview`, `test`, `serve` and `serve-static` directly:
 
-![](https://miro.medium.com/v2/resize:fit:700/1*lTSmh5cI1mt4FLCd0RcBYw.png)
+![](\/blog/images/1*lTSmh5cI1mt4FLCd0RcBYw.png)
 
 This is true for Vite, but it is also applies to many other plugins, such as:
 
@@ -144,7 +141,7 @@ However, it’s challenging to generalize targets like build or serve because th
 
 Let’s take a look behind the scenes to understand how we can benefit from this feature.
 
-![](https://miro.medium.com/v2/resize:fit:700/1*ZRLyFoT9uIRc3liNAfQmzQ.png)
+![](\/blog/images/1*ZRLyFoT9uIRc3liNAfQmzQ.png)
 
 As you can see, Nx computes the project graph configuration by loading configurations from multiple places:
 
@@ -165,7 +162,7 @@ nx show project myreactapp --web
 
 And you will be able to visualize all of the configurations for your project
 
-![](https://miro.medium.com/v2/resize:fit:700/1*pZIigX5sT2oYliA39e8NPA.png)
+![](\/blog/images/1*pZIigX5sT2oYliA39e8NPA.png)
 
 > *This is also visible in the*[*Nx console plugin*](https://nx.dev/recipes/nx-console)*in your IDE!*
 
@@ -228,7 +225,7 @@ Then, you can begin implementing your plugin. I highly recommend examining some 
 
 I chose the [@nx/vite](https://github.com/nrwl/nx/blob/master/packages/vite/src/plugins/plugin.ts) plugin to illustrate the mechanism:
 
-![](https://miro.medium.com/v2/resize:fit:700/1*OP6MbLdELLjk0J-D7_N8cQ.png)
+![](\/blog/images/1*OP6MbLdELLjk0J-D7_N8cQ.png)
 
 > *Many functions are omitted because they are specific to the plugin and not necessary to grasp the main structure of the plugin.*
 
@@ -263,7 +260,7 @@ Adhering to the “[**Don’t Repeat Yourself**](https://en.wikipedia.org/wiki/D
 
 ## **Centralize your workspace conventions**
 
-As I discussed in my previous article [⚡ The Super Power of Conventions with Nx](https://jgelin.medium.com/the-super-power-of-conventions-with-nx-8d418150b679), for teams managing large codebases, enhancing the development experience through established conventions is invaluable. These can be rules or best practices, encapsulated within an Nx plugin to uniformly apply across your workspace.
+As I discussed in my article [👥 Reproducible Nx Workspace with HugeNx's Conventions](/blog/reproducible-nx-workspace-with-hugenxs-conventions), for teams managing large codebases, enhancing the development experience through established conventions is invaluable. These can be rules or best practices, encapsulated within an Nx plugin to uniformly apply across your workspace.
 
 ## **Speed up the Nx adoption on the existing repository!**
 
@@ -364,7 +361,7 @@ As highlighted in the flow chart, configurations are not deeply merged, meaning 
 
 And a project contains both `Cypress` and `Playwright` tests, Nx will first invoke `@nx/cypress` and then `@nx/playwright`.
 
-![](https://miro.medium.com/v2/resize:fit:700/1*K-PsJbGqMYmaXmA1-5WgHA.png)
+![](\/blog/images/1*K-PsJbGqMYmaXmA1-5WgHA.png)
 
 **To address this**, you can rename one of the targets using the plugin options in `nx.json`:
 
@@ -384,7 +381,7 @@ And a project contains both `Cypress` and `Playwright` tests, Nx will first invo
 
 This allows you to run both targets:
 
-![](https://miro.medium.com/v2/resize:fit:700/1*ulXxZBvERw-o5DN-DVfIRg.png)
+![](\/blog/images/1*ulXxZBvERw-o5DN-DVfIRg.png)
 
 ## [**Configs Order Matters**](https://nx.dev/concepts/inferred-tasks#overriding-inferred-task-configuration)**!**
 
@@ -442,4 +439,4 @@ So let’s embrace tools like Nx Project Crystal with open arms. They’re here 
 
 ---
 
-[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
+[![](/blog/images/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)

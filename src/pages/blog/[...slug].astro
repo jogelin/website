@@ -22,7 +22,7 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
 // Build meta image URL
 const ogImage = post.data.coverImage || 'https://smartsdlc.dev/linkedin-banner.png';
-const canonicalUrl = post.data.canonicalUrl || `https://smartsdlc.dev/blog/${post.id}`;
+const canonicalUrl = `https://smartsdlc.dev/blog/${post.id}`;
 ---
 
 <Layout title={`${post.data.title} | Jonathan Gelin`}>

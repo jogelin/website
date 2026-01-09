@@ -6,7 +6,6 @@ export const blogSchema = z.object({
   publishedAt: z.coerce.date(),
   updatedAt: z.coerce.date().optional(),
   coverImage: z.string().optional(),
-  canonicalUrl: z.string().url().optional(),
   tags: z.array(z.string()).default([]),
   author: z
     .object({

@@ -2,8 +2,7 @@
 title: "👥 Reproducible Nx Workspace with HugeNx’s Conventions"
 subtitle: "An Opinionated Approach to Maintaining and Scaling HugeNx Monorepos"
 publishedAt: 2024-05-05
-coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1714888462253/159379a6-db29-4785-84b6-f8315e8f99a0.png
-canonicalUrl: https://gelinjo.hashnode.dev/reproducible-nx-workspace-with-hugenxs-conventions
+coverImage: /blog/covers/reproducible-nx-workspace-with-hugenxs-conventions.png
 tags:
   - nx
   - nx-workspace
@@ -14,15 +13,13 @@ tags:
   - devops
 author:
   name: Jonathan Gelin
-  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+  profilePicture: /avatar.png
 type: article
 draft: false
 ---
 
 import Snappify from "../../components/embeds/Snappify.astro";
 import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
-
-[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
 
 After migrating multiple organizations to an Nx Monorepo and maintaining it, I discovered that with each major Nx version, I was **generating** a new repository on the side, **mimicking my existing repo**, to compare configuration files and ensure they matched the latest version of Nx.
 
@@ -36,7 +33,7 @@ After further reflection, I realized I wasn’t just creating a file to generate
 
 The main concept behind this library is the **HugeNx’s Conventions** file — a configuration file that **groups all conventional decisions** you’ve made about your Nx workspace. This file will describe how your workspace should look.
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*-qLEVpoWbkoY0QeYoCL3gg.png)
+![](\/blog/images/1*-qLEVpoWbkoY0QeYoCL3gg.png)
 
 If **HugeNx’s Conventions** file contains all the information on your targeted workspace, it means you can **generate a new workspace from scratch** or **even maintain an existing one**.
 
@@ -46,16 +43,16 @@ The first main convention I wanted to integrate is the concept of Nx **ProjectTy
 
 When you delve into the various resources about structuring an Nx workspace, you’ll encounter extensive explanations on categorizing your library by scope or type and creating tags that establish your boundaries:
 
-* [Code Organization & Naming Conventions](https://nx.dev/concepts/more-concepts/monorepo-nx-enterprise#code-organization-naming-conventions)
-    
-* [Library Types](https://nx.dev/concepts/more-concepts/library-types#library-types)
-    
-* [Domain Driven Design](https://github.com/angular-architects/nx-ddd-plugin/blob/main/libs/ddd/README.md)
+<UrlEmbed url="https://nx.dev/concepts/more-concepts/monorepo-nx-enterprise#code-organization-naming-conventions" />
+
+<UrlEmbed url="https://nx.dev/concepts/more-concepts/library-types#library-types" />
+
+<UrlEmbed url="https://github.com/angular-architects/nx-ddd-plugin/blob/main/libs/ddd/README.md" />
     
 
 However, I always missed a centralized way to specify this list of **ProjectTypes**. When you generate a project you lose the link with its source generator and its related technologies.
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*jXNpK44vmxx3Ks9u9ib2uw.png)
+![](\/blog/images/1*jXNpK44vmxx3Ks9u9ib2uw.png)
 
 This is why I wanted to keep that information. With the help of **HugeNx’s Conventions**, you can recognize your projects because they will follow the conventions you specified in them.
 
@@ -73,7 +70,7 @@ If you want to create a **more advanced workspace**, you’ll need t[o create yo
 
 This is why I decided to create a custom Nx preset that can generate an Nx workspace just by using **HugeNx’s Conventions**. You don’t need to create or maintain your own preset!
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*5WqFJuSp4eKAE9KnLTZThA.png)
+![](\/blog/images/1*5WqFJuSp4eKAE9KnLTZThA.png)
 
 You can regenerate your entire repository for **any Nx version**. This would help for comparing what changed and also for **simplifying** the way we currently create **Nx presets**.
 
@@ -85,7 +82,7 @@ Generating your repository from scratch is good, but being able to **maintain** 
 
 The main goal of **HugeNx’s Conventions** is to be the guardian, the **housekeeper** that will describe how your **workspace should look** and behave.
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*SdBxw1YwzgHI8uUhlkbjKg.png)
+![](\/blog/images/1*SdBxw1YwzgHI8uUhlkbjKg.png)
 
 \*\*Eslint Conventions Rules:  
 \*\*With the help of tools like **Eslint**, you can read that file and create rules to **enforce conventions** and:
@@ -298,4 +295,4 @@ Stay tuned! 🚀
 
 ---
 
-[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
+[![](/blog/images/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)

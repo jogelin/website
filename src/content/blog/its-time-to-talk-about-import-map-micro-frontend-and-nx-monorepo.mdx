@@ -2,8 +2,7 @@
 title: "⏰ It’s time to talk about Import Map, Micro Frontend, and Nx Monorepo"
 subtitle: "How leveraging native import map overrides can significantly benefit your micro frontend architecture"
 publishedAt: 2024-03-11
-coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1710140929124/1904ea0f-ca93-4af6-a3f7-e697dcb88414.webp
-canonicalUrl: https://gelinjo.hashnode.dev/its-time-to-talk-about-import-map-micro-frontend-and-nx-monorepo
+coverImage: /blog/covers/its-time-to-talk-about-import-map-micro-frontend-and-nx-monorepo.webp
 tags:
   - microfrontend
   - nx
@@ -12,7 +11,7 @@ tags:
   - reactjs
 author:
   name: Jonathan Gelin
-  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+  profilePicture: /avatar.png
 type: article
 draft: false
 ---
@@ -20,8 +19,6 @@ draft: false
 import YouTube from "../../components/embeds/YouTube.astro";
 import Snappify from "../../components/embeds/Snappify.astro";
 import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
-
-[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
 
 In this article, I am sharing about an architecture that has profoundly changed my perception of software development for **large enterprises** with **complex infrastructure** and **team organization**.
 
@@ -51,7 +48,7 @@ At that time, the micro frontend architecture was not yet popular and only the [
 
 Single-spa orchestrates the micro frontend by toggling between AngularJS or Angular implementations based on a feature flag:
 
-![](https://miro.medium.com/v2/resize:fit:700/1*Z8-qR22LiwSYfWokUMGyHg.png)
+![](\/blog/images/1*Z8-qR22LiwSYfWokUMGyHg.png)
 
 Using [single-spa](https://single-spa.js.org/docs/getting-started-overview/) has significantly enhanced my understanding of implementing micro frontend architecture, particularly highlighting the substantial benefits of utilizing **import maps** and **micro frontend overrides**. These tools have greatly improved my experience in **local development**, **testing**, and **deployment**.
 
@@ -61,7 +58,7 @@ Using [single-spa](https://single-spa.js.org/docs/getting-started-overview/) has
 
 To grasp the following subjects, I believe it’s crucial first to recall the **basics** of the web, focusing on the primary flow of a **browser running a web application**:
 
-![](https://miro.medium.com/v2/resize:fit:1000/1*lwsu5jRHymlzAoLPyeOSNw.png)
+![](\/blog/images/1*lwsu5jRHymlzAoLPyeOSNw.png)
 
 1. The first action is always to **get an**`index.html` file, which has everything needed to start the application.
     
@@ -76,7 +73,7 @@ To grasp the following subjects, I believe it’s crucial first to recall the **
 
 Let’s start with a short definition: the micro frontend architecture involves **breaking down** a frontend application into **smaller**, more **manageable** pieces — each responsible for a **distinct feature** or **domain** of your application. It’s often compared to the [microservices concept](https://avinetworks.com/glossary/microservice/) but at the frontend layer.
 
-![](https://miro.medium.com/v2/resize:fit:1000/1*kjgwm0M4or2MpBMtOz6TTA.png)
+![](\/blog/images/1*kjgwm0M4or2MpBMtOz6TTA.png)
 
 Determining the exact point at which an application adheres to micro frontend architecture can be challenging, like defining the ideal size for a microservice.
 
@@ -86,7 +83,7 @@ The key aspect is having a platform capable of **plugging** in and **combining**
 
 There are many use cases where the micro frontend architecture can be useful:
 
-![](https://miro.medium.com/v2/resize:fit:700/1*N_bfnU1rpK63P9Tk2tI05Q.png)
+![](\/blog/images/1*N_bfnU1rpK63P9Tk2tI05Q.png)
 
 * **Multiple Frameworks**: The most common use case involves integrating various technologies into a single product, particularly useful for unifying disparate systems.
     
@@ -103,7 +100,7 @@ There are many use cases where the micro frontend architecture can be useful:
 
 In a micro-frontend architecture, we distinguish various types of entities, each adhering to a distinct concept:
 
-![](https://miro.medium.com/v2/resize:fit:700/1*NWqu66qU5pStdzRE3iTBmw.png)
+![](\/blog/images/1*NWqu66qU5pStdzRE3iTBmw.png)
 
 * **The Micro Frontend** (or micro app) is loaded by the **Host** upon navigation or routing. Each micro frontend is responsible for a distinct feature or domain within the application. Like any app, it can contain child routes and multiple components.
     
@@ -114,7 +111,7 @@ In a micro-frontend architecture, we distinguish various types of entities, each
 
 There are several implementations of the micro frontend architecture, and I’ll delve into three notable ones here:
 
-![](https://miro.medium.com/v2/resize:fit:700/1*Q4yVmTeoFianKPz3vTDffQ.png)
+![](\/blog/images/1*Q4yVmTeoFianKPz3vTDffQ.png)
 
 * **Single-spa**: This framework keeps things **simple** and works with many technologies. However, its **simplicity** might mean you have to do more work if you’re using just one technology.
     
@@ -127,7 +124,7 @@ There are several implementations of the micro frontend architecture, and I’ll
 
 Let’s begin with the most intriguing aspect. In my opinion, the import map is an **underappreciated browser technology**. It is compatible with all browsers and plays a role in directly supporting JavaScript modules in the browser.
 
-![](https://miro.medium.com/v2/resize:fit:700/1*ZFxI9T6R0dBEJ-xQfWhhMQ.png)
+![](\/blog/images/1*ZFxI9T6R0dBEJ-xQfWhhMQ.png)
 
 > *For full compatibility and extra features, we usually use the library*[`es-module-shims`](https://github.com/guybedford/es-module-shims).
 
@@ -175,7 +172,7 @@ This import map can be specified **inline** or as an **external file**, like:
 
 As I mentioned, the micro frontend architecture is a just a way for dynamically loading bundles from the browser and integrating them into the actual apps.
 
-![](https://miro.medium.com/v2/resize:fit:1000/1*EOk2AkSz9uI9BlXJwmdD9w.png)
+![](\/blog/images/1*EOk2AkSz9uI9BlXJwmdD9w.png)
 
 This orchestration is the role of the **Host**. However, when the host needs to load an **ES module**, it can simply utilize the **JS import system** and, with the aid of the **import map**, map the module to its location
 
@@ -185,7 +182,7 @@ Similarly, for **Parcels**, when you need to load a component on demand, the imp
 
 You can declare multiple import maps in the same HTML. This means that if two import maps declare the same key, the last one will override the previous one.
 
-![](https://miro.medium.com/v2/resize:fit:700/1*SR9Lb4m2XmkUlbENitCfWw.png)
+![](\/blog/images/1*SR9Lb4m2XmkUlbENitCfWw.png)
 
 By injecting a new import map into your HTML, you can hook/remap any bundle. Thus, you can replace a micro frontend, a component, or even a shared library!
 
@@ -201,7 +198,7 @@ CSP helps whitelist trusted domains, significantly reducing the risk of [Cross-S
 
 Now that we understand the principles of the import map and the fact that we can override the bundles loading directly in the browser, let’s see how we can get the advantage of that concept within our development process:
 
-![](https://miro.medium.com/v2/resize:fit:700/1*UwSNK1aj7UNKuiBEieW_DA.png)
+![](\/blog/images/1*UwSNK1aj7UNKuiBEieW_DA.png)
 
 ## **Local Development**
 
@@ -222,7 +219,7 @@ Instead of running an entire complex ecosystem, you can just plug your local env
 
 To do so, you just need to serve your micro frontend locally and use the import map override principle on the distant environment:
 
-![](https://miro.medium.com/v2/resize:fit:1000/1*YNlJVo0XGDobRDzUPUqp7g.png)
+![](\/blog/images/1*YNlJVo0XGDobRDzUPUqp7g.png)
 
 After the reload, the micro frontend loaded by the browser will be not the one on the distant server but the one on your local machine.
 
@@ -237,7 +234,7 @@ When you’ve completed your implementation (and tested it 😋), you typically 
 **Facilitate Reviews**  
 You can once again leverage the advantage of import map overriding to make the review process easier, allowing reviewers to validate your changes without needing to deploy or clone the code locally:
 
-![](https://miro.medium.com/v2/resize:fit:1000/1*_Fggqc2xVM0XdEr0XurW_A.png)
+![](\/blog/images/1*_Fggqc2xVM0XdEr0XurW_A.png)
 
 At this stage, the CI will build your app and generate new bundles for the modified micro frontend. Additionally, you can generate an [affected `importmap.json`](https://medium.com/p/0b8e2c07568a#c8c8) with the updated bundles.
 
@@ -250,7 +247,7 @@ This step signifies the moment when you need to confirm that your code is ready 
 
 Typically, this is run several times per day with the most recent codebase in an environment that mirrors production. In this scenario, you’ll generate an `importmap.json` that includes the latest versions of all bundles:
 
-![](https://miro.medium.com/v2/resize:fit:1000/1*8wjUKWJqn-HuYrh8yecWcQ.png)
+![](\/blog/images/1*8wjUKWJqn-HuYrh8yecWcQ.png)
 
 If the latest `importmap.json` generated proves successful, it can then become a release candidate for production.
 
@@ -258,7 +255,7 @@ If the latest `importmap.json` generated proves successful, it can then become a
 
 When your release is validated and ready, you can consider deploying it to production. Here, too, having an `importmap.json` offers significant advantages.
 
-![](https://miro.medium.com/v2/resize:fit:700/1*r-reJLUzJv8NGBQKczGu-A.png)
+![](\/blog/images/1*r-reJLUzJv8NGBQKczGu-A.png)
 
 **Deploy in a Sec**  
 You can deploy/upload your bundles to production at any time. Until the `importmap.json` references them, they will not be loaded. Thus, deployment involves merely modifying and uploading the latest import map. This deployment process takes a mere second, requires no freeze, and is completely transparent to the user.
@@ -311,7 +308,7 @@ The monorepo approach, coupled with a single version policy, ensures by design t
 
 Like I said at the beginning, I think now the ecosystem is mature enough to apply the same principles by using **Angular**, or other frameworks using **esbuild**, and **Native Federation** within an **Nx** monorepo.
 
-![](https://miro.medium.com/v2/resize:fit:700/1*rrsN8V_FgdpINfWPpS0-0w.png)
+![](\/blog/images/1*rrsN8V_FgdpINfWPpS0-0w.png)
 
 > *I encourage you to have a look at the*[*blog post annoucing Native Federation*](https://www.angulararchitects.io/en/blog/announcing-native-federation-1-0/)
 
@@ -344,7 +341,7 @@ npx nx run mf-admin:serve
 
 4\. Then, access the URL [https://nx-nf-a2d7c.web.app/admin](https://nx-nf-a2d7c.web.app/admin) where I have already deployed the application. You should see the application:
 
-![](https://miro.medium.com/v2/resize:fit:700/1*JMlrS-5KJoyXOiDCznL_og.png)
+![](\/blog/images/1*JMlrS-5KJoyXOiDCznL_og.png)
 
 5\. Now, open your favorite browser debugging tool and connect your local server to the remote application by adding this entry in the local storage:
 
@@ -354,11 +351,11 @@ localStorage.setItem('native-federation-override:mfAdmin', 'http://localhost:420
 
 6\. Then, make modifications to the `mf-admin` micro frontend. For example, change the message from "Welcome to the Admin Page" to “Welcome to the LOCAL Admin Page”
 
-![](https://miro.medium.com/v2/resize:fit:686/1*s8AiivLR8OwgOvBJ8pLHQA.png)
+![](\/blog/images/1*s8AiivLR8OwgOvBJ8pLHQA.png)
 
 7\. After you make changes, reload the page, and you should see your modifications reflected on the remote server immediately!
 
-![](https://miro.medium.com/v2/resize:fit:700/1*dhQA1_LBDZZOjZZ3XD7skw.png)
+![](\/blog/images/1*dhQA1_LBDZZOjZZ3XD7skw.png)
 
 8\. To revert the changes, simply remove the entry from the local storage and refresh the page to see the original state again.
 
@@ -384,7 +381,7 @@ The hope for more native features like these grows, promising a simpler, yet mor
 
 🚀 Stay Tuned!
 
-[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
+[![](/blog/images/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
 
 ## Talks
 
@@ -406,12 +403,12 @@ The hope for more native features like these grows, promising a simpler, yet mor
 
 [Joel Denn](https://youtu.be/04fcqC8Ghjc?t=12385)ing is the visionary behind [single-spa](https://single-spa.js.org/), boasting profound insights into the true mechanics of the web and is, in my view, a pioneer in micro frontend architecture. I highly recommend checking the [single-spa](https://single-spa.js.org/) website and his [YouTube channel](https://www.youtube.com/@jbdenning/videos). While the videos might appear dated at first glance, rest assured, Joel is ahead of his time, and the content remains incredibly relevant today.
 
-![single-spa framework from Joel Denning](https://miro.medium.com/v2/resize:fit:700/1*UeCxuj4NpzmZwIm-a_SNqA.png)
+![single-spa framework from Joel Denning](\/blog/images/1*UeCxuj4NpzmZwIm-a_SNqA.png)
 
 ## [**Manfred Steyer**](https://medium.com/u/acb3f1945710?source=post_page-----0b8e2c07568a--------------------------------)
 
 Engineer, Architect, Speaker, Trainer, Consultant, and Author, Manfred knows what he is talking about. For everyone, not just Angular, interested in micro frontends and web architecture in general, I encourage you to have a look at his book [Enterprise Angular: Micro Frontends and Moduliths with Angular](https://www.angulararchitects.io/en/ebooks/micro-frontends-and-moduliths-with-angular/) and the blog of the [Angular Architect](https://www.angulararchitects.io/en/blog/) team.
 
-![Micro frontend and moduliths with Angular from Manfred Steyer](https://miro.medium.com/v2/resize:fit:400/0*VbQZYb3aOPkJgJXc.png)
+![Micro frontend and moduliths with Angular from Manfred Steyer](\/blog/images/0*VbQZYb3aOPkJgJXc.png)
 
 ---

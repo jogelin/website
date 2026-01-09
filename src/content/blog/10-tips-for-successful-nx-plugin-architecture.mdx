@@ -2,8 +2,7 @@
 title: "💡 10 Tips for Successful Nx Plugin Architecture"
 subtitle: "Insights from Using Nx Plugin Architecture in Monorepos"
 publishedAt: 2025-01-09
-coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1736422834786/96e34dce-d757-4756-86c4-c1dbeb5dcbdb.webp
-canonicalUrl: https://gelinjo.hashnode.dev/10-tips-for-successful-nx-plugin-architecture
+coverImage: /blog/covers/10-tips-for-successful-nx-plugin-architecture.webp
 tags:
   - nx
   - monorepo
@@ -12,14 +11,13 @@ tags:
   - nodejs
 author:
   name: Jonathan Gelin
-  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+  profilePicture: /avatar.png
 type: article
 draft: false
 ---
 
 import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
-
-[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)
+import BlogEmbed from "../../components/embeds/BlogEmbed.astro";
 
 Nx provides many features, and I often see that Nx users don’t know or are **afraid of extending Nx** by implementing Nx Plugins.
 
@@ -31,13 +29,13 @@ In this article, I simply want to write down some tips that help in implementing
 
 Are you creating reusable functions? Are you creating utilities? If yes, then this is exactly what Nx Plugins are used for in the Nx ecosystem.
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*XBIhWNoagHdjyWl_w3eXSg.png)
+![](\/blog/images/1*XBIhWNoagHdjyWl_w3eXSg.png)
 
 I often see that Nx users are afraid and consider Nx Plugins as advanced configuration. However, they are working on complex monorepos with duplicated configurations.
 
 If you want to know more about what Nx plugins can bring, I encourage you to look at my following article:
 
-[Read: poly monorepos with nx](/blog/poly-monorepos-with-nx) 
+<BlogEmbed slug="poly-monorepos-with-nx" title="Poly-Monorepos with Nx" /> 
 
 ## **2\. Use Inference over Generators, Executors, and Migrations**
 
@@ -52,13 +50,13 @@ If you want to know more about what Nx plugins can bring, I encourage you to loo
 
 **Since Nx Project Crystal**, many customizations can be simply removed:
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*o_BGHDVXa8mwwL3S39B7EQ.png)
+![](\/blog/images/1*o_BGHDVXa8mwwL3S39B7EQ.png)
 
 ### **Generators Simplification**
 
 They **become simpler** because custom configurations are handled within the plugin itself:
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*e8XmeTZFfL0GHK9gKAz2cQ.png)
+![](\/blog/images/1*e8XmeTZFfL0GHK9gKAz2cQ.png)
 
 For example, you don’t need to use generators for generating project configuration because it will be supported by your plugin directly. For some use cases, you can even **delete the custom generator** and use the core Nx Plugin.
 
@@ -66,7 +64,7 @@ For example, you don’t need to use generators for generating project configura
 
 Instead of writing a custom executor, you can now execute c**ustom Nx commands** or set custom configurations based on the project:
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*yhl-X3gofLfgqllDXrPMQw.png)
+![](\/blog/images/1*yhl-X3gofLfgqllDXrPMQw.png)
 
 For example, if you previously needed an executor to generate types at the root of your project, such as `“executor”: “@org/openapi:typescript”`, it is no longer required. This functionality can now be automatically handled by your plugin, `@org/openapi/plugin`.
 
@@ -74,7 +72,7 @@ For example, if you previously needed an executor to generate types at the root 
 
 **Fewer migrations** are needed. In fact, instead of running migrations on distributed repositories, you just need to **update the plugins**, and you’ll get all new configurations for free.
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*4khIeFbzS_60QlGWulsy2g.png)
+![](\/blog/images/1*4khIeFbzS_60QlGWulsy2g.png)
 
 For example, if you needed to update project configurations during an upgrade, you can now **simply update** your project with the new version of the Nx plugins, and you’ll automatically get the updated inferred configuration.
 
@@ -89,13 +87,13 @@ An Nx plugin can serve multiple features (generators, executors, inference, etc.
 
 🚫 If you mix and expose all of these features in [one big barrel file](https://dev.to/thepassle/a-practical-guide-against-barrel-files-for-library-authors-118c), you can **import undesired libraries** and have **performance issues** when using them:
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*k0lc_XQceUNPc2f6976rPg.png)
+![](\/blog/images/1*k0lc_XQceUNPc2f6976rPg.png)
 
 When using local plugins, Nx compiles the entire plugin code at runtime, even if only a single plugin is being used.
 
 ✅ It is important to have **one entry point for each feature** especially for inferred configurations:
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*za9uja3NRT3qCC6ScChnUA.png)
+![](\/blog/images/1*za9uja3NRT3qCC6ScChnUA.png)
 
 [One Nx core plugin that really well illustrates this approach is the `@nx/angular` package.](https://github.com/nrwl/nx/tree/master/packages/angular)
 
@@ -127,7 +125,7 @@ Like any library, it is recommended to **structure your project per domain**. Th
 
 The alternative is to use a more generic pattern. This approach allows you to trigger the plugin for multiple types of files and then route each file to a specific subset of configurations.
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*peHb60LYaC0T4jCgbUwihA.png)
+![](\/blog/images/1*peHb60LYaC0T4jCgbUwihA.png)
 
 Check the **Tip 9. Create Reusable Utilities for Your Plugins** for an implementation of that approach which is using the [`combinePattern`](https://github.com/nrwl/nx/blob/addf107471dea6df5d22e3399ba361dc8368b242/packages/nx/src/utils/globs.ts#L1) utility provided by Nx.
 
@@ -139,11 +137,11 @@ One aspect difficult to control is the number of projects impacted by one plugin
 
 If you use the command `nx show project [projectName]`, you'll see which configurations are generated by a plugin:
 
-![](https://miro.medium.com/v2/resize:fit:1314/1*s9C88y_GAz9Ew5fALlmkEg.png)
+![](\/blog/images/1*s9C88y_GAz9Ew5fALlmkEg.png)
 
 But if you want a **global overview of affected projects** by one plugin, for each plugin, you can add a tag related to that plugin.
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*06XP5NgGPTHRwC431uD3EQ.png)
+![](\/blog/images/1*06XP5NgGPTHRwC431uD3EQ.png)
 
 For example, you could add a tag `nx-plugin:jest` in you custom jest plugin.
 
@@ -173,7 +171,7 @@ As mentioned in the previous tip, if you check the list of plugins in the Nx rep
 
 However, an organization monorepo is often aligned with teams or products. Therefore, it makes sense to have multiple types of plugins **tailored to the specific domains** they serve.
 
-![](https://miro.medium.com/v2/resize:fit:1400/0*xlPPcTePtU12d8w-.png)
+![](\/blog/images/0*xlPPcTePtU12d8w-.png)
 
 * **The First layer** will directly use the **Nx Plugins**.
     
@@ -390,7 +388,7 @@ There are two approaches for assigning configurations for a project:
 
 For each plugin, the pattern will match one specific file. You’ll have multiple plugin execution for each project:
 
-![](https://miro.medium.com/v2/resize:fit:1310/1*I4CPt18X-qTAbGfXBHtSeg.png)
+![](\/blog/images/1*I4CPt18X-qTAbGfXBHtSeg.png)
 
 For example, if one project contains a `jest.config.ts` file and a `tsconfig.json` file, two plugins can generate a related configuration for that project. Then both configurations will be merged.
 
@@ -400,7 +398,7 @@ On large monorepos, this approach can have performance issue when running comman
 
 The pattern will match only the `project.json` or a structure that will allow you to generate the project only one time. Then the plugin will scan the files around that project to assign configurations.
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*6RqOJ_qxNbjriBwFWElkhQ.png)
+![](\/blog/images/1*6RqOJ_qxNbjriBwFWElkhQ.png)
 
 **Choosing a file-centric approach or the project-centric approach depends on multiple factors, like the size of your Monorepo or the way your plugin is implemented.**
 
@@ -414,19 +412,14 @@ I hope this list of tips helps you feel more confident in making decisions and a
 
 If you have additional tips or ask questions, feel free to contact me or book a call. More information is available on my website below 👇
 
-[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)
-
 ---
 
-## **<mark>R</mark>esources**
+## **Resources**
 
 <UrlEmbed url="https://nx.dev/extending-nx/intro/getting-started" /> 
 
-[Read: poly monorepos with nx](/blog/poly-monorepos-with-nx) 
+<BlogEmbed slug="poly-monorepos-with-nx" title="Poly-Monorepos with Nx" /> 
 
 <UrlEmbed url="https://nx.dev/blog/dynamic-targets-with-inference-tasks" /> 
 
-[Read: discovering nx project crystals magic](/blog/discovering-nx-project-crystals-magic) 
-
-[  
-](https://medium.com/tag/monorepo?source=post_page-----16c07e8bb3e0--------------------------------)
+<BlogEmbed slug="discovering-nx-project-crystals-magic" title="Discovering Nx Project Crystal's Magic" />

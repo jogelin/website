@@ -2,8 +2,7 @@
 title: "🏘️ Poly Monorepos with Nx"
 subtitle: "Poly or Mono Repos? The best of the two worlds!"
 publishedAt: 2024-10-07
-coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1727964035573/b5b22059-9555-48db-b781-2c4d20cb2634.jpeg
-canonicalUrl: https://gelinjo.hashnode.dev/poly-monorepos-with-nx
+coverImage: /blog/covers/poly-monorepos-with-nx.jpeg
 tags:
   - monorepo
   - nx
@@ -12,7 +11,7 @@ tags:
   - nodejs
 author:
   name: Jonathan Gelin
-  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+  profilePicture: /avatar.png
 type: article
 draft: false
 ---
@@ -20,11 +19,9 @@ draft: false
 import YouTube from "../../components/embeds/YouTube.astro";
 import Snappify from "../../components/embeds/Snappify.astro";
 
-[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
-
 Developers often engage in debates over which technology or architecture is superior. A common example is the discussion around **Poly-Repos** versus **Mono-Repo**.
 
-![](https://cdn-images-1.medium.com/max/1600/1*kwqRM_Wl-RN1t9yICrlPZw.png)
+![](/blog/images/1*kwqRM_Wl-RN1t9yICrlPZw.png)
 
 However, the reality is that there’s no one-size-fits-all solution — it all depends on the specific context, and **both architectures have their merits**.
 
@@ -32,7 +29,7 @@ In this article, I will explore how we can integrate the advantages of both appr
 
 ## Why Poly-Repos?
 
-![](https://cdn-images-1.medium.com/max/1600/1*1Kre9ptwlya5JnlGy5tZVA.png)
+![](/blog/images/1*1Kre9ptwlya5JnlGy5tZVA.png)
 
 1. **Separation of Concerns**: Maintaining separation at both the code and repository level ensures that teams focus solely on their areas, minimizing risks of unintended side effects from unrelated changes.
     
@@ -45,7 +42,7 @@ In this article, I will explore how we can integrate the advantages of both appr
 
 ## Why Mono-Repo?
 
-![](https://cdn-images-1.medium.com/max/1600/1*E_gxn6Vd8aQxgit3rW8HgQ.png)
+![](/blog/images/1*E_gxn6Vd8aQxgit3rW8HgQ.png)
 
 1. **Unified Codebase**: Simplifies development by bringing everyone together towards a shared organizational goal, promoting cross-functional collaboration.
     
@@ -62,13 +59,13 @@ In this article, I will explore how we can integrate the advantages of both appr
 
 There are scenarios where using multiple repositories is more practical. For example, if you provide services to distributors but want to keep your internal code private, or if you’re a software company building a framework for customers.
 
-![](https://cdn-images-1.medium.com/max/1600/1*5JwrRFINth96UAOizm0OHw.png)
+![](/blog/images/1*5JwrRFINth96UAOizm0OHw.png)
 
 In these cases, a **Poly-Monorepo** architecture is beneficial. It allows you to have a **central Monorepo** for internal code that provides tools, features, or frameworks, while supporting multiple **distributed Monorepos** for different clients or teams.
 
 To illustrate how that architecture can be put in place and maintained, I structured the approach into four phases:
 
-![](https://cdn-images-1.medium.com/max/1600/1*qoF805zDH9H9L7H0PseAGA.png)
+![](/blog/images/1*qoF805zDH9H9L7H0PseAGA.png)
 
 Before starting to manage **Distributed Monorepos**, it is important to establish an architecture that defines and enforces conventions in your **Central Monorepo**.
 
@@ -76,7 +73,7 @@ Then, you can create a process to ensure **Distributed Monorepos** are continuou
 
 ## Phase I. Conventions Matters
 
-![](https://cdn-images-1.medium.com/max/1600/1*3LV_93DJtIxi1fXXEuUeaA.png)
+![](/blog/images/1*3LV_93DJtIxi1fXXEuUeaA.png)
 
 Choosing the Monorepo architecture can be motivated by various reasons. One of them is the desire for alignment and unification, to facilitate transversal development and capitalize on code reusability.
 
@@ -84,13 +81,13 @@ Establishing **conventions** helps developers orient themselves and capitalize o
 
 Having a set of **conventions** defines your repository’s architecture and software strategy. **Coding by conventions** reduces the number of decisions developers need to make, allowing them to focus on feature implementation.
 
-![](https://cdn-images-1.medium.com/max/1600/1*1Oryq5fzyj4AAQdFuzPePg.png)
+![](/blog/images/1*1Oryq5fzyj4AAQdFuzPePg.png)
 
 Conventions can be defined in many ways: by structuring your workspace, by naming projects in a specific way, or by re-using common configurations, etc.
 
 When you consolidate your conventions, you’ll be able to categorize your projects into different **Project-Types**, which are defined by multiple dimensions:
 
-![](https://cdn-images-1.medium.com/max/1600/1*Nz1JfsARYsDk9lJtKNcawg.png)
+![](/blog/images/1*Nz1JfsARYsDk9lJtKNcawg.png)
 
 Your **Project-Type** can be determined by:
 
@@ -107,11 +104,11 @@ Of course, this list of dimensions is not strict. The idea is that each project 
 
 ## Phase II. Eating Your Own Dog Food
 
-![](https://cdn-images-1.medium.com/max/1600/1*_cQ8QgqXsbXsyj38qhkhpA.png)
+![](/blog/images/1*_cQ8QgqXsbXsyj38qhkhpA.png)
 
 Defining conventions is important, but using them is the bare minimum 🙂. This is why it’s crucial to define a strategy for how these conventions will be applied:
 
-![](https://cdn-images-1.medium.com/max/1600/1*vLW5QrbCMse_GCyLiPOrhg.png)
+![](/blog/images/1*vLW5QrbCMse_GCyLiPOrhg.png)
 
 I usually identify two key components in this strategy:
 
@@ -126,15 +123,15 @@ The Nx plugin architecture consists of a set of Nx plugins within your Monorepo.
 
 An [Nx plugin is a specific type of Nx project](https://nx.dev/extending-nx/intro/getting-started), and you can generate it using the Nx generator `@nx/plugin:plugin`:
 
-![](https://cdn-images-1.medium.com/max/1600/1*4wew0USBujclurlXo-KLUw.png)
+![](/blog/images/1*4wew0USBujclurlXo-KLUw.png)
 
 As mentioned above, you’ll encounter multiple Project-Types in your Monorepo. A Project-Type can be defined by multiple Nx plugins:
 
-![](https://cdn-images-1.medium.com/max/1600/1*yt_WE4cRjf7z4stHzmR5mw.png)
+![](/blog/images/1*yt_WE4cRjf7z4stHzmR5mw.png)
 
 These plugins can be grouped into different categories:
 
-![](https://cdn-images-1.medium.com/max/1600/1*hYJKm9NsQQibXfQkmMBlUA.png)
+![](/blog/images/1*hYJKm9NsQQibXfQkmMBlUA.png)
 
 * **Community**: These plugins are not directly part of your Monorepo but can be used by your projects. I recommend following external standards as much as possible.
     
@@ -147,17 +144,17 @@ Of course, this list of layers is not strict. The idea is to have multiple layer
 
 Each Nx plugin can serve multiple roles and features to help define and enforce your conventions:
 
-![](https://cdn-images-1.medium.com/max/1600/1*j6TwobN0N9g5BjxV4PuJBA.png)
+![](/blog/images/1*j6TwobN0N9g5BjxV4PuJBA.png)
 
 ### Code Generation
 
 This is the starting point to ensure that generated code follows your initial configurations and conventions. With Nx, you [can use generators](https://nx.dev/features/generate-code#generate-code) to produce any type of code:
 
-![](https://cdn-images-1.medium.com/max/1600/1*U_6LcAgMUM4WjGWTfevxog.png)
+![](/blog/images/1*U_6LcAgMUM4WjGWTfevxog.png)
 
 By implementing and using internal generators, you ensure that everyone generates their projects in a consistent manner.
 
-![](https://cdn-images-1.medium.com/max/1600/1*7FMHCrJ5N7D4YFeYmxKEeQ.png)
+![](/blog/images/1*7FMHCrJ5N7D4YFeYmxKEeQ.png)
 
 Your generators will be grouped by Nx plugin type, and each plugin can be used and shared internally, reinforcing your conventions.
 
@@ -165,11 +162,11 @@ Your generators will be grouped by Nx plugin type, and each plugin can be used a
 
 One of the main benefits of using an Nx Monorepo is the ability to standardize how tasks are executed by implementing custom executors for each **Project-Type**:
 
-![](https://cdn-images-1.medium.com/max/1600/1*-GDImKmAGSyKab9iqVdauQ.png)
+![](/blog/images/1*-GDImKmAGSyKab9iqVdauQ.png)
 
 By doing so, you can ensure that no matter which tech stack is being used, conventions are enforced through the execution and naming of tasks.
 
-![](https://cdn-images-1.medium.com/max/1600/1*IOaklzb-ed9Z52ky2KlBnw.png)
+![](/blog/images/1*IOaklzb-ed9Z52ky2KlBnw.png)
 
 These executors, like the generators, will be grouped by Nx plugin type and shared internally.
 
@@ -177,7 +174,7 @@ These executors, like the generators, will be grouped by Nx plugin type and shar
 
 In an Nx Monorepo, you can inject configuration into projects that follow specific patterns or conventions:
 
-![](https://cdn-images-1.medium.com/max/1600/1*cXPo_eObNw_aiMVZMSES3Q.png)
+![](/blog/images/1*cXPo_eObNw_aiMVZMSES3Q.png)
 
 Various plugins can influence project configurations:
 
@@ -194,27 +191,27 @@ This method of enforcing conventions is effective because if users don’t follo
 
 As your Monorepo grows, you may see duplicate configurations for tools across projects:
 
-![](https://cdn-images-1.medium.com/max/1600/1*VaENh9UKt2edRwMduS58Lg.png)
+![](/blog/images/1*VaENh9UKt2edRwMduS58Lg.png)
 
 For instance, you could have the **same** Jest configuration in many different projects. Over time, for equivalent **Project-Types**, configurations may diverge due to inconsistent maintenance.
 
 With the Nx Plugin architecture being **Project-Type oriented**, you can centralize tool configurations used by related projects:
 
-![](https://cdn-images-1.medium.com/max/1600/1*VW0bN0IJ3EkeLSgxDfoigQ.png)
+![](/blog/images/1*VW0bN0IJ3EkeLSgxDfoigQ.png)
 
 ### House-Keeper
 
 Now that you have a solid plugin architecture grouped by **Project-Type**, complete with generators, executors, inferred configurations, and shared configs/utils, it’s time to maintain consistency.
 
-![](https://cdn-images-1.medium.com/max/1600/1*Ty4qEooBpN6f42yNA-jlUw.png)
+![](/blog/images/1*Ty4qEooBpN6f42yNA-jlUw.png)
 
 Over time, you’ll start to notice that the configurations between projects of the same type begin to differ. Some projects may be better maintained than others due to manual changes.
 
-![](https://cdn-images-1.medium.com/max/1600/1*7SRNrazwZcbedQ3JT31Ibw.png)
+![](/blog/images/1*7SRNrazwZcbedQ3JT31Ibw.png)
 
 To ensure that the entire Monorepo adheres to the conventions, a tool is needed. Enter the House Keeper, a validation tool that ensures all projects and configurations are in line with your conventions.
 
-![](https://cdn-images-1.medium.com/max/1600/1*6VmyVZW3W9wnEZaX9Ya2Cw.png)
+![](/blog/images/1*6VmyVZW3W9wnEZaX9Ya2Cw.png)
 
 There are various ways to implement the House Keeper. You could use simple tests with Node.js or even generators.
 
@@ -222,13 +219,13 @@ With the new [Nx Powerpack](https://nx.dev/features/powerpack#powerpack-features
 
 ## Phase III. Spread Conventions
 
-![](https://cdn-images-1.medium.com/max/1600/1*c4DmxP7k2EsbR9JMDTfXtA.png)
+![](/blog/images/1*c4DmxP7k2EsbR9JMDTfXtA.png)
 
 Okay, so we’ve defined our conventions and provided ways to use them in our **Central Monorepo**. Now, let’s see how we can spread these conventions, tools, and processes to **Distributed Monorepos**.
 
 We can facilitate sharing by implementing three key features in our architecture:
 
-![](https://cdn-images-1.medium.com/max/1600/1*_YJUfTNV7Z6bMjnhY3KuYw.png)
+![](/blog/images/1*_YJUfTNV7Z6bMjnhY3KuYw.png)
 
 ### Nx Preset
 
@@ -236,15 +233,15 @@ Before applying conventions, you first need to **generate** your **Distributed M
 
 Nx already provides a way to generate a Monorepo using the CLI command `create-nx-workspace`. This CLI generates an empty workspace with global Nx configurations and [presets](https://nx.dev/nx-api/nx/documents/create-nx-workspace#presets) that add extra configurations based on the stack or type of Monorepo.
 
-![](https://cdn-images-1.medium.com/max/1600/1*3xXRe4jVnGtoGSLHb6fJEw.png)
+![](/blog/images/1*3xXRe4jVnGtoGSLHb6fJEw.png)
 
 If you need to generate a Distributed Monorepo in the same way, with the same initial configurations, you can [create your custom presets](https://nx.dev/extending-nx/recipes/create-preset).
 
-![](https://cdn-images-1.medium.com/max/1600/1*AJM3UmBjj9jBtRrSj4guug.png)
+![](/blog/images/1*AJM3UmBjj9jBtRrSj4guug.png)
 
 Simply generate a new generator named `preset` and implement it:
 
-![](https://cdn-images-1.medium.com/max/1600/1*fNC-FvTsE9lXnVz5mgVJbw.png)
+![](/blog/images/1*fNC-FvTsE9lXnVz5mgVJbw.png)
 
 It will first create an empty workspace, then apply your specific configurations as with any type of generator.
 
@@ -254,19 +251,19 @@ Presets are useful for Monorepo generation, but how can you maintain them long-t
 
 If you’ve used Nx, you’ve probably applied migrations during version upgrades:
 
-![](https://cdn-images-1.medium.com/max/1600/1*QPMaX4keEwttn9mrVUZWJA.png)
+![](/blog/images/1*QPMaX4keEwttn9mrVUZWJA.png)
 
 You specify that you want to upgrade Nx to the latest version, and Nx will download the latest version of each library and run the necessary migrations.
 
 Similarly, you can create custom migrations for your Nx plugins:
 
-![](https://cdn-images-1.medium.com/max/1600/1*oUFbBi-YFYBg0bP9vF_QOA.png)
+![](/blog/images/1*oUFbBi-YFYBg0bP9vF_QOA.png)
 
 This is done by configuring an Nx Plugin to support migrations through the creation of a `migrations.json` file, which contains plugin-related migrations per version.
 
 A migration typically consists of two key elements:
 
-![](https://cdn-images-1.medium.com/max/1600/1*u2It6bC5hFfKXJmibeGLfA.png)
+![](/blog/images/1*u2It6bC5hFfKXJmibeGLfA.png)
 
 * **Generators**: Each migration can define a list of generators that are specified in the `migrations.json` file for a particular version of your plugin.
     
@@ -296,7 +293,7 @@ This way, you won’t need to manually run migrations for each Nx Plugin you cre
 
 One of the most critical parts of spreading your conventions is making them available by publishing them. This is why it’s essential to group the tools used together in the **Distributed Monorepos**:
 
-![](https://cdn-images-1.medium.com/max/1600/1*M5hbNds7caxH8Iji_gLIVg.png)
+![](/blog/images/1*M5hbNds7caxH8Iji_gLIVg.png)
 
 This group will be your “devkit,” containing previously created Nx Plugins, the House Keeper CLI, and the preset (if needed).
 
@@ -304,7 +301,7 @@ By leveraging [Nx’s release](https://nx.dev/features/manage-releases) function
 
 ## Phase IV. Easy Peasy
 
-![](https://cdn-images-1.medium.com/max/1600/1*L6iFz0tt68Esd5-WyR-eNw.png)
+![](/blog/images/1*L6iFz0tt68Esd5-WyR-eNw.png)
 
 Now that we’ve defined conventions and made them available in the Central Monorepo, we’re ready to apply those conventions to Distributed Monorepos. This can be done with just three simple commands:
 
@@ -312,7 +309,7 @@ Now that we’ve defined conventions and made them available in the Central Mono
 
 To generate a new Monorepo, use your preset by running the appropriate command:
 
-![](https://cdn-images-1.medium.com/max/1600/1*Xs26du5okASGz508VOhv2Q.png)
+![](/blog/images/1*Xs26du5okASGz508VOhv2Q.png)
 
 This will only be necessary once, during initial setup.
 
@@ -320,7 +317,7 @@ This will only be necessary once, during initial setup.
 
 Keep your Distributed Monorepo up to date by applying migrations:
 
-![](https://cdn-images-1.medium.com/max/1600/1*a3vYgd7mt_NXPswCLjDL0Q.png)
+![](/blog/images/1*a3vYgd7mt_NXPswCLjDL0Q.png)
 
 With this approach, you’ll benefit from all the features that your Nx Plugins provide.
 
@@ -328,7 +325,7 @@ With this approach, you’ll benefit from all the features that your Nx Plugins 
 
 To ensure continuous alignment with the Central Monorepo, run the House Keeper:
 
-![](https://cdn-images-1.medium.com/max/1600/1*4xwWmtBjdOOTfYYeHjDwVQ.png)
+![](/blog/images/1*4xwWmtBjdOOTfYYeHjDwVQ.png)
 
 Typically, this tool is executed in CI to guarantee adherence to conventions.
 
@@ -370,7 +367,7 @@ The technical implementation of these features can be found in the [Nx documenta
 
 Stay Tuned 🚀
 
-[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
+[![](/blog/images/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
 
 ## Talks
 
