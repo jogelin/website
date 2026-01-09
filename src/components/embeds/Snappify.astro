@@ -1,0 +1,27 @@
+---
+interface Props {
+  id: string;
+  height?: number;
+}
+const { id, height = 400 } = Astro.props;
+---
+
+<div class="snappify-embed">
+  <iframe
+    src={`https://snappify.com/embed/${id}`}
+    style={`height: ${height}px;`}
+    loading="lazy">
+  </iframe>
+</div>
+
+<style>
+  .snappify-embed {
+    margin: 2rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .snappify-embed iframe {
+    width: 100%;
+    border: 0;
+  }
+</style>

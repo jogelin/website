@@ -1,0 +1,246 @@
+---
+title: "You Don’t Need NVM, SDKMAN, Pyenv, Rustup, Homebrew or even Nix. Try Mise Instead."
+subtitle: "Mise unifies your development environment, replacing the need fo"
+publishedAt: 2025-11-24
+coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1763964094816/7ee9fb65-09ec-450b-aa13-9703e1a76a8e.jpeg
+canonicalUrl: https://gelinjo.hashnode.dev/you-dont-need-nvm-sdkman-pyenv-rustup-homebrew-or-even-nix-try-mise-instead
+tags:
+  - nx
+  - monorepo
+  - package-management
+  - software-development
+  - software-engineering
+  - ci-cd
+author:
+  name: Jonathan Gelin
+  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+type: article
+draft: false
+---
+
+import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
+
+[![](https://miro.medium.com/v2/resize:fit:1400/1*0ajYZwDOIFsp6J078hcekQ.png)](https://smartsdlc.dev/)
+
+# **Why I Rely on Mise in Large, Polyglot Codebases**
+
+I often work inside large repositories mixing multiple technologies. My main mission is always the same: streamline the development cycle and get teams aligned on a shared, predictable workflow across the whole company.
+
+Most of the time, this means integrating Nx — a polyglot toolchain and ecosystem that unifies how we build, test, lint, release, and cache projects, no matter the stack.
+
+![](https://miro.medium.com/v2/resize:fit:1400/0*GOVJNQcMZMErdUBW.png)
+
+But today I wanted to highlight a tool that quietly transformed my daily workflow: **Mise (**[**mise-en-place**](https://mise.jdx.dev/environments/)**)**.
+
+It simplified my setup so much that I now use it to manage *all* the tools on my personal machine.
+
+# **Getting starting with Mise**
+
+If you want to install it, the official guide is clear and short: [https://mise.jdx.dev/getting-started.html](https://mise.jdx.dev/getting-started.html)
+
+Once installed, just drop a `mise.toml` file in your repo and declare the tools you need:
+
+```ini
+[tools]
+pnpm = "10"
+dotnet = "9"
+java = "24"
+maven = "3.9.5"
+node = "24"
+rust = "1.90.0"
+helm = "3.19.0"
+python = "3.13.2"
+```
+
+Then run:
+
+```bash
+mise install
+```
+
+That’s it. No extra steps.
+
+# **Automatic Tool Switching With** `cd`
+
+If you juggle multiple repos with different tool versions, Mise can automatically switch tools when you `cd` into a directory.
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*JZu2qsqQLnoq5HSFZKKIJg.jpeg)
+
+**For bash:**
+
+```json
+echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+```
+
+**For zsh:**
+
+```json
+echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc
+```
+
+**After that, it’s magic.** Just navigate into a folder, and the right versions are instantly available — no manual commands required.
+
+# Global installation
+
+You can also install global tools:
+
+```json
+mise use -g node@22
+mise use --global npm:@anthropic-ai/claude-code
+```
+
+This creates a config file at:
+
+```json
+~/.config/mise/config.toml
+```
+
+It’s very handy: even if your OS has other versions installed, Mise always picks the closest configuration (local folder first, then global).
+
+Thanks to this, I uninstalled tools like `nvm` and significantly reduced my use of Homebrew.
+
+# **Managing Environment Variables & Secrets**
+
+Mise can also handle environment variables — great for local secrets.
+
+Just create a local file (ignored by Git) such as `mise.local.toml`:
+
+```json
+[env]
+DATABASE_URL = "postgres://user:pass@localhost/dbname"
+API_KEY = "jnmsrtysxzxcftdfyhrtsbdfgoaliwegnaeolrjn"
+AWS_REGION = "us-east-1"
+```
+
+You can even override the `[tools]` section locally if needed.
+
+# **A Simpler Approach to CI/CD in Polyglot Repos**
+
+There are many ways to handle toolchains in CI/CD, but most strategies have problems:
+
+Press enter or click to view image in full size
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*Q_mpSuZbVUK1Tm-rdxinfQ.jpeg)
+
+Common approaches to handling polyglot dependencies in CI/CD often lead to slow builds (giant images), complex matrix management (multiple images), or unmaintainable scripts (manual installation).
+
+* One giant image with everything → slow, heavy, hard to maintain
+    
+* Multiple images per stack → complex matrix management
+    
+* Installing tools manually in pipelines → messy scripts, hard to maintain
+    
+
+Your CI only needs **one thing**: **Mise**
+
+Then run `mise install` and everything defined in `mise.toml` will be installed—fast and clean.
+
+**Caching** is also easier because all binaries land in a predictable location.
+
+For GitHub Actions, there’s even a ready-made action: [`jdx/mise-action@v3`](https://github.com/jdx/mise-action)
+
+For example, below a github configuration using Nx:
+
+```yaml
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    name: Build and Test
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup mise
+        uses: jdx/mise-action@v3
+        with:
+          install: true
+          cache: true
+          experimental: true
+
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run all affected tasks
+        run: npx nx affected -t lint,test,build,e2e --parallel=3
+```
+
+# **Installing Nix Packages Through Mise**
+
+If your company uses Nix, you might already know tools like `devbox`, `devshell`, `devenv`, `flox`…
+
+And maybe you also struggled with some of them.
+
+There’s a great plugin by **José Badeau** that makes Nix as easy as writing your Mise config:
+
+<UrlEmbed url="https://github.com/jbadeau/mise-nix" /> 
+
+Install the plugin:
+
+```json
+mise plugin install nix https://github.com/jbadeau/mise-nix.git
+```
+
+Then simply declare Nix packages:
+
+```json
+[tools]
+"nix:nodejs_22" = 'latest'
+"nix:pnpm" = 'latest'
+"nix:zulu" = "latest"
+"nix:maven3" = 'latest'
+```
+
+That’s all. Same experience, just using Nix under the hood.
+
+# **Mise + Nx: A Perfect Fit for Polyglot Repos**
+
+Nx has been expanding support for more ecosystems like **Gradle**, **Maven**, .**NET, etc**.
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*ICXlFIHJZ8DQ40hIIzaXTg.jpeg)
+
+To make the developer experience smoother, the Nx team adopted Mise internally:
+
+<UrlEmbed url="https://github.com/nrwl/nx/blob/master/mise.toml" /> 
+
+If you’re using Nx Cloud with Nx Agents, there’s even a [workflow step to install Mise automatically](https://github.com/nrwl/nx-cloud-workflows/tree/main/workflow-steps/install-mise):
+
+```yaml
+- name: Install mise
+  uses: 'nrwl/nx-cloud-workflows/v5/workflow-steps/install-mise/main.yaml'
+  inputs:
+    mise-version: 'v2025.10.19'
+    auto-install: true
+    tools: |
+      rust=1.90
+      node=20
+```
+
+## **📣 Summary**
+
+In this article, we looked at how Mise can simplify your entire development setup. With one `mise.toml` file, you can manage all the runtimes and tools you need, switch versions automatically, and even handle environment variables.
+
+We also saw how Mise makes CI/CD cleaner by avoiding heavy images and long install scripts, and how it integrates naturally with Nx and even Nix packages through a simple plugin.
+
+Overall, Mise keeps your projects consistent, your machine clean, and your workflows easier to maintain — whether you’re working locally or in CI.
+
+## **Credits**
+
+Big thanks to **José Badeau** and **Miguel Sanchez** who introduced me to Mise.
+
+## **Want to go further?**
+
+If you’re curious about using Mise with Nx or integrating it into complex CI/CD pipelines, feel free to reach out — I’m always happy to share real-world setups and practical tips:
+
+[![](https://miro.medium.com/v2/resize:fit:1400/1*lJIM_U_TGPJmSZtKA2-gPg.png)](https://smartsdlc.dev/)

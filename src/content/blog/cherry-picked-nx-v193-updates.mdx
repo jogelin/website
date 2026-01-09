@@ -1,0 +1,74 @@
+---
+title: "🍒 Cherry-Picked Nx v19.3 Updates"
+subtitle: "Exploring My Selected Features from Nx Releases"
+publishedAt: 2024-06-14
+coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1718348284933/584490be-01d4-4d92-afb6-b1dee68ee4f7.webp
+canonicalUrl: https://gelinjo.hashnode.dev/cherry-picked-nx-v193-updates
+tags:
+  - monorepo
+  - angularjs
+  - javascript
+  - typescript
+  - reactjs
+  - nx
+author:
+  name: Jonathan Gelin
+  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+type: article
+draft: false
+---
+
+import YouTube from "../../components/embeds/YouTube.astro";
+import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)
+
+<UrlEmbed url="https://github.com/nrwl/nx/releases/tag/19.3.0-beta.2" /> 
+
+---
+
+## **\[🌊 Nx Core\]**
+
+### **Allow multiple** `readyWhen` in nx:run-command executor
+
+When starting a process like a server using `nx:run-commands`, we typically use the `readyWhen` option to indicate readiness by checking the console output.
+
+However, when starting multiple dev-servers in parallel, all servers need to be considered "ready" only once they've all started, and it's unclear which will take the longest. This uncertainty can cause issues for dependent tasks, like e2e tests, which might proceed even if one server isn't fully ready.
+
+To address this, you can now wait for multiple outputs in the `readyWhen` option, ensuring the command is considered ready only when all specified strings have been outputted.
+
+```json
+"start-e2e-servers": {
+    "executor": "nx:run-commands",
+    "options": {
+        "commands": [
+            "nx run my-host:serve",
+            "nx run my-micro-frontend:serve",
+        ],
+        "readyWhen": ["localhost:4200", "localhost:4201"],
+        "parallel": true
+    }
+}
+```
+
+---
+
+## **\[🧩 Plugins\]**
+
+### **rspack Plugin Improvements**
+
+<UrlEmbed url="https://www.loom.com/share/36f83e80d9f541dfb74e469570290611?t=5" /> 
+
+---
+
+## **\[🌐 Nx Cloud\]**
+
+### **GitHub Integration with Nx Cloud**
+
+<YouTube id="TZCXY_H_VHQ" /> 
+
+---
+
+---
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)

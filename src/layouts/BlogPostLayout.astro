@@ -1,0 +1,355 @@
+---
+import type { BlogPost } from '../content/blog/_schema';
+
+interface Props {
+  post: BlogPost;
+  readingTime: number;
+}
+
+const { post, readingTime } = Astro.props;
+---
+
+<article class="blog-post">
+  <header class="post-header">
+    {post.coverImage && (
+      <div class="cover-image">
+        <img src={post.coverImage} alt={post.title} />
+      </div>
+    )}
+
+    <div class="post-meta">
+      {post.tags.length > 0 && (
+        <div class="tags">
+          {post.tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      )}
+      <div class="meta-info">
+        <time datetime={post.publishedAt.toISOString()}>
+          {post.publishedAt.toLocaleDateString('en-US', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+          })}
+        </time>
+        <span class="separator">-</span>
+        <span class="read-time">{readingTime} min read</span>
+      </div>
+    </div>
+
+    <h1>{post.title}</h1>
+    {post.subtitle && <p class="subtitle">{post.subtitle}</p>}
+
+    <div class="author">
+      {post.author.profilePicture && (
+        <img src={post.author.profilePicture} alt={post.author.name} class="author-avatar" />
+      )}
+      <span>{post.author.name}</span>
+    </div>
+  </header>
+
+  <div class="prose">
+    <slot />
+  </div>
+</article>
+
+<style>
+  .blog-post {
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .post-header {
+    margin-bottom: 3rem;
+  }
+
+  .cover-image {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .cover-image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+  }
+
+  .post-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .meta-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 14px;
+    color: #64748b;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+  }
+
+  :global(.dark) .meta-info {
+    color: #94a3b8;
+  }
+
+  .separator {
+    color: #94a3b8;
+  }
+
+  h1 {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #1e293b;
+  }
+
+  :global(.dark) h1 {
+    color: #e2e8f0;
+  }
+
+  .subtitle {
+    font-size: 20px;
+    color: #64748b;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  :global(.dark) .subtitle {
+    color: #94a3b8;
+  }
+
+  .author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #1e293b;
+  }
+
+  :global(.dark) .author {
+    color: #e2e8f0;
+  }
+
+  .author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  /* Prose styles for MDX content */
+  .prose {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #334155;
+  }
+
+  :global(.dark) .prose {
+    color: #e2e8f0;
+  }
+
+  .prose :global(h2) {
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: #1e293b;
+  }
+
+  :global(.dark) .prose :global(h2) {
+    color: #e2e8f0;
+  }
+
+  .prose :global(h3) {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: #1e293b;
+  }
+
+  :global(.dark) .prose :global(h3) {
+    color: #e2e8f0;
+  }
+
+  .prose :global(h4) {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #1e293b;
+  }
+
+  :global(.dark) .prose :global(h4) {
+    color: #e2e8f0;
+  }
+
+  .prose :global(p) {
+    margin-bottom: 1.5rem;
+  }
+
+  .prose :global(pre) {
+    background: #1e293b;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    overflow-x: auto;
+    margin: 2rem 0;
+    line-height: 1.5;
+  }
+
+  .prose :global(pre code) {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .prose :global(code) {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+  }
+
+  .prose :global(p code),
+  .prose :global(li code) {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 15px;
+  }
+
+  .prose :global(a) {
+    color: #10b981;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose :global(a:hover) {
+    color: #059669;
+  }
+
+  .prose :global(ul) {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+    list-style-type: disc;
+  }
+
+  .prose :global(ol) {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+    list-style-type: decimal;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 0.5rem;
+    display: list-item;
+  }
+
+  .prose :global(ul ul) {
+    list-style-type: circle;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose :global(ul ul ul) {
+    list-style-type: square;
+  }
+
+  .prose :global(blockquote) {
+    border-left: 4px solid #10b981;
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    color: #64748b;
+    font-style: italic;
+  }
+
+  :global(.dark) .prose :global(blockquote) {
+    color: #94a3b8;
+  }
+
+  .prose :global(img) {
+    border-radius: 8px;
+    margin: 2rem auto;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    margin: 3rem 0;
+  }
+
+  :global(.dark) .prose :global(hr) {
+    border-top-color: #334155;
+  }
+
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+  }
+
+  .prose :global(th),
+  .prose :global(td) {
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem;
+    text-align: left;
+  }
+
+  :global(.dark) .prose :global(th),
+  :global(.dark) .prose :global(td) {
+    border-color: #334155;
+  }
+
+  .prose :global(th) {
+    background: #f1f5f9;
+    font-weight: 600;
+  }
+
+  :global(.dark) .prose :global(th) {
+    background: #1e293b;
+  }
+
+  .prose :global(strong) {
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  :global(.dark) .prose :global(strong) {
+    color: #f1f5f9;
+  }
+
+  @media (max-width: 640px) {
+    .blog-post {
+      padding: 1rem 1rem 3rem;
+    }
+
+    .prose {
+      font-size: 16px;
+    }
+
+    .prose :global(pre) {
+      padding: 1rem;
+      margin: 1.5rem -1rem;
+      border-radius: 0;
+    }
+  }
+</style>

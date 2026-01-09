@@ -1,0 +1,22 @@
+---
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+---
+
+<div class="tweet-embed">
+  <blockquote class="twitter-tweet" data-theme="dark">
+    <a href={`https://twitter.com/x/status/${id}`}></a>
+  </blockquote>
+</div>
+
+<script is:inline async src="https://platform.twitter.com/widgets.js"></script>
+
+<style>
+  .tweet-embed {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+  }
+</style>

@@ -1,0 +1,58 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import Navbar from '../../components/Navbar.astro';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// Calculate reading time from content
+const wordCount = post.body?.split(/\s+/).length || 0;
+const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+// Build meta image URL
+const ogImage = post.data.coverImage || 'https://smartsdlc.dev/linkedin-banner.png';
+const canonicalUrl = post.data.canonicalUrl || `https://smartsdlc.dev/blog/${post.id}`;
+---
+
+<Layout title={`${post.data.title} | Jonathan Gelin`}>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={post.data.title} />
+    <meta property="og:description" content={post.data.subtitle || ''} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={`https://smartsdlc.dev/blog/${post.id}`} />
+    <meta property="article:published_time" content={post.data.publishedAt.toISOString()} />
+    {post.data.tags.map((tag) => <meta property="article:tag" content={tag} />)}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={post.data.title} />
+    <meta name="twitter:description" content={post.data.subtitle || ''} />
+    <meta name="twitter:image" content={ogImage} />
+  </Fragment>
+
+  <Navbar activeLink="blog" />
+  <main>
+    <BlogPostLayout post={post.data} readingTime={readingTime}>
+      <Content />
+    </BlogPostLayout>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    min-height: 100vh;
+    padding-top: 40px;
+  }
+</style>

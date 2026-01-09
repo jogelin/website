@@ -1,0 +1,189 @@
+---
+title: "🍒 Cherry-Picked Nx v19.2 Updates"
+subtitle: "Exploring My Selected Features from Nx Releases"
+publishedAt: 2024-06-05
+coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1717604234007/5fcd8f7f-623d-43cd-9a95-2f1634d1da52.webp
+canonicalUrl: https://gelinjo.hashnode.dev/cherry-picked-nx-v192-updates
+tags:
+  - nx
+  - monorepo
+  - angularjs
+  - typescript
+  - nodejs
+author:
+  name: Jonathan Gelin
+  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+type: article
+draft: false
+---
+
+import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)
+
+<UrlEmbed url="https://github.com/nrwl/nx/releases/tag/19.2.0" /> 
+
+## \[🌊 Nx Core\]
+
+### Local .env files will override defaults
+
+It is a common usage in [VueCli](https://cli.vuejs.org/guide/mode-and-env.html#environment-variables) or [Next.js](https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables#default-environment-variables) to be able to override the `.env` file by declaring a `.env.local`. It is now also [supported by Nx](https://nx.dev/recipes/tips-n-tricks/define-environment-variables):
+
+```plaintext
+.env.local
+.local.env
+.env
+```
+
+### Do not affect all when touching the lock file
+
+Happy about that one! Until now, when the lock file is modified, all of the projects were affected even for a development library.
+
+Currently, I am patching Nx code to disable that behavior. But with Nx 19.2, you can now use the plugin configuration `projectsAffectedByDependencyUpdates` in your `nx.json`:
+
+```json
+"pluginsConfig": {
+    "@nx/js": { 
+        "projectsAffectedByDependencyUpdates": 'auto'
+    }
+}
+```
+
+It can be `all`, to affect all projects, `auto` to affect only projects related to the modified dependencies or a `string[]` to define a list of projects.
+
+### Configurable `nx reset`
+
+By default, the `nx reset` command is clearing all of the cached Nx artifacts and metadata about the workspace and shuts down the Nx Daemon.
+
+You can [now specify what should be reset](https://nx.dev/nx-api/nx/documents/reset):
+
+```plaintext
+// Clears the Nx Cache directory. This will remove all local cache entries for tasks, but will not affect the remote cache:
+nx reset --only-cache
+
+// Stops the Nx Daemon, it will be restarted fresh when the next Nx command is run.:
+nx reset --only-daemon
+
+// Clears the workspace data directory. Used by Nx to store cached data about the current workspace (e.g. partial results, incremental data, etc):
+nx reset --only-workspace-data
+```
+
+To not mix with the **Nx Generated Metadata,** now there is a separate **Workspace Cache Directory** that will contain the cache of the project graph, the plugins, etc.
+
+### Override Strategy When Generating Files For Generators
+
+By default, generators overwrite files when they already exist.
+
+But you can now decide to specify a different strategy:
+
+```typescript
+generateFiles(tree, 
+  join(__dirname, './files'), // srcFolder
+  libraryRoot, // targetFolder
+  { uppercase, name: schema.name}, // substitutions
+  { overwriteStrategy: OverwriteStrategy.KeepExisting } // NEW: options
+);
+```
+
+[From Documentation:](https://nx.dev/extending-nx/recipes/creating-files)
+
+* **OverwriteStrategy.Overwrite** (default): all generated files are created and overwrite existing target files if any.
+    
+* **OverwriteStrategy.KeepExisting**: generated files are created only when target file does not exist. Existing target files are kept as is.
+    
+* **OverwriteStrategy.ThrowIfExisting**: if a target file already exists, an exception is thrown. Suitable when a pristine target environment is expected.
+    
+
+## \[🧩 Plugins\]
+
+### Incremental Build for Webpack Plugin
+
+A new interesting field [`buildLibsFromSource`](https://nx.dev/nx-api/webpack/executors/webpack#buildlibsfromsource) was added to the executor `@nx/webpack:webpack` to activate incremental build:
+
+```json
+"my-app": {
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "options": {
+        "webpackConfig": "apps/my-app/webpack.config.js",
+        "buildLibsFromSource": true // Default to true
+      }
+    },
+    //...
+  }
+}
+```
+
+To remember what is **incremental build**, let’s take that simple example:
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*Q4uu0MobV0PlaO6kPk-chg.png)
+
+If you use **imports** between libs and you want to build `my-app` or `my-other-app` you’ll have to build **all files** from **all libs**:
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*IfpUo41baq3xh6YfvztemA.png)
+
+In that use case, each time something is modified in the app, even if `ui-lib` didn’t change, the entire app is rebuilt including the files in the `ui-lib`.
+
+But if you use **incremental build**, you’ll build `ui-lib` separately:
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*PrK3gj1598eYkWzbuaqhkA.png)
+
+With that approach, we can re-use the bundle of the previous build for the build of `my-app` or any other app that depends on it.
+
+## \[💎 Project Crystal\]
+
+### createNodesV2
+
+If you want to inject configurations in projects dynamically, you have to use the method `createNode`:
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*aIAlWGDnwsTSWK_YfmDUUw.png)
+
+But a new method `createNodesV2` and instead of invoking the plugin for each matching file, it runs just once with all files:
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*CBPc3Yzuv-1nQIZYd43LhQ.png)
+
+With that approach, you’ll:
+
+* **improve the performance** of the plugin's execution because you can execute common code only once.
+    
+* have **more flexibility** if you want to **run codebefore** or **after** the execution of the plugins.
+    
+
+For more compatibility, you can use the function `createNodesFromFiles`:
+
+```typescript
+import { createNodesFromFiles, ... } from '@nx/devkit';
+
+// Keep this exported for older versions of Nx.
+export const createNodes: CreateNodes = ['**/config.json', processSingleConfigFile];
+
+// Use `createNodesFromFiles` to reuse the logic from `processSingleConfigFile`
+export const createNodesV2: CreateNodesV2 = ['**/config.json', async (configFiles, options, context) => {
+  // Do some stuff before
+  
+  try {
+    return await createNodesFromFiles(processSingleConfigFile, configFiles, options, context);
+  } finally {
+    // Do some stuff after
+  }
+}
+```
+
+This new function will replace the `createNodes` function in Nx v21:
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*kTLEfTaC9jnzjbfQMD8HDw.png)
+
+More info in the video:
+
+<UrlEmbed url="https://www.loom.com/share/1c0e9ed815934e3cbb762232f64fe0dd" /> 
+
+## **\[💫 Upgrades\]**
+
+### **Support pnpm v9**
+
+<UrlEmbed url="https://medium.com/@techvirtuoso/pnpm-v9-officially-released-support-for-node-js-v16-discontinued-6b0f33f73c9e" /> 
+
+---
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)

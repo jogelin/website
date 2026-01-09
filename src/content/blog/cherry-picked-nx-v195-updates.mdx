@@ -1,0 +1,233 @@
+---
+title: "🍒 Cherry-Picked Nx v19.5 Updates"
+subtitle: "Exploring My Selected Features from Nx Releases"
+publishedAt: 2024-07-18
+coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1731511211058/972903b3-ed0d-4629-b7ac-881296d59bb2.png
+canonicalUrl: https://gelinjo.hashnode.dev/cherry-picked-nx-v195-updates
+tags:
+  - nx
+  - monorepo
+  - typescript
+  - nodejs
+  - angularjs
+author:
+  name: Jonathan Gelin
+  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+type: article
+draft: false
+---
+
+import YouTube from "../../components/embeds/YouTube.astro";
+import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
+
+[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
+
+[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
+
+### Release Note 19.5 (2024-07–17)
+
+<UrlEmbed url="https://github.com/nrwl/nx/releases/tag/19.5.0" /> 
+
+---
+
+<YouTube id="ER-6sKbb9ck" /> 
+
+[https://nx.dev/blog/nx-19-5-adds-stackblitz-new-features-and-more](https://nx.dev/blog/nx-19-5-adds-stackblitz-new-features-and-more)
+
+---
+
+## \[🌊 Nx Core\]
+
+### Pattern matching for target defaults
+
+If you want to [reduce duplicated project configurations](https://nx.dev/recipes/running-tasks/reduce-repetitive-configuration#reduce-configuration-with-targetdefaults), you can use the `targetDefaults` property in your `nx.json` file:
+
+```json
+{
+  "targetDefaults": {
+    "build": {
+      "inputs": ["production", "^production"],
+      "cache": true,
+      "outputs": ["{options.outputPath}"],
+    },
+    "@nx/jest:jest": {
+      "cache": true,
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+      "options": {
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  }
+}
+```
+
+You can decide to generalize configurations based on:
+
+* The **target name**, such as `build`
+    
+* The **executor name,** like `@nx/jest:jest`
+    
+
+Since [Nx Atomizer](https://nx.dev/ci/features/split-e2e-tasks#automatically-split-e2e-tasks-by-file-atomizer), you can automatically split e2e tasks by file into multiple targets to improve task distribution on the CI.
+
+![](https://cdn-images-1.medium.com/max/1600/1*4xvWUQlSNJSpHlhnKzHZ7A.png)
+
+This means you’ll have many targets generated with the same suffix and almost the same configuration.
+
+To be able to apply common configurations to all generated targets, you can now use a **pattern as a key** in your `targetDefaults`:
+
+```json
+{
+  "targetDefaults": {
+    "e2e-ci--*": {
+      "options": {
+        ...
+      },
+    },
+  },
+}
+```
+
+### Disable parallelism when running targets
+
+By default, Nx considers that all targets can be run in parallel. However, you may want to **enforce tasks to run sequentially**.
+
+For example, if you have multiple `e2e-ci` tasks with tests that need to be run one after the other, you can now configure this by setting the `parallelism` to false directly in the target configurations:
+
+```bash
+{
+  "targets": {
+    "e2e-ci": {
+      "dependsOn": ["e2e-ci--src/e2e/create-user.cy.ts", "e2e-ci--src/e2e/edit-user.cy.ts"]
+    },
+    "e2e-ci--src/e2e/create-user.cy.ts": {
+      "parallelism": false
+    },
+    "e2e-ci--src/e2e/edit-user.cy.ts": {
+      "parallelism": false
+    },
+  },
+}
+```
+
+In this way, when Nx will execute `e2e-ci` it will run the depending task in that specific order:
+
+* `e2e-ci — src/e2e/create-user.cy.ts`
+    
+* `e2e-ci — src/e2e/edit-user.cy.ts`
+    
+
+### Pattern matching for dependsOn
+
+[Since Nx v19.4, it is now possible to create a target with only a `dependsOn` property](/blog/cherry-picked-nx-v194-updates#heading-dependency-only-target).
+
+This feature facilitates the execution of **pre-tasks** and allows the easy **grouping** of multiple dependencies.
+
+With Nx 19.5, you can also use patterns directly in your `dependsOn` property, such as:
+
+```bash
+{
+  "targets": {
+    "build-css": {},
+    "build-js": {},
+    "test": {
+      "dependsOn": ["build-*"]
+    },
+  }
+}
+```
+
+In that way, you can `dependsOn` multiple targets by specifying one pattern.
+
+---
+
+## \[🧩 Plugins\]
+
+### Add support for React Compiler in @nx/react/babel
+
+[React 19 comes with an experimental compiler](https://react.dev/learn/react-compiler) that optimizes application code to automatically memoize code.
+
+For Nx projects using Babel and the `@nx/react/babel` preset, install the `babel-plugin-react-compiler` package and enable it with the `reactCompiler` option.
+
+```json
+
+{
+  "presets": [
+    [
+      "@nx/react/babel",
+      {
+        "runtime": "automatic",
+        "reactCompiler": true
+      }
+    ]
+  ],
+  "plugins": []
+}
+```
+
+You can also pass an object to set compiler options.
+
+```json
+{
+  "presets": [
+    [
+      "@nx/react/babel",
+      {
+        "runtime": "automatic",
+        "reactCompiler": {
+          "compilationMode": "annotation"
+        }
+      }
+    ]
+  ],
+  "plugins": []
+}
+```
+
+Check the [React Compiler usage docs](https://react.dev/learn/react-compiler#installation) for all support setups, such as Vite, Remix, etc.
+
+### Support of Module Federation 2.0
+
+Until now, Nx supported the official [Module Federation Plugin](https://webpack.js.org/plugins/module-federation-plugin/) from Webpack.
+
+However, [Zack Jackson](https://medium.com/u/9ef1379caffc) and ByteDance are working on a new version named [Module Federation 2.0](https://module-federation.io/blog/announcement.html), which is available under the package [`@module-federation/enhanced`](https://www.npmjs.com/package/@module-federation/enhanced).
+
+<UrlEmbed url="https://www.npmjs.com/package/@module-federation/enhanced" /> 
+
+Nx now supports this new version by integrating the library into their `withModuleFederation` utility. This integration is beneficial as it allows you to take advantage of all future improvements of the new Module Federation version.
+
+### Nx Atomizer for Gradle
+
+After supporting [Cypress](https://nx.dev/nx-api/cypress#nxcypress-configuration), [Playwright](https://nx.dev/nx-api/playwright#nxplaywright-configuration), and [Jest](https://nx.dev/nx-api/jest#splitting-e2e-tests), Nx will also support [Atomizer](https://nx.dev/ci/features/split-e2e-tasks#automatically-split-e2e-tasks-by-file-atomizer) for Gradle tests.
+
+> Check the section [Nx Atomizer Enhancements](https://nx.dev/blog/nx-19-release#nx-atomizer-enhancements) on the [Nx Release 19 blog post](https://nx.dev/blog/nx-19-release)
+
+This means that Nx will split the tests per file and create one target for each, facilitating and accelerating the distribution during the execution of tests on the CI.
+
+---
+
+## \[💫 Upgrades\]
+
+### Support Angular v18.1
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1721288179884/bde0c68e-29d2-4551-ac7c-e7a8665f837c.png)](https://blog.ninja-squad.com/2024/07/10/what-is-new-angular-18.1/)
+
+---
+
+## \[🌐 Nx Cloud\]
+
+### Nx Agents is now available also on the free Hobby plan
+
+<YouTube id="XS-exYYP_Gg" /> 
+
+---
+
+---
+
+[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)

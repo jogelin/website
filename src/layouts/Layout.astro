@@ -7,7 +7,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-900 dark:text-slate-100">
+<html lang="en" class="dark bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-900 dark:text-slate-100">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Jonathan Gelin - Developer Experience Architect specializing in Nx, AI tooling, and scalable developer workflows. Helping teams align architecture, tooling, and practices." />
@@ -40,6 +40,8 @@ const { title } = Astro.props;
     <!-- Calendly popup widget -->
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
     <script is:inline src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+    <slot name="head" />
   </head>
   <body>
     <slot />

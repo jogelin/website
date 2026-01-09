@@ -1,0 +1,199 @@
+---
+title: "🍒 Cherry-Picked Nx v19.4 Updates"
+subtitle: "Exploring My Selected Features from Nx Releases"
+publishedAt: 2024-06-28
+coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1719554791336/e6ad705d-c873-4c66-86b7-cc0a196bb18f.webp
+canonicalUrl: https://gelinjo.hashnode.dev/cherry-picked-nx-v194-updates
+tags:
+  - nx
+  - monorepo
+  - angularjs
+  - typescript
+  - nodejs
+  - reactjs
+author:
+  name: Jonathan Gelin
+  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+type: article
+draft: false
+---
+
+import Tweet from "../../components/embeds/Tweet.astro";
+import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)
+
+## **\[🌊 Nx Core\]**
+
+### **Dependency Only Target**
+
+In your project configuration, you can now declare a target with only the `dependsOn` property:
+
+```json
+{
+  "name": "my-project",
+  "targets:": {
+    "my-target":{
+      "dependsOn": ["..."]
+    }
+  }
+}
+```
+
+Now you can group the execution of many different targets into a single one without having to use the `nx:command` executor:
+
+```json
+{
+  "name": "my-project",
+  "targets:": {
+    "test":{
+      "dependsOn": ["integration-test", "unit-test"]
+    },
+    "integration-test":{
+      "executor": "..."
+      "dependsOn": ["targets-deps"]
+    },
+    "unit-test":{
+      "executor": "..."
+      "dependsOn": ["targets-deps"]
+    }
+  }
+}
+```
+
+You can also simplify the duplication of the `dependsOn` configurations by grouping it into a single target:
+
+```json
+{
+  "name": "my-project",
+  "targets:": {
+    "before-build":{
+      "dependsOn": ["^openapi-generation", "..."]
+    },
+    "build":{
+      "executor": "..."
+      "dependsOn": ["before-build"]
+    },
+    "serve":{
+      "executor": "..."
+      "dependsOn": ["before-build"]
+    }
+  }
+}
+```
+
+### **Ability to split long Nx single command**
+
+If you are using the `nx:run-commands` executor with a long command like:
+
+```json
+"start-dev": {
+  "executor": "nx:run-commands",
+  "options": {
+    "command": "docker compose -f .docker/compose/docker-compose.services.yml -f .docker/compose/docker-compose.dev.yml --project-directory . up -d"
+  }
+}
+```
+
+You can now make your configuration more readable by splitting it:
+
+```json
+"start-dev": {
+  "executor": "nx:run-commands",
+  "options": {
+    "command": [
+      "docker compose -f",
+      ".docker/compose/docker-compose.services.yml -f",
+      ".docker/compose/docker-compose.dev.yml",
+      "--project-directory . up -d"
+    ]
+  }
+},
+```
+
+## **\[🧩 Plugins\]**
+
+### **Add View Provider utility for Angular component**
+
+If you were adding the `viewProviders` configuration in your custom Angular component generators, you replace that code now with the new utility `addViewProviderToComponent`:
+
+![](https://miro.medium.com/v2/resize:fit:700/1*4RMlRmN-kf-sxxmRQULlRA.png)
+
+### **Support Composite Build for Gradle**
+
+Nx continues the Gradle support by including more features such as the [Composite Builds](https://docs.gradle.org/current/userguide/composite_builds.html):
+
+![](https://miro.medium.com/v2/resize:fit:700/0*svPPaGYe2kPfSbSh.png)
+
+Composite builds allow you to:
+
+* Combine builds that are usually developed independently, for instance, when trying out a bug fix in a library that your application uses.
+    
+* Decompose a large multi-project build into smaller, more isolated chunks that can be worked on independently or together as needed.
+    
+
+## **\[💎 Project Crystal\]**
+
+### **Convert to Inferred Generators**
+
+On the [release blog related to Nx v19](/blog/cherry-picked-nx-v19-updates#heading-add-generators-to-convert-projects-to-inferred-targets), I talked about the `convert-to-inferred` generator for:
+
+```bash
+nx g @nx/eslint:convert-to-inferred
+nx g @nx/playwright:convert-to-inferred
+nx g @nx/cypress:convert-to-inferred
+```
+
+These generators will remove the configurations from your `project.json` that are covered by Nx plugins.
+
+Now you can also use that generator on many other plugins:
+
+```bash
+nx g @nx/vite:convert-to-inferred
+nx g @nx/webpack:convert-to-inferred
+nx g @nx/jest:convert-to-inferred
+nx g @nx/storybook:convert-to-inferred
+nx g @nx/remix:convert-to-inferred
+nx g @nx/rollup:convert-to-inferred
+nx g @nx/next:convert-to-inferred
+```
+
+⚠️ If you want to use `@nx/webpack:convert-to-inferred`, you’ll first need to migrate to the [`NxWebpackPlugin`](https://nx.dev/recipes/webpack/webpack-plugins#nxwebpackplugin) [(see below).](https://nx.dev/recipes/webpack/webpack-plugins#nxwebpackplugin)
+
+Also, if you want to run the generators based on the installed plugins, you can use the command:
+
+```bash
+npx nx g convert-to-inferred
+? Which generator would you like to use? …
+  @nx/cypress:convert-to-inferred
+  @nx/eslint:convert-to-inferred
+  ...
+```
+
+> If you don’t know what inference means, please read my article [💎 Discovering Nx Project Crystal’s Magic](/blog/discovering-nx-project-crystals-magic).
+
+### **Convert to Webpack Plugin**
+
+If you are using [custom Wepack configurations](https://nx.dev/recipes/webpack/webpack-config-setup), I recommend having a look at the generator:
+
+```bash
+nx g @nx/webpack:convert-config-to-webpack-plugin
+```
+
+This generator will convert `withNx` Webpack config to a standard config using [`NxWebpackPlugin`](https://nx.dev/recipes/webpack/webpack-plugins#nxwebpackplugin) which is in charge of injecting Nx configurations like TypeScript support and links to workspace libraries (via tsconfig paths).
+
+## \[🌐 Nx Cloud\]
+
+### Nx OnBoarding flow simplified:
+
+<Tweet id="1806031999162831112" /> 
+
+## **\[💫 Upgrades\]**
+
+### **Upgrade to NgRx 18**
+
+<UrlEmbed url="https://dev.to/ngrx/announcing-ngrx-18-ngrx-signals-is-almost-stable-eslint-v9-support-new-logo-and-redesign-workshops-and-more-17n2" /> 
+
+---
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)

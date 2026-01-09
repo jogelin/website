@@ -1,0 +1,183 @@
+---
+title: "🍒 Cherry-Picked Nx v19 Updates"
+subtitle: "Exploring My Selected Features from Nx Releases"
+publishedAt: 2024-05-27
+coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1716793615890/a966cc85-ce60-4803-993d-7bbef772266c.png
+canonicalUrl: https://gelinjo.hashnode.dev/cherry-picked-nx-v19-updates
+tags:
+  - nx
+  - angularjs
+  - reactjs
+  - monorepo
+  - javascript
+  - typescript
+author:
+  name: Jonathan Gelin
+  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+type: article
+draft: false
+---
+
+import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)
+
+<UrlEmbed url="https://github.com/nrwl/nx/releases/tag/19.0.0" /> 
+
+## **\[🌊 Nx Core\]**
+
+### **Metadata Property in Project Configuration**
+
+Already covered in [my previous blog post on v18.3](https://medium.com/javascript-in-plain-english/cherry-picked-nx-v18-3-updates-0502ff485629), Nx introduced a new `metadata` property in the `project.json`:
+
+```typescript
+{
+  "name": "my-java-project",
+  "metadata": {
+    "technologies": ["java17"],
+    "ciRunner": "ubuntu-20.04-m6a.large",
+    "owners": ["backend-team"]
+  },
+  ...
+}
+```
+
+In Nx v19, you’ll be able to generate these metadata directly from your plugins:
+
+```typescript
+export const createMetadata: CreateMetadata = (graph) => {
+  const metadata: ProjectsMetadata = {};
+  metadata['my-java-project'] = {
+    metadata: {
+      technologies: ['java17'],
+      ciRunner: 'ubuntu-20.04-m6a.large',
+      owners: ['backend-team']
+    }
+  }
+  return metadata;
+}
+```
+
+This opens many possibilities for project customization like listing technologies or the runner you want to use on your CI.
+
+It also helps define a project type described in my article [👥 Reproducible Nx Workspace with HugeNx’s Conventions](https://medium.com/javascript-in-plain-english/reproducible-nx-workspace-with-hugenxs-conventions-a247c0541049).
+
+### **Change imports for the Webpack plugin**
+
+It is always a better idea not to expose all utilities in the same `index.ts` especially when they are not related. It has an impact on the config loading for example.
+
+Here is a good decision from [Nx](https://medium.com/u/2817fb68583?source=post_page-----f245b01d5627--------------------------------) related to Webpack configurations:
+
+Before
+
+```typescript
+const { NxAppWebpackPlugin } = require('@nx/webpack');
+const { NxReactWebpackPlugin } = require('@nx/react');
+```
+
+After
+
+```typescript
+const { NxAppWebpackPlugin } = require('@nx/webpack/app-plugin');
+const { NxReactWebpackPlugin } = require('@nx/react/webpack-plugin');
+```
+
+### **Global forwardAllArgs for nx:run-commands**
+
+Before, when you had multiple commands in your `nx:run-commands` executor, you had to specify for each command if you wanted or not to forward arguments:
+
+```typescript
+    "configure-branch-environment": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          { 
+            "command": "echo \"BRANCH=$(git branch --show-current)\" > .local.env",
+             "forwardAllArgs": false 
+          },
+          { 
+            "command": "echo \"COMMIT_SHA=$(git rev-parse HEAD)\" >> .local.env",
+             "forwardAllArgs": false
+          },
+          { 
+            "command": "ls",
+             "forwardAllArgs": false 
+          },
+          { 
+            "command": "cat .local.env",
+             "forwardAllArgs": false 
+          }
+        ],
+        "cwd": "{projectRoot}"
+      }
+    },
+```
+
+Now you can specify it globally:
+
+```typescript
+    "configure-branch-environment": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "echo \"BRANCH=$(git branch --show-current)\" > .local.env",
+          "echo \"COMMIT_SHA=$(git rev-parse HEAD)\" >> .local.env",
+          "ls",
+          "cat .local.env"
+        ],
+        "cwd": "{projectRoot}", 
+        "forwardAllArgs": false
+      },
+    },
+```
+
+## **\[💎 Project Crystal\]**
+
+### **Add generators to convert projects to inferred targets**
+
+* [https://nx.dev/nx-api/cypress/generators/convert-to-inferred](https://nx.dev/nx-api/cypress/generators/convert-to-inferred)
+    
+* [https://nx.dev/nx-api/eslint/generators/convert-to-inferred](https://nx.dev/nx-api/eslint/generators/convert-to-inferred)
+    
+* [https://nx.dev/nx-api/playwright/generators/convert-to-inferred](https://nx.dev/nx-api/playwright/generators/convert-to-inferred)
+    
+
+## **\[💫 Upgrades\]**
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1716793102624/d95e344a-48d4-4cfe-b517-3185fd1b391c.png)](https://rollupjs.org/migration/)
+
+### **Support React 18.3**
+
+<UrlEmbed url="https://github.com/facebook/react/blob/main/CHANGELOG.md" /> 
+
+## **\[🌐 nx.dev\]**
+
+### **Main Navigation Menu**
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*EtA1GvRQuo67Y_KuDW_swQ.png)
+
+### **New Blog Page**
+
+[https://nx.dev/blog](https://nx.dev/blog)
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*zl0N7TGjVIPIgI7wnP15dQ.png)
+
+### **New Enterprise Page**
+
+[https://nx.dev/enterprise](https://nx.dev/enterprise)
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*EH8Avh5r1eiLRqvSdZavcA.png)
+
+## **\[☁️ Nx Cloud\]**
+
+### **DTE v2**
+
+[https://nx.dev/ci/reference/release-notes#dte-algorithm-v2-experimental-flag](https://nx.dev/ci/reference/release-notes#dte-algorithm-v2-experimental-flag)
+
+```typescript
+NX_CLOUD_DTE_V2: 'true'
+```
+
+---
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)

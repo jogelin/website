@@ -2,10 +2,10 @@
 import { getCollection } from 'astro:content';
 import TalkCard from './TalkCard.astro';
 import PostCard from './PostCard.astro';
-import { isInstanceOfPost } from '../../loaders/hasnode/schemas';
+import { isInstanceOfBlogPost } from '../../content/blog/_schema';
 import { isInstanceOfTalk } from '../../loaders/talks/schemas';
 
-const posts = await getCollection('posts');
+const posts = await getCollection('posts', ({ data }) => !data.draft);
 
 const conferences = await getCollection('conferences');
 const cfps = await getCollection('cfps');
@@ -41,7 +41,7 @@ function groupContentsForMasonry<T>(contents: T[], columns: number): T[][] {
   return grouped;
 }
 
-const columns = 3; // Adjust this based on your layout
+const columns = 3;
 const masonryContents = groupContentsForMasonry(sortedContents, columns);
 ---
 
@@ -56,8 +56,8 @@ const masonryContents = groupContentsForMasonry(sortedContents, columns);
     masonryContents.map((col) => (
       <div class="column space-y-2">
         {col.map((content) =>
-          isInstanceOfPost(content.data) ? (
-            <PostCard post={content.data} />
+          isInstanceOfBlogPost(content.data) ? (
+            <PostCard post={content as { id: string; data: any }} />
           ) : isInstanceOfTalk(content.data.properties) ? (
             <TalkCard talk={content.data.properties} />
           ) : (

@@ -1,0 +1,349 @@
+---
+title: "🔎 Deep Dive into Nx Affected"
+subtitle: "Understanding and Optimizing Nx Affected in Monorepos"
+publishedAt: 2024-06-18
+coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1718740608019/a69281f6-379a-449f-a98e-fc6f3180c1e0.png
+canonicalUrl: https://gelinjo.hashnode.dev/deep-dive-into-nx-affected
+tags:
+  - nx
+  - monorepo
+  - angularjs
+  - typescript
+  - nodejs
+  - reactjs
+author:
+  name: Jonathan Gelin
+  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+type: article
+draft: false
+---
+
+---
+
+[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
+
+## 😵‍ **Why is this untouched project affected?**
+
+This is a question I hear every day! A question that has led me many times into a debugging session of the [**Nx Affected**](https://nx.dev/ci/features/affected) process to find an answer.
+
+In this article, I aim to provide you with all the necessary insights to understand how the affected process of Nx works, helping you answer that very question.
+
+---
+
+## 🤓 Affected Reminder
+
+When working on a **large code base** in a Monorepo, you’ll have a repository that contains multiple Applications and Libraries.
+
+As your Monorepo grows, **rebuilding all apps/libs** can become **slow** on the CI. The ability to re-execute **only the impacted** apps/libs will drastically **reduce your Software Development Cycle time**.
+
+To be able to compute the affected projects, Nx will generate an Affected Graph with all affected projects and their dependencies. More info in [this clip made by Zack](https://www.youtube.com/shorts/m2vagUiiArM)
+
+### Affected Projects
+
+When you **modify** an app/lib, you are impacting the related app/lib and also all other **apps/libs** that **depend** on it:
+
+![Affected Projects Principle](https://cdn-images-1.medium.com/max/800/1*wBNqBAJJrM2AemYdHiIjUg.png)
+
+To understand the dependencies between apps/libs, Nx generates a [Project Graph](https://nx.dev/concepts/mental-model#the-project-graph) with all **nodes** (apps/libs), the external nodes (npm), and all **dependencies** between them.
+
+### Affected Tasks
+
+Considering the impact of a **modification** on the entire app/lib is not enough. For instance, if you **change a test** within an app, it does not mean you should re-build that app entirely. Only the **test** should be **re-run:**
+
+![Comparaison between Project Graph and Task Graph](https://cdn-images-1.medium.com/max/800/1*oiv9ahvmBu6yPWUzcPr_0g.png)
+
+from Nx Mental Model Documentation
+
+To understand the task dependencies between apps/libs, Nx generates a [Task Graph](https://nx.dev/concepts/mental-model#the-task-graph) with nodes representing an **association** of the app/lib **by tasks**.
+
+---
+
+## 🤩 Affected Commands
+
+Nx provides multiple ways to identify which projects/tasks are affected.
+
+### Affected Run
+
+The **main command** used typically on the CI is the [Nx affected command](https://nx.dev/nx-api/nx/documents/affected):
+
+```json
+nx affected -t lint test build
+```
+
+![Nx Affected Command Diagram](https://cdn-images-1.medium.com/max/800/1*a4NepMkOaE4qTKiyiVKz5g.png)
+
+With this command, you’ll be able to run only the list of tasks that are affected.
+
+### Show Command
+
+Another useful command to get a direct overview is the [Nx show command](https://nx.dev/nx-api/nx/documents/show):
+
+```json
+nx show projects --affected
+```
+
+![Nx Show Command Diagram](https://cdn-images-1.medium.com/max/800/1*IjfK5YGsNCkJlWq89IbqkA.png)
+
+This command allows you to see the affected projects/tasks directly in the console and also export the result to a `JSON` file, for example.
+
+### Nx Graph
+
+If you need a UI visualization and a way to track the path of the affected projects/tasks, you can open the [Nx graph](https://nx.dev/nx-api/nx/documents/dep-graph) by using the command:
+
+```json
+nx graph --affected
+```
+
+![Nx Graph Command Diagram](https://cdn-images-1.medium.com/max/800/1*2FEVl4rju5nX9bl_X_LBZQ.png)
+
+It will open a web page where you can see a graph similar to this:
+
+![Affected Graph Visualization](https://cdn-images-1.medium.com/max/800/1*OJy1WanSXdIFktjIzlEJmA.png)
+
+from Nx Affected Documentation
+
+---
+
+## 😶‍🌫️ Affected Rules
+
+The Nx affected process goes through several steps and considers various files and configurations to decide which project can be affected:
+
+![Nx Affected Process Overview](https://cdn-images-1.medium.com/max/800/1*x1WIkF9FfQyJKwSJ5pANrg.png)
+
+### Step 1 - Find Touched Files
+
+Before computing the list of affected projects, Nx loads the list of modified/touched files:
+
+![Find Touched Files](https://cdn-images-1.medium.com/max/800/1*TiujNtR8IAEEijt-Sl2Nrg.png)
+
+Nx computes that list by taking the modified files since the targeted **Affected Base**.
+
+By **default**, the base will be your **main branch**, but you can modify it using the `-base` and `-head` options.
+
+All modified files **not yetcommitted** or **tracked** will also be added. You can change the behavior using the `-uncommitted` or `-untracked` options.
+
+If you **don't want Nx to compute** the list of files, you can provide your list using the `-files` option.
+
+Files matching a pattern in `.gitignore` or `.nxignore` will be **ignored**.
+
+### Step 2.1 - Find Affected Nodes from Paths
+
+When all touched files are defined, Nx checks how they can affect the projects:
+
+![Find Affected Nodes from Paths](https://cdn.hashnode.com/res/hashnode/image/upload/v1719221936229/fd10a4ca-d6bd-4c41-8f13-ea20936aae17.png)
+
+The most common rule is to check if the **file** path **matches** the **project root** path.
+
+### Step 2.2 - Find Affected Nodes from Tasks
+
+Nx will also implicitly affect some projects if one of their tasks is impacted by a touched file:
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1719666582167/7b68d443-29a9-47fd-80cf-7dec1b8fd1b7.png)
+
+For example, if you modify a global Jest configuration file like `jest.preset.ts`, because it is specified in the inputs related to that target, you will also affect all projects using that executor:
+
+```json
+"targetDefaults": {
+  "@nx/jest:jest": {
+    "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+  },
+},
+```
+
+Each time a project contains a target with an input affected by a touched file, it will be impacted.
+
+> For more detailed information about how Nx handles target caching through [Inputs](https://nx.dev/reference/inputs#inputs-and-named-inputs), [Named Inputs](https://nx.dev/reference/inputs#inputs-and-named-inputs) and [Outputs](https://nx.dev/recipes/running-tasks/configure-outputs#configure-outputs-for-task-caching), refer to the [Nx documentation](https://nx.dev/recipes/running-tasks/configure-inputs)
+
+### Step 2.3 - Find Affected Nodes from Plugins
+
+Since the [Nx Project Crystal](https://nx.dev/concepts/inferred-tasks#inferred-tasks-project-crystal) and the generalization of Nx Plugins with inferred configurations, Nx also checks if a plugin pattern is affected by the list of touched files.
+
+![Find Affected Nodes from Plugins](https://cdn-images-1.medium.com/max/800/1*sH9pzg8FUlt2KbS195Lw7g.png)
+
+For example, if you delete or move a file, Nx assumes the project is deleted and marks all projects as affected.
+
+### Step 2.4 - Find Affected Nodes from Npm Dependencies
+
+If the `package.json` is modified, Nx uses a smart approach to understand what exactly changed.
+
+If you modify an **npm library**, Nx finds all **projectsusing** that **library** and marks them affected. If it is a `@types/*`, Nx extracts the **related library** and applies the same principle as if you were modifying the library.
+
+If you modify a library used in the `nx.json` plugins or delete a library, **all projects** will be considered affected:
+
+![Find Affected Nodes from Npm Dependencies](https://cdn-images-1.medium.com/max/800/1*kY_JSaI0-Yqo8jrLNAZC8A.png)
+
+By default, modifying the **package manager lock** file affects **all projects:**
+
+![Find Affected Nodes from Lock Files](https://cdn-images-1.medium.com/max/800/1*utuEVaT7yZxyq1g6iGW3Tw.png)
+
+This behavior can be modified using the `projectsAffectedByDependencyUpdates` in your `nx.json`:
+
+```json
+"pluginsConfig": {
+    "@nx/js": { 
+        "projectsAffectedByDependencyUpdates": "auto"
+    }
+}
+```
+
+Options:
+
+* `all`: Affect all projects
+    
+* `auto`: Affect only projects related to the modified dependencies
+    
+* `string[]`: Define a list of projects
+    
+
+### Step 2.5 - Find Affected Nodes From Typescript Configuration
+
+Modifying the global TypeScript configuration can also impact the list of affected nodes:
+
+![Find Affected Nodes From Typescript Configuration](https://cdn.hashnode.com/res/hashnode/image/upload/v1719221995174/a2b00cc8-2916-4be4-853a-0d6322fb5be8.png)
+
+If a **path** is modified, Nx affects the **related project** that matches the root path. However, modifying a **global config** or deleting a path affects **all projects**.
+
+### Step 2.6 - Find Affected Nodes From Global Files
+
+By default, modifying `nx.json` affects **all projects**.
+
+![Find Affected Nodes From Global Files](https://cdn-images-1.medium.com/max/800/1*GYZDCbdVMZKBisG1qnh5TA.png)
+
+### Step 3 - Generate Affected Graph
+
+After identifying all affected nodes, Nx **generates** an **affected graph** to determine which `nodes`, `externalNodes` and `dependencies` are **finally affected**.
+
+Nx takes the affected nodes and **recursively** searches for all **dependencies** in the **Project Graph**:
+
+![Generate Affected Graph](https://cdn-images-1.medium.com/max/800/1*cM_iT8c8onYutt3ilK4HcQ.png)
+
+For example, if the affected node `lib10` is used by `lib4`, which is used by `app1`, all of these nodes will be **added** to the affected project graph.
+
+Nx applies the **same** principles to the `externalNodes`:
+
+![Generate Affected Graph For Deps](https://cdn-images-1.medium.com/max/800/1*3tgA1mZsxFUxzxC-ZFgDmw.png)
+
+For example, if the affected npm library `enquirer` which is used by the npm library `nx` which is also used by the internal library `tools`.
+
+To be sure the Affected Graph is complete, Nx will also add the related `dependencies`.
+
+---
+
+## 🧐 Affected Investigation
+
+If you still don’t understand why some projects are affected on a branch, you can always debug the Nx affected process.
+
+### By using Nx Graph
+
+If you open the Nx graph with the affected command, you’ll be able to see all affected projects as specified in the [🤓 Affected Reminder](#9d37) section.
+
+You can then [explore your workspace](https://nx.dev/features/explore-graph#explore-your-workspace) and use multiple features like the Project Focus or the Dependency Tracker.
+
+### Debugging
+
+However, on big repositories, the graph is often hard to use for debugging. I prefer to debug the Nx-affected process to see exactly which step is responsible.
+
+You can start by putting a breakpoint in `packages/nx/src/command-line/affected/affected.ts` and run `nx show project --affected` in debug mode.
+
+## 🤕 Affected Fixes
+
+Customizing the affected process is not straightforward. If you think too many projects are affected with each modification, here are some recommendations:
+
+### Good Splitting of Apps/Libs
+
+Ensure the **split of your apps/libs** is **correctly** done.
+
+Often, shared libraries are used for many projects with utilities needed by only one project. In such cases, touching that library affects all projects.
+
+### Strict Named Inputs
+
+Ensure your **Named Inputs** are **correctly** configured. Named inputs define if modifying a file can impact the output of a target.
+
+For example, modifying a spec file can impact the test but not the build. If you use the default named input, touching one file affects all targets of your project.
+
+### Affected Customization
+
+Currently, there is limited customization for the affected process. You can customize it when updating a dependency by using the configuration `projectsAffectedByDependencyUpdates` (see Step 2.4 — Find Affected Nodes from Npm Dependencies).
+
+### Patch Nx
+
+> ⚠️ Only use this as a last resort!
+
+This is a **hacky** solution, but I use it to **customize** the affected process. **Patching** your **Nx** library using your package manager’s patch system allows you to **change** the **rules**.
+
+For example, if fixes take time to implement, you can **disable** the “**Affected All”** use cases with:
+
+```diff
+diff --git a/node_modules/nx/src/plugins/js/project-graph/affected/npm-packages.js b/node_modules/nx/src/plugins/js/project-graph/affected/npm-packages.js
+index 72e78e7..7793bea 100644
+--- a/node_modules/nx/src/plugins/js/project-graph/affected/npm-packages.js
++++ b/node_modules/nx/src/plugins/js/project-graph/affected/npm-packages.js
+@@ -20,7 +20,8 @@ const getTouchedNpmPackages = (touchedFiles, _, nxJson, packageJson, projectGrap
+             c.path.length === 2) {
+             // A package was deleted so mark all workspace projects as touched.
+             if (c.type === json_diff_1.JsonDiffType.Deleted) {
+-                touched = Object.keys(projectGraph.nodes);
++                // PATCH TO NOT AFFECTED ALL WHEN PACKAGE IS DELETED
++                // touched = Object.keys(projectGraph.nodes);
+                 break;
+             }
+             else {
+diff --git a/node_modules/nx/src/plugins/js/project-graph/affected/tsconfig-json-changes.js b/node_modules/nx/src/plugins/js/project-graph/affected/tsconfig-json-changes.js
+index bac7008..37ae136 100644
+--- a/node_modules/nx/src/plugins/js/project-graph/affected/tsconfig-json-changes.js
++++ b/node_modules/nx/src/plugins/js/project-graph/affected/tsconfig-json-changes.js
+@@ -24,7 +24,8 @@ const getTouchedProjectsFromTsConfig = (touchedFiles, _a, _b, _c, graph) => {
+         }
+         // If a path is deleted, everything is touched
+         if (change.type === json_diff_1.JsonDiffType.Deleted) {
+-            return Object.keys(graph.nodes);
++            // PATCH TO NOT AFFECTED ALL WHEN PATH IS DELETED
++            // return Object.keys(graph.nodes);
+         }
+         touched.push(...getProjectsAffectedByPaths(change, Object.values(graph.nodes)));
+     }
+diff --git a/node_modules/nx/src/project-graph/affected/affected-project-graph.js b/node_modules/nx/src/project-graph/affected/affected-project-graph.js
+index 5665c8d..d5a69aa 100644
+--- a/node_modules/nx/src/project-graph/affected/affected-project-graph.js
++++ b/node_modules/nx/src/project-graph/affected/affected-project-graph.js
+@@ -12,7 +12,8 @@ async function filterAffected(graph, touchedFiles, nxJson = (0, configuration_1.
+     const touchedProjectLocators = [
+         workspace_projects_1.getTouchedProjects,
+         workspace_projects_1.getImplicitlyTouchedProjects,
+-        project_glob_changes_1.getTouchedProjectsFromProjectGlobChanges,
++        // PATCH TO NOT AFFECTED ALL WHEN PLUGIN PATTERN MATCHING CHANGED FILE
++        // project_glob_changes_1.getTouchedProjectsFromProjectGlobChanges,
+         touched_projects_1.getTouchedProjects,
+     ];
+     const touchedProjects = [];
+diff --git a/node_modules/nx/src/project-graph/affected/locators/workspace-projects.js b/node_modules/nx/src/project-graph/affected/locators/workspace-projects.js
+index c5aec64..edaa989 100644
+--- a/node_modules/nx/src/project-graph/affected/locators/workspace-projects.js
++++ b/node_modules/nx/src/project-graph/affected/locators/workspace-projects.js
+@@ -16,7 +16,8 @@ const getTouchedProjects = (touchedFiles, projectGraphNodes) => {
+ exports.getTouchedProjects = getTouchedProjects;
+ const getImplicitlyTouchedProjects = (fileChanges, projectGraphNodes, nxJson) => {
+     const implicits = {
+-        'nx.json': '*',
++        // PATCH TO NOT AFFECTED ALL WHEN nx.json CHANGED
++        // 'nx.json': '*',
+     };
+     Object.values(projectGraphNodes || {}).forEach((node) => {
+         const namedInputs = {
+```
+
+---
+
+## 🙂 Last Thoughts
+
+As you can see, the Nx affected process not only considers the list of modified files but also computes the list of projects based on various other factors.
+
+This makes the investigation not always straightforward and can often lead to an affected-all situation.
+
+I hope I clarified some parts and provided you with the keys for a better understanding of the affected process.
+
+I hope in the future we will have more customization options for the affected process by generalizing the list of options like `projectsAffectedByDependencyUpdates`.
+
+Stay Tuned 🚀
+
+[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)

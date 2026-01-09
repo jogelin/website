@@ -6,10 +6,12 @@
     "start": "astro dev --force",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "migrate:hashnode": "node --import @swc-node/register/esm-register scripts/migrate-hashnode.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.5",
+    "@astrojs/mdx": "^4.3.13",
     "@astrojs/rss": "^4.0.13",
     "@astrojs/tailwind": "^5.1.5",
     "astro": "^5.15.9",

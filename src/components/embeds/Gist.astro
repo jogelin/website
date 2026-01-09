@@ -1,0 +1,43 @@
+---
+interface Props {
+  id: string;
+  file?: string;
+}
+const { id, file } = Astro.props;
+const gistUrl = file
+  ? `https://gist.github.com/${id}.js?file=${file}`
+  : `https://gist.github.com/${id}.js`;
+---
+
+<div class="gist-embed" data-gist-url={gistUrl}></div>
+
+<script>
+  document.querySelectorAll('.gist-embed[data-gist-url]').forEach((el) => {
+    const url = el.getAttribute('data-gist-url');
+    if (url && !el.querySelector('script')) {
+      const script = document.createElement('script');
+      script.src = url;
+      el.appendChild(script);
+    }
+  });
+</script>
+
+<style is:global>
+  .gist-embed .gist {
+    max-width: 100%;
+  }
+  .gist-embed .gist-file {
+    border-radius: 8px !important;
+    margin: 2rem 0 !important;
+  }
+  .gist-embed .gist .gist-data {
+    background: #1e293b !important;
+  }
+  .gist-embed .gist .gist-meta {
+    background: #0f172a !important;
+    color: #94a3b8 !important;
+  }
+  .gist-embed .gist .gist-meta a {
+    color: #10b981 !important;
+  }
+</style>

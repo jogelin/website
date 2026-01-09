@@ -1,0 +1,128 @@
+---
+title: "🍒 Cherry-Picked Nx v18.2 Updates"
+subtitle: "Exploring My Selected Features from Nx Releases"
+publishedAt: 2024-04-05
+coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1731511282306/d250cd51-86c7-414d-b773-f267f61106ef.png
+canonicalUrl: https://gelinjo.hashnode.dev/cherry-picked-nx-v182-updates
+tags:
+  - nx
+  - typescript
+  - monorepo
+  - angularjs
+  - gradle
+author:
+  name: Jonathan Gelin
+  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+type: article
+draft: false
+---
+
+import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)
+
+<UrlEmbed url="https://github.com/nrwl/nx/releases/tag/18.2.0?source=post_page-----6d61ed383040--------------------------------" /> 
+
+## **\[Angular\] Support Angular 17.3**
+
+As usual, Nx is up to date with the latest version of Angular!
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1712302556992/2846ee36-b14d-4023-8425-66c8628816f3.png)](https://blog.ninja-squad.com/2024/03/13/what-is-new-angular-17.3)
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1712302567604/77565082-97f5-4ce6-a753-c9df42c13c0c.png)](https://blog.angular.io/meet-angulars-new-output-api-253a41ffa13c)
+
+## **\[Core\] Scope Nx Plugin Project Crystal 💛💛💛**
+
+<UrlEmbed url="https://github.com/nrwl/nx/pull/22379?source=post_page-----6d61ed383040--------------------------------" /> 
+
+In my previous article, “[⛔ Target Exclusions in Nx Project Crystal](https://medium.com/javascript-in-plain-english/target-exclusions-in-nx-project-crystal-fbabce816b21),” I introduced alternatives for excluding certain projects from specific plugins.
+
+For instance, you might not want a `test` target in an `e2e` project simply because there’s a `jest.config.ts` file present.
+
+Now, **an official method is available** for excluding or including plugins for a specific project. Within your `nx.json` file, you can now specify the `exclude` or `include` options:
+
+```json
+{
+  "plugins": [
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test",
+        "exclude": ["my-lib-e2e/**/*"]
+      }
+    }
+  ]
+}
+```
+
+## **\[Gradle\] New Gradle Integration**
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1712302681863/63a642c1-ff52-429b-8bca-0b6388259ed8.png)](https://nx.dev/nx-api/gradle?source=post_page-----6d61ed383040--------------------------------)
+
+You can now leverage the new Gradle integration with the [`@nx/gradle:init`](https://nx.dev/nx-api/gradle/generators/init) generator. To initialize, simply run:
+
+```bash
+nx g @nx/gradle:init
+```
+
+This initialization will also add the `@nx/gradle/plugin` to your `nx.json`:
+
+```json
+{
+  "plugins": [
+    {
+      "plugin": "@nx/gradle/plugin",
+      "options": {
+        "testTargetName": "build",
+        "classesTargetName": "test",
+        "buildTargetName": "classes"
+      }
+    }
+  ]
+}
+```
+
+This plugin will:
+
+* Integrate your Gradle projects into the Nx Dependency Tree by scanning all Gradle configurations.
+    
+* Discover your projects by scanning the Gradle configuration matching the pattern `**/build.{gradle.kts,gradle}`, and then assign the targets `build`, `test`, and `classes`.
+    
+
+## **\[Cypress\] New target**`open-cypress` is added by the @nx/cypress/plugin
+
+<UrlEmbed url="https://github.com/nrwl/nx/pull/22556?source=post_page-----6d61ed383040--------------------------------" /> 
+
+If you’re working with Nx Project Crystal and have a Cypress project that includes a `cypress.config.*` file, the `@nx/cypress/plugin`[will automatically add related targets to your project](https://nx.dev/nx-api/cypress/documents/overview#how-nxcypress-infers-tasks).
+
+A new target, `open-cypress`, will now be added to your project configuration:
+
+```json
+"open-cypress": {
+  "command": "cypress open",
+  "options": {
+    "cwd": ".",
+  },
+```
+
+You have the flexibility to use a different name by specifying the new plugin option `openTargetName`:
+
+```json
+{
+  "plugins": [
+    {
+      "plugin": "@nx/cypress/plugin",
+      "options": {
+        "targetName": "e2e",
+        "ciTargetName": "e2e-ci",
+        "componentTestingTargetName": "component-test",
+        "openTargetName": "open-cypress" // <-- NEW
+      }
+    }
+  ]
+}
+```
+
+---
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)

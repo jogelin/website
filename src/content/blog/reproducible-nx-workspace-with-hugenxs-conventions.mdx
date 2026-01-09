@@ -1,0 +1,301 @@
+---
+title: "👥 Reproducible Nx Workspace with HugeNx’s Conventions"
+subtitle: "An Opinionated Approach to Maintaining and Scaling HugeNx Monorepos"
+publishedAt: 2024-05-05
+coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1714888462253/159379a6-db29-4785-84b6-f8315e8f99a0.png
+canonicalUrl: https://gelinjo.hashnode.dev/reproducible-nx-workspace-with-hugenxs-conventions
+tags:
+  - nx
+  - nx-workspace
+  - monorepo
+  - angularjs
+  - reactjs
+  - javascript
+  - devops
+author:
+  name: Jonathan Gelin
+  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+type: article
+draft: false
+---
+
+import Snappify from "../../components/embeds/Snappify.astro";
+import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
+
+[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
+
+After migrating multiple organizations to an Nx Monorepo and maintaining it, I discovered that with each major Nx version, I was **generating** a new repository on the side, **mimicking my existing repo**, to compare configuration files and ensure they matched the latest version of Nx.
+
+However, recreating an entire repo to mirror my original was labor-intensive. I began using Bash scripts, then Node.js scripts, and finally, I developed **HugeNx**, a **custom Nx preset** that generates a workspace from a configuration file.
+
+After further reflection, I realized I wasn’t just creating a file to generate a workspace; I was crafting a file that would describe **workspace conventions** and could be utilized for many other purposes.
+
+<UrlEmbed url="https://github.com/jogelin/huge-nx" /> 
+
+## **HugeNx’s Conventions**
+
+The main concept behind this library is the **HugeNx’s Conventions** file — a configuration file that **groups all conventional decisions** you’ve made about your Nx workspace. This file will describe how your workspace should look.
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*-qLEVpoWbkoY0QeYoCL3gg.png)
+
+If **HugeNx’s Conventions** file contains all the information on your targeted workspace, it means you can **generate a new workspace from scratch** or **even maintain an existing one**.
+
+### **ProjectTypes**
+
+The first main convention I wanted to integrate is the concept of Nx **ProjectType**.
+
+When you delve into the various resources about structuring an Nx workspace, you’ll encounter extensive explanations on categorizing your library by scope or type and creating tags that establish your boundaries:
+
+* [Code Organization & Naming Conventions](https://nx.dev/concepts/more-concepts/monorepo-nx-enterprise#code-organization-naming-conventions)
+    
+* [Library Types](https://nx.dev/concepts/more-concepts/library-types#library-types)
+    
+* [Domain Driven Design](https://github.com/angular-architects/nx-ddd-plugin/blob/main/libs/ddd/README.md)
+    
+
+However, I always missed a centralized way to specify this list of **ProjectTypes**. When you generate a project you lose the link with its source generator and its related technologies.
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*jXNpK44vmxx3Ks9u9ib2uw.png)
+
+This is why I wanted to keep that information. With the help of **HugeNx’s Conventions**, you can recognize your projects because they will follow the conventions you specified in them.
+
+> *I already explain the importance of conventions in my article ⚡* [***The Super Power of Conventions with Nx***](https://medium.com/@jgelin/the-super-power-of-conventions-with-nx-8d418150b679)***.***
+
+### **Reproducible Generation**
+
+When you start a project with Nx, everything is **clean** and **aligned**. But after some years we apply migrations, create custom generators, manually modify configurations, etc. All of that, coupled with developer turnover, and you end up with a good [**Ratatouille**](http://ki/Ratatouille#:~:text=The%20word%20ratatouille%20derives%20from,merely%20indicated%20a%20coarse%20stew.).
+
+This is a common challenge we try to solve in IT, especially at the infrastructure level with the concept of [**infrastructure as code**](https://en.wikipedia.org/wiki/Infrastructure_as_code). The usage of tools like [Ansible](https://en.wikipedia.org/wiki/Ansible_\(software\)) allows us to initialize and reconfigure an entire infrastructure from scripts and configuration files.
+
+With Nx, you can use the [list of presets](https://nx.dev/nx-api/nx/documents/create-nx-workspace#preset), but it is [**hardcoded**](https://github.com/nrwl/nx/blob/master/packages/workspace/src/generators/preset/preset.ts). There is some **flexibility** for each with some options, but **not enough** to generate a more advanced workspace.
+
+If you want to create a **more advanced workspace**, you’ll need t[o create your custom preset](https://nx.dev/extending-nx/recipes/create-preset). It is useful for creating a seed but not for quickly generating a workspace **for comparison**, demo, or workshop; it can be **cumbersome**.
+
+This is why I decided to create a custom Nx preset that can generate an Nx workspace just by using **HugeNx’s Conventions**. You don’t need to create or maintain your own preset!
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*5WqFJuSp4eKAE9KnLTZThA.png)
+
+You can regenerate your entire repository for **any Nx version**. This would help for comparing what changed and also for **simplifying** the way we currently create **Nx presets**.
+
+**HugeNx** supports all Nx plugins so you can easily reproduce all Nx presets and even create your custom preset.
+
+### **Consistent Monorepo**
+
+Generating your repository from scratch is good, but being able to **maintain** it for a long time is even **better**, right?
+
+The main goal of **HugeNx’s Conventions** is to be the guardian, the **housekeeper** that will describe how your **workspace should look** and behave.
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*SdBxw1YwzgHI8uUhlkbjKg.png)
+
+\*\*Eslint Conventions Rules:  
+\*\*With the help of tools like **Eslint**, you can read that file and create rules to **enforce conventions** and:
+
+* Validate that each project follows the **naming conventions**
+    
+* Validate the **workspace structure**
+    
+* Validate that each project is correctly **related to one ProjectType**
+    
+* Validate the `nx.json` generator’s options
+    
+
+\*\*Project Discovering:  
+\*\*With the project inference provided by the [**Nx Project Crystal**](https://nx.dev/concepts/inferred-tasks), you can easily discover your Nx project based on your naming convention.
+
+You can also create one **Nx plugin** that matches the **ProjectType** naming convention and attach the **project configuration** automatically!
+
+**Migration:**
+
+Related to the fact that you can **regenerate** a new workspace from scratch for a specific Nx version, you can now easily generate a workspace with the **latest Nx** and **compare it with your workspace**.
+
+<Snappify id="69bea243-e514-4ce8-b0f1-993ff2b3c392" /> 
+
+You can also use tools like [Betterer](https://phenomnomnominal.github.io/betterer/) if you want to migrate step by step your repository to your **HugeNx’s Conventions.**
+
+\*\*ProjectType Generator:  
+\*\*There is **no need** to create and maintain **complex custom generators**. You can create a generator that will read your **ProjectTypes** and generate a project from it.
+
+> *Stay tuned for future implementations of the HugeNx tools for consistent monorepo.*
+
+## **Let’s Generate Your Workspace**
+
+Let’s start with a concrete example by creating a new TypeScript file that will represent your workspace.
+
+### **1\. Define your conventions**
+
+You can create a file `huge-angular-full-stack.conventions.ts` that will contain a workspace with a **full-stack application** to manage a **Hotel**:
+
+```typescript
+export default {
+  version: '1.0',
+  generators: {
+    '@nx/angular:application': { //<-- Generator Identifier
+      linter: 'eslint', //<-- List of options
+      style: 'css',
+      unitTestRunner: 'jest',
+      bundler: 'esbuild',
+      e2eTestRunner: 'playwright',
+      inlineStyle: true,
+      inlineTemplate: true,
+    },
+    '@nx/angular:library': {
+      linter: 'eslint',
+      unitTestRunner: 'jest',
+    },
+    '@nx/angular:component': {
+      style: 'css',
+    },
+    '@nx/js:lib': {
+      bundler: 'swc',
+    },
+  },
+  projectTypes: {
+    'global:angular:app': { //<-- ProjectType Identifier
+      projectPattern: '*-app', //<-- Pattern matching your naming convention
+      generators: [{ generator: '@nx/angular:application' }], //<-- List of generators used to generate that type of project
+    },
+    'backend:api': {
+      projectPattern: '*-api',
+      generators: [{ generator: '@nx/nest:application' }],
+    },
+    'global:angular:lib:data-access': {
+      projectPattern: '*-data-access',
+      generators: [{ generator: '@nx/angular:library' }],
+    },
+    'global:angular:lib:feature': {
+      projectPattern: '*-feature',
+      generators: [{ generator: '@nx/angular:library' }],
+    },
+    'global:angular:lib:ui:storybook': { //<-- This ProjectType generates a library then a storybook configuration
+      projectPattern: '*-ui',
+      generators: [{ generator: '@nx/angular:library' }, { generator: '@nx/storybook:configuration', options: { uiFramework: '@storybook/angular' } }],
+    },
+    'global:ts:lib:utils': {
+      projectPattern: '*-utils',
+      generators: [{ generator: '@nx/js:lib', options: { bundler: 'swc' } }],
+    },
+  },
+  workspace: { //<-- The workspace is structured by folders and projects
+    apps: {
+      //<-- Generates a folder apps
+      'hotel-app': 'global:angular:app', //<-- Generates a project hotel-app by using the project type global:angular:app
+      'hotel-api': { //<-- Generates a project hotel-api by using the project type backend:api and extra options
+        projectType: 'backend:api',
+        options: {
+          '@nx/angular:remote': { frontendProject: 'hotel-app' },
+        },
+      },
+    },
+    libs: { //<-- Generates a folder libs
+      guest: { //<-- Generates a folder guest
+        'data-access': 'global:angular:lib:data-access', //<-- Generates a project guest-data-access by using the project type global:angular:lib:data-access
+        'booking-feature': 'global:angular:lib:feature', //<-- Generates a project guest-booking-feature by using the project type global:angular:lib:feature
+        'feedback-feature': 'global:angular:lib:feature', //<-- Generates a project guest-feedback-feature by using the project type global:angular:lib:feature
+      },
+      room: { //<-- Generates a folder room
+        'data-access': 'global:angular:lib:data-access',
+        'list-feature': 'global:angular:lib:feature',
+        'request-feature': 'global:angular:lib:feature',
+      },
+      shared: { //<-- Generates a folder shared
+        ui: { //<-- Generates a project shared-ui by using the project type global:angular:lib:ui:storybook and extra options
+          projectType: 'global:angular:lib:ui:storybook',
+          options: {
+            '@nx/storybook:configuration': { project: 'shared-ui' },
+          },
+        },
+        utils: 'global:ts:lib:utils',
+      },
+    },
+  }
+};
+```
+
+\*\*The Default Generator Options  
+\*\*This is nothing new and is **already available** in [Nx](https://medium.com/u/2817fb68583?source=post_page-----a247c0541049--------------------------------) by configuring your [`nx.json`](https://nx.dev/reference/nx-json#generators) file. You can define default options for each generator that you are using in your workspace.
+
+All Nx options can be found in the [Nx API Documentation](https://nx.dev/nx-api).
+
+\*\*The List of ProjectTypes  
+\*\*Here you’ll define your **list of ProjectType** based on the technologies, the domain, the type of library, the team, etc.
+
+For each **ProjectType**, you’ll specify which generators should be used and all conventions around them. It will use the **Default Generator Options**, and you can add extra options if needed.
+
+\*\*Your Workspace Structure  
+\*\*Finally, you’ll define your list of projects inside a **workspace layout**. Each project will be linked and described by a specific **ProjectType**.
+
+That section is required for the generation but **not required for the maintenance**.
+
+### **2\. Use create-huge-nx CLI**
+
+If you want to generate your workspace, you can now use the **HugeNx CLI** by calling:
+
+```json
+npx create-huge-nx@latest my-workspace --hugeNxConventions=./huge-angular-full-stack.conventions.ts --nxCloud skip
+```
+
+It will generate a workspace that will look like:
+
+```json
+my-workspace/
+├─ apps/
+│   ├─ hotel-api/
+│   ├─ hotel-api-e2e/
+│   ├─ hotel-app/
+│   └─ hotal-app-e2e/
+├── libs/
+│   ├─ guest/
+│   │   ├─ data-access
+│   │   ├─ booking-feature
+│   │   └─ feedback-feature
+│   ├─ room/
+│   │   ├─ data-access
+│   │   ├─ list-feature
+│   │   └─ request-feature
+│   └─ shared/
+│       ├─ ui
+│       └─ utils
+├─ nx.json
+├─ package.json
+├─ jest.config.json
+└─ huge-nx.conventions.ts
+```
+
+By default, the latest version of Nx will be used but you can generate a workspace with a specific Nx version with `--nxVersion`:
+
+```bash
+npx create-huge-nx@latest my-workspace --nxVersion 17 --hugeNxConventions=./huge-angular-full-stack.conventions.ts --nxCloud skip
+```
+
+## **More presets**
+
+It’s now straightforward to create various types of repositories simply by introducing a new `huge-nx.conventions.ts` file. This approach not only encompasses all Nx presets but also allows you to describe each type of project in detail, as outlined in the [library types section](https://nx.dev/concepts/more-concepts/library-types#library-types) of the Nx documentation.
+
+For instance, you can define the types from the [`@angular-architects/ddd`](https://www.npmjs.com/package/@angular-architects/ddd) package and then use this definition to generate a workspace. This flexibility allows for a highly customized setup that caters to the specific needs of your project, leveraging Nx's powerful and extensible tooling ecosystem.
+
+I also used ChatGPT to generate my convention files. I just provided an example of the file and specify:
+
+* It represents an Nx workspace
+    
+* Should use Angular generators
+    
+* Represent Hotel Business
+    
+* Should be a full-stack app
+    
+
+## **Final Thoughts**
+
+**HugeNx’s Conventions** aim to provide a useful tool in the Nx landscape, particularly for those managing large and evolving monorepos.
+
+By automating and standardizing workspace setups, it helps reduce the complexity often associated with project generation and maintenance. For me, this approach helped me save time and effort in my migration process.
+
+I am looking forward to improving HugeNx based on your feedback. I hope it will be a valuable addition to your development toolkit. Your insights and experiences are crucial to refining this tool, so please share your thoughts.
+
+Stay tuned! 🚀
+
+<UrlEmbed url="https://github.com/jogelin/huge-nx" /> 
+
+---
+
+[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)

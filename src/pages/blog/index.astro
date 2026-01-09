@@ -1,0 +1,128 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import Navbar from '../../components/Navbar.astro';
+import Card from '../../components/Card.astro';
+
+const posts = await getCollection('posts', ({ data }) => !data.draft);
+const sortedPosts = posts.sort(
+  (a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()
+);
+---
+
+<Layout title="Blog | Jonathan Gelin">
+  <Navbar activeLink="blog" />
+  <main class="blog-page">
+    <div class="container">
+      <header class="page-header">
+        <span class="section-label">Blog</span>
+        <h1 class="page-title">Articles & Notes</h1>
+        <p class="page-subtitle">
+          Thoughts on Nx, AI tooling, developer experience, and building better software
+        </p>
+      </header>
+
+      <div class="posts-grid">
+        {
+          sortedPosts.map((post) => (
+            <Card
+              type={post.data.type === 'article' ? 'ARTICLE' : 'NOTE'}
+              startDate={post.data.publishedAt.toISOString()}
+              picture={post.data.coverImage ?? ''}
+              links={[{ name: 'Read More', href: `/blog/${post.id}` }]}
+              title={post.data.title}
+              description={post.data.subtitle}
+            />
+          ))
+        }
+      </div>
+
+      {sortedPosts.length === 0 && (
+        <div class="empty-state">
+          <p>No posts yet. Check back soon!</p>
+        </div>
+      )}
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .blog-page {
+    min-height: 100vh;
+    padding: 80px 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #10b981;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .page-title {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 12px;
+  }
+
+  :global(.dark) .page-title {
+    color: #e2e8f0;
+  }
+
+  .page-subtitle {
+    font-size: 18px;
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  :global(.dark) .page-subtitle {
+    color: #94a3b8;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 24px;
+  }
+
+  @media (min-width: 640px) {
+    .posts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .posts-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #64748b;
+  }
+
+  :global(.dark) .empty-state {
+    color: #94a3b8;
+  }
+</style>

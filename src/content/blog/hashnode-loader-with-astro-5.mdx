@@ -1,0 +1,205 @@
+---
+title: "Hashnode Loader with Astro  5"
+subtitle: "Create Custom Loader for new Astro Content Collection"
+publishedAt: 2024-11-13
+coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1731512148702/ddd34a4b-c18a-4140-88f1-ad322937b20b.jpeg
+canonicalUrl: https://gelinjo.hashnode.dev/hashnode-loader-with-astro-5
+tags:
+  - astro
+  - hashnode
+  - note
+author:
+  name: Jonathan Gelin
+  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+type: note
+draft: false
+---
+
+[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
+
+1. Install `graphql-request`
+    
+    ```bash
+    npm install graphql-request
+    yarn add graphql-request
+    pnpm add graphql-request
+    ```
+    
+2. Create file `src/loaders/hashnode/schemas.ts` with
+    
+    ```typescript
+    import { z } from "astro/zod";
+    
+    export const PostSchema = z.object({
+        author: z.object({
+            name: z.string(),
+            profilePicture: z.string(),
+            }),
+        publishedAt: z.string(),
+        title: z.string(),
+        subtitle: z.string(),
+        brief: z.string(),
+        slug: z.string(),
+        readTimeInMinutes: z.number(),
+        content: z.object({
+            html: z.string(),
+        }),
+        tags: z.array(z.object({
+            name: z.string(),
+            slug: z.string(),
+        })),
+        coverImage: z.object({
+            url: z.string(),
+        }),
+    })
+    
+    export const PostsDataSchema = z.object({
+        publication: z.object({
+            title: z.string(),
+            posts: z.object({
+                pageInfo: z.object({
+                    hasNextPage: z.boolean(),
+                    endCursor: z.string(),
+                }),
+                edges: z.array(z.object({
+                    node: PostSchema,
+                })),
+            }),
+        }),
+    })
+    
+    export const PostDataSchema = z.object({
+        publication: z.object({
+            title: z.string(),
+            post: PostSchema,
+        }),
+    })
+    
+    export type Post = z.infer<typeof PostSchema>
+    export type PostsData = z.infer<typeof PostsDataSchema>
+    export type PostData = z.infer<typeof PostDataSchema>
+    ```
+    
+3. Create file `src/loaders/hashnode/queries.ts` with
+    
+    ```typescript
+    import { gql, GraphQLClient } from 'graphql-request';
+    import type { PostsData, PostData } from './schemas';
+    
+    const getClient = () => new GraphQLClient('https://gql.hashnode.com');
+    
+    export const getPosts = async (myHashnodeURL:string) => {
+      const client = getClient();
+    
+      const allPosts = await client.request<PostsData>(
+        gql`
+          query allPosts {
+            publication(host: "${myHashnodeURL}") {
+              title
+              posts(first: 20) {
+                pageInfo{
+                  hasNextPage
+                  endCursor
+                }
+                edges {
+                  node {
+                    author{
+                      name
+                      profilePicture
+                    }
+                    title
+                    subtitle
+                    brief
+                    slug
+                    coverImage {
+                      url
+                    }
+                    tags {
+                      name
+                      slug
+                    }
+                    publishedAt
+                    readTimeInMinutes
+                  }
+                }
+              }
+            }
+          }
+        `,
+      );
+    
+      return allPosts;
+    };
+    ```
+    
+4. Create file `src/loaders/hashnode/loaders.ts` with
+    
+    ```typescript
+    import { PostSchema } from './schemas';
+    import type { Loader } from 'astro/loaders';
+    import { getPosts } from './queries';
+    
+    export interface HashnodePostsLoaderOptions {
+      myHashnodeURL: string;
+    }
+    
+    export function hashnodePostsLoader({ myHashnodeURL }: HashnodePostsLoaderOptions): Loader {
+      return {
+        name: 'hasnode-posts-loader',
+        load: async ({ logger, parseData, store }) => {
+          logger.info(`Loading posts from ${myHashnodeURL}`);
+    
+          const result = await getPosts(myHashnodeURL);
+          for (const post of result.publication.posts.edges) {
+            const data = post.node;
+            store.set({ id: data.slug, data });
+          }
+    
+          logger.info(`Loaded ${result.publication.posts.edges.length} posts from ${myHashnodeURL}`);
+        },
+        schema: () => PostSchema,
+      };
+    }
+    ```
+    
+5. Create file `src/content/config.ts` with
+    
+    ```typescript
+    import { defineCollection } from 'astro:content'
+    import { hashnodePostsLoader } from '../loaders/hasnode/loaders';
+    
+    const myHashnodeURL = 'gelinjo.hashnode.dev'
+    
+    const posts = defineCollection({
+      loader: hashnodePostsLoader({myHashnodeURL})
+    });
+    export const collections = { posts }
+    ```
+    
+6. Display on your Astro page like
+    
+    ```typescript
+    ---
+    import { getCollection } from 'astro:content';
+    
+    const posts = await getCollection('posts');
+    ---
+    
+    posts.map((post) => (
+        <div>
+            <h2>{post.data.title}</h2>
+            <p>{post.data.brief}</p>
+            <img src={post.data.coverImage.url} alt={post.data.title} />
+            <a href={`https://gelinjo.hashnode.dev/${post.data.slug}`}>Read more</a>
+        </div>
+    ))
+    ```
+    
+
+## Resources
+
+* [Hashnode & Astro Documentation](https://5-0-0-beta.docs.astro.build/en/guides/cms/hashnode/)
+    
+* [Community Loaders for Astro Content Layer](https://astro.build/blog/community-loaders)
+    
+* [Astro Content Collection Documentation](https://5-0-0-beta.docs.astro.build/en/guides/content-collections/#when-not-to-create-a-collection)

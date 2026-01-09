@@ -1,0 +1,266 @@
+---
+title: "⛔ Target Exclusions in Nx Project Crystal"
+subtitle: "Exploring Workarounds and Custom Solutions for Excluding Targets in the Early Days of Nx 18"
+publishedAt: 2024-03-15
+coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1710514625015/e24d89ec-4193-468e-8f95-7ca0639048b0.webp
+canonicalUrl: https://gelinjo.hashnode.dev/target-exclusions-in-nx-project-crystal
+tags:
+  - nx
+  - plugins
+  - typescript
+  - angular
+  - monorepo
+author:
+  name: Jonathan Gelin
+  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+type: article
+draft: false
+---
+
+import Tweet from "../../components/embeds/Tweet.astro";
+import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)
+
+### **UPDATE 2024–04-03:**
+
+**An official way now exists to exclude or include plugins for a specific project:**
+
+<UrlEmbed url="https://github.com/nrwl/nx/pull/22379" /> 
+
+If we take the example below, you can now use the approach:
+
+```json
+{
+  "plugins": [
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test",
+        "exclude": ["my-lib-e2e/**/*"]
+      }
+    }
+  ]
+}
+```
+
+---
+
+Since the release of Nx 18, many repositories have started the adoption of **Nx Project Crystal**. As it’s still the beginning, the feature to exclude some projects from the dynamic target assignment is not supported yet.
+
+In this article, I want to share workarounds and ideas until the Nx team implements something internally.
+
+If you’re looking to understand how Nx assigns targets to projects dynamically, I first recommend reading my article:
+
+<UrlEmbed url="https://jgelin.medium.com/discovering-nx-project-crystals-magic-7f42faf2a135" /> 
+
+## **Workarounds**
+
+Let’s specify the context by mentioning that you have a project named `my-lib-e2e` and you don't want that project to have a test target even if it contains a `jest.config.ts`. However, you still want to get the benefit of the `@nx/jest/plugin` for your other 1000 Nx projects 😋.
+
+### **Manually Override the “test” Target with**[`nx:noop`](https://nx.dev/nx-api/nx/executors/noop)
+
+In your `my-lib-e2e/project.json`:
+
+```json
+{
+  "name": "my-lib-e2e",
+  "targets": {
+    "test": {}
+  }
+}
+```
+
+Given that `project.json` takes precedence over all plugins, the inferred `test` target from the `@nx/jest/plugin` will be overridden.
+
+### **Dynamically Override Any Target with**[`nx:noop`](https://nx.dev/nx-api/nx/executors/noop)
+
+You can also develop a plugin to automatically assign `nx:noop` on any target. For instance, I crafted a plugin located at `tools/nx-plugins/targets-noopify.ts`:
+
+```typescript
+import { CreateNodes, ProjectConfiguration, readJsonFile } from '@nx/devkit';
+import { dirname, join } from 'node:path';
+
+interface TargetsNoopifyOptions {
+  projectName: string;
+  targets: string[];
+}
+
+export const createNodes: CreateNodes<TargetsNoopifyOptions> = [
+  '**/project.json',
+  async (configFilePath, options, { workspaceRoot }) => {
+    const projectRoot = dirname(configFilePath);
+
+    // get project name from porject.json
+    const projectJson = readJsonFile<ProjectConfiguration>(
+      join(workspaceRoot, configFilePath)
+    );
+    const projectName = projectJson.name;
+
+    // check if the target of the project should be noopified
+    const targetsToStub = options[projectName];
+    if (!targetsToStub) {
+      return {};
+    }
+
+    // override the targets
+    const targets = targetsToStub.reduce(
+      (acc, targetName) => ({
+        ...acc,
+        [targetName]: {},
+      }),
+      {}
+    );
+
+    return {
+      projects: {
+        [projectRoot]: {
+          root: projectRoot,
+          targets: targets,
+        },
+      },
+    };
+  },
+];
+```
+
+This plugin should then **be listed last** in `nx.json`:
+
+```json
+{
+  "plugins": [
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      }
+    },
+    // MAKE SURE THIS COMES AFTER THE PLUGIN YOU WISH TO OVERRIDE
+    {
+      "plugin": "./tools/nx-plugins/targets-noopify.ts",
+      "options": {
+        "my-lib-e2e": ["test"]
+      }
+    }
+  ]
+}
+```
+
+### **Create Your Custom**`@nx/jest/plugin` and Skip the Projects
+
+Alternatively, you could implement your custom Jest plugin that filters projects. Here’s an example plugin `tools/nx-plugins/skip-jest-plugin.ts`:
+
+```javascript
+import {
+  CreateNodes,
+  joinPathFragments,
+  ProjectConfiguration,
+  readJsonFile,
+} from '@nx/devkit';
+import { dirname, join } from 'node:path';
+import {
+  JestPluginOptions,
+  createNodes as createJestNodes,
+} from '@nx/jest/plugin';
+import { readdirSync } from 'fs';
+
+export const createNodes: CreateNodes<
+  JestPluginOptions & { skipProjects: string[] }
+> = [
+  createJestNodes[0],
+  async (configFilePath, options, context) => {
+    const projectRoot = dirname(configFilePath);
+
+    const siblingFiles = readdirSync(join(context.workspaceRoot, projectRoot));
+    if (!siblingFiles.includes('project.json')) {
+      return {};
+    }
+
+    const path = joinPathFragments(projectRoot, 'project.json');
+    const projectJson = readJsonFile<ProjectConfiguration>(path);
+    const projectName = projectJson.name;
+
+    if (options.skipProjects.includes(projectName)) {
+      return {};
+    }
+
+    return createJestNodes[1](configFilePath, options, context);
+  },
+];
+```
+
+And then, in the `nx.json`, it should replace `@nx/jest/plugin` with:
+
+```javascript
+{
+  "plugins": [
+    // HERE, REPLACE "@nx/jest/plugin" WITH YOUR CUSTOM PLUGIN
+    {
+      "plugin": "./tools/nx-plugins/skip-jest-plugin.ts",
+      "options": {
+        "targetName": "test",
+        "skipProjects": ["my-lib-e2e"]
+      }
+    }
+  ]
+}
+```
+
+## **Ideas**
+
+As [Max Kless](https://medium.com/u/b4fe03dfad11?source=post_page-----fbabce816b21--------------------------------) commented, they are open to ideas, so I jumped into it 🙂
+
+<Tweet id="1768391696235073759" /> 
+
+### **Skip projects per plugin**
+
+This is related to the last workaround described above but integrated into Project Crystal. For example, you would have an `nx.json` like:
+
+```javascript
+{
+  "plugins": [
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test",
+        "skipProjects": ["my-lib-e2e"] // Could be a pattern instead
+      }
+    }
+  ]
+}
+```
+
+✅ Specific per plugin  
+⛔ Duplication in each plugin  
+⛔ If the plugin adds multiple targets, it is not possible to filter only one
+
+### **Add “projects” property on targetDefaults**
+
+This strategy takes a leaf from the [Nx Release workflow](https://nx.dev/reference/nx-json#projects), applies it to `targetDefaults` for more granular control:
+
+```javascript
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "test": {
+      "cache": true,
+      "inputs": ["production", "^production"],
+      "projects": ["*", "!my-lib-e2e"]
+    },
+  }
+}
+```
+
+✅ Specific per target  
+✅ Centralized  
+✅ Re-use existing from Release  
+⛔ Cannot be specified by executor because the [uses Nx Command](https://github.com/nrwl/nx/blob/d4e47cce2057f88e78ddb516d8d35cc74eebd60e/packages/jest/src/plugins/plugin.ts#L140)  
+⛔ It does not reflect what you can specify in your [Project Configuration](https://github.com/nrwl/nx/blob/master/packages/nx/schemas/project-schema.json)
+
+## **In Conclusion**
+
+Got more ideas? Feel free to share, and I’ll eagerly incorporate them. Let’s keep the conversation going and make Nx Project Crystal even more versatile.
+
+---
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)

@@ -1,0 +1,104 @@
+---
+title: "🍒 Cherry-Picked Nx v18.3 Updates"
+subtitle: "Exploring My Selected Features from Nx Releases"
+publishedAt: 2024-04-21
+coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1713680394750/b95d2a95-7395-46b3-bd5c-52eb9b4274c8.png
+canonicalUrl: https://gelinjo.hashnode.dev/cherry-picked-nx-v183-updates
+tags:
+  - nx
+  - monorepo
+  - angular
+  - reactjs
+  - typescript
+author:
+  name: Jonathan Gelin
+  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+type: article
+draft: false
+---
+
+import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
+
+---
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)
+
+<UrlEmbed url="https://github.com/nrwl/nx/releases/tag/18.3.0" /> 
+
+## **\[Core\] Metadata Property in Project Configuration**
+
+This new `metadata` property was [introduced in Nx 18.2](https://github.com/nrwl/nx/pull/22299). Initially, it was specified only at the project level. For example, for a project using Cypress, the `technologies` and the `targetGroups` were defined.
+
+> *The* `targetGroups` is [used for sharding tests](https://nx.dev/ci/features/split-e2e-tasks).
+
+In [Nx](https://medium.com/u/2817fb68583?source=post_page-----0502ff485629--------------------------------) **v18.3**, you can specify the`metadata` property at either a [**project level**](https://nx.dev/nx-api/devkit/documents/ProjectConfiguration#metadata) or a [**target level**](https://nx.dev/nx-api/devkit/documents/TargetConfiguration#metadata). It is also more generic; any property name can be specified within it:
+
+```json
+{
+  "name": "my-app-e2e",
+  "metadata": {
+    "targetGroups": {
+      "E2E (CI)": ["e2e-ci--src/e2e/app.cy.ts", "e2e-ci"]
+    }
+  },
+  "targets": {
+    "e2e": {
+      ...
+      "metadata": {
+        "technologies": ["cypress"],
+        "description": "Runs Cypress Tests"
+      }
+    },
+    "e2e-ci--src/e2e/app.cy.ts": {
+      ...
+      "metadata": {
+        "technologies": ["cypress"],
+        "description": "Runs Cypress Tests in src/e2e/app.cy.ts in CI"
+      }
+    },
+    "e2e-ci": {
+      ...
+      "metadata": {
+        "technologies": ["cypress"],
+        "description": "Runs Cypress Tests in CI"
+      }
+    }
+  }
+}
+```
+
+For the moment it is used for [Cypress](https://github.com/nrwl/nx/pull/22655/files), [Playwright](https://github.com/nrwl/nx/pull/22768), and [Jest](https://github.com/nrwl/nx/pull/22662/files).
+
+If you want to add extra information to your projects, such as Java technologies or others, I guess this is the correct place!
+
+## **\[Core\] List Crystal Plugin in** [**Nx**](https://medium.com/u/2817fb68583?source=post_page-----0502ff485629--------------------------------) **Report**
+
+For debugging purposes, you can now see the list of **registered plugins** in the `nx report` result:
+
+![](https://miro.medium.com/v2/resize:fit:1098/1*KlrICUDehLU8cw2ukkbUGg.png)
+
+## **\[Jest\] Ability to Split Jest Tests**
+
+Jest can also be used for **e2e tests**! Just as we do with Cypress or Playwright [for splitting and distributing the tests](https://nx.dev/ci/features/split-e2e-tasks), we can now do the same for Jest.
+
+Please check the documentation about [**Splitting e2e Tests For Jest**](https://nx.dev/nx-api/jest/documents/overview#splitting-e2e-tests)
+
+## **\[nx.dev\] Various nx.dev Improvements**
+
+It’s also important to highlight that the Nx team is continually improving its website.
+
+### **Remember selected tabs**
+
+One notable feature is the ability to remember selected tabs. When you select a specific tab on a page, all other tabs on the page with the same name will also be selected. This selection will persist during your next visit to [nx.dev](http://nx.dev/).
+
+For example, if you are working with `yarn`, when you select the `yarn` tab on the [Installation Page](https://nx.dev/getting-started/installation), all pages will adapt and display `yarn` commands by selecting `yarn` tabs.
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*dev8IR5R5JfAxHAmKg0Jyw.png)
+
+### **New** [**Contact Page**](https://nx.dev/contact)
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*37M3ubLArAells8eNvjbdQ.png)
+
+---
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)

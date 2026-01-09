@@ -1,0 +1,270 @@
+---
+title: "🍒 Cherry-Picked Nx v19.6 Updates"
+subtitle: "Exploring My Selected Features from Nx Releases"
+publishedAt: 2024-08-15
+coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1723702232854/a562507a-62b0-41ac-bbe1-853e5c7e2204.png
+canonicalUrl: https://gelinjo.hashnode.dev/cherry-picked-nx-v196-updates
+tags:
+  - nx
+  - monorepo
+  - angular
+  - reactjs
+  - typescript
+  - nodejs
+  - module-federation
+author:
+  name: Jonathan Gelin
+  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+type: article
+draft: false
+---
+
+import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
+
+---
+
+[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
+
+## 🌊 Nx Core
+
+### Skipping Dependent Tasks
+
+When testing or for any other reason, you may want to skip running the entire tree of task dependencies. You can now achieve this with the `--exclude-task-dependencies` flag in your Nx command:
+
+```bash
+nx run app:build --exclude-task-dependencies
+```
+
+### New Nx Sync Command
+
+> ⚠️ This is an experimental feature, currently undocumented and subject to change.
+
+The `nx sync` command is a new feature that runs a list of generators to ensure your workspace is always up-to-date:
+
+```bash
+nx sync
+```
+
+You can configure this command globally in your `nx.json`:
+
+```typescript
+{
+  sync: {
+    /**
+     * List of workspace-wide sync generators to be run (not attached to targets).
+     */
+    globalGenerators?: string[];
+  
+    /**
+     * Options for the sync generators.
+     */
+    generatorOptions?: {
+      [generatorName: string]: Record<string, unknown>;
+    };
+  
+    /**
+     * Whether to automatically apply sync generator changes when running tasks.
+     * If not set, the user will be prompted.
+     * If set to `true`, the user will not be prompted and the changes will be applied.
+     * If set to `false`, the user will not be prompted and the changes will not be applied.
+     */
+    applyChanges?: boolean;
+  }
+}
+```
+
+Alternatively, you can configure it per target by adding the `syncGenerators` option to the target’s configuration. For example:
+
+```json
+"libs/my-lib": {
+  "targets": {
+    "typecheck": {
+      "command": "tsc --build --emitDeclarationOnly --pretty --verbose",
+      "outputs": [],
+      "syncGenerators": [
+        "@nx/js:typescript-sync",
+      ],
+    },
+  },
+},
+```
+
+In this setup, the `@nx/js:typescript-sync` generator will be called before running the TypeScript command to keep `tsconfig` project references in sync with the project graph.
+
+You can also run `nx sync:check` to validate that the workspace is up-to-date without applying changes. This is especially useful as a CI validation step.
+
+### New Nx Import Command
+
+Nx has introduced a new command to simplify integrating external repositories into your monorepo:
+
+```json
+nx import
+```
+
+Transferring files between repos can be tricky, especially when preserving Git history. The `nx import` command automates the process by:
+
+1. Cloning the external repository.
+    
+2. Moving the code to the desired directory in a temporary branch.
+    
+3. Merging the code into the current workspace branch.
+    
+4. Recommending Nx plugins for tool integration from the imported code.
+    
+
+For a demo of how `nx import` works, check out this PR demo:
+
+<UrlEmbed url="https://asciinema.org/a/oQiA9qOvA2z85AQvVJ5QRVTp1" /> 
+
+---
+
+## 🧩 Module Federation
+
+### New setRemoteDefinition API
+
+Instead of using `setRemoteDefinitions`, which replaces the entire state, you can now use `setRemoteDefinition(remoteName: string, remoteUrl: string)` to add or update a specific remote without overwriting the existing remote map.
+
+### Local DX Improvements
+
+I will redirect you to the new great documentation: [Nx Module Federation Technical Overview](https://nx.dev/concepts/module-federation/nx-module-federation-technical-overview):
+
+![](https://cdn-images-1.medium.com/max/800/0*F7YI9WEt42ZgISS7.png)
+
+### The NxRuntimeLibraryControlPlugin
+
+> 🖨 ️[Copied from the Nx documentation](https://nx.dev/concepts/module-federation/nx-module-federation-technical-overview) by [Colum Ferry](https://medium.com/u/3ba2fddcf7aa)
+
+Previously, when using shared workspace libraries as part of your Module Federation application, there was a chance that the workspace library would be provided by one of the `static remotes`. This would cause issues where changes to those shared libraries would not be reflected in the locally served application.
+
+To combat this issue, we developed the `NxRuntimeLibraryControlPlugin`. This is a [Runtime Plugin](https://nx-dev-git-docs-module-federation-improvements-nrwl.vercel.app/%5B...segments%5D) that will ensure that workspace libraries are only shared via any active `dev remote`. This means that any changes to the shared library will be picked up by `webpack-dev-server` and, as such, reflected in the locally served application.
+
+This plugin is enabled by default, however, you can turn it off in your `module-federation.config` file:
+
+```typescript
+export const config: ModuleFederationConfig = {
+  ...,
+  disableNxRuntimeLibraryControlPlugin: true
+}
+```
+
+---
+
+## 📦 Nx Release
+
+### Version Plans
+
+Nx Release is introducing a new approach to versioning packages. Until now, Nx Release supported either a [static approach](https://nx.dev/recipes/nx-release/release-projects-independently#prompt-for-multiple-version-bumps) — prompting for each project — or an [automatic approach based on conventional commits](https://nx.dev/recipes/nx-release/automatically-version-with-conventional-commits) from Git history.
+
+However, if you’re not using conventional commits or prefer to have more control over the release notes and how versions are bumped, you can now use the new **Version Plan** approach. With this method, version bumps are defined by files located in the `.nx/version-plans` folder.
+
+Let’s walk through an example using the e2e [`version-plans.test.ts`](https://github.com/nrwl/nx/blob/master/e2e/release/src/version-plans.test.ts). Imagine you have two groups of releases: one group with a fixed version (`fixed-group`) and another with independent versions (`independent-group`). You can configure `nx.json` to activate your version plans as follows:
+
+```json
+{
+  "release": {
+    "groups": {
+      "fixed-group": {
+        "projects": ["pkg1", "pkg2"],
+        "releaseTagPattern": "v{version}"
+      },
+      "independent-group": {
+        "projects": ["pkg3", "pkg4", "pkg5"],
+        "projectsRelationship": "independent",
+        "releaseTagPattern": "{projectName}@{version}"
+      },
+    },
+    "version": {
+      "generatorOptions": {
+        "specifierSource": "version-plans"
+      },
+    },
+    "changelog": {
+      "projectChangelogs": true,
+    },
+    "versionPlans": true,
+  };
+}
+```
+
+Next, you can create a **Version Plan** file to specify how to bump the versions for each package and group.
+
+You can either generate it automatically by running:
+
+```bash
+nx release plan minor -g fixed-group -m "feat: Update the fixed packages with a minor release."
+```
+
+Or, you can create one manually by adding a file like `./nx/bump-independent.md`:
+
+```json
+---
+pkg3: patch
+pkg4: preminor
+pkg5: prerelease
+---
+feat: Update the independent packages with a patch, preminor, and prerelease.
+```
+
+Once these plans are defined and pushed, the `nx release` command will follow them:
+
+```json
+pkg1 📄 Resolved the specifier as "minor" using version plans.
+...
+pkg2 ✍️  New version 0.1.0 written to pkg2/package.json
+...
+pkg3 📄 Resolved the specifier as "patch" using version plans.
+pkg4 📄 Resolved the specifier as "preminor" using version plans.
+pkg5 📄 Resolved the specifier as "prerelease" using version plans.
+```
+
+The changelog will not only be generated from the Git commits but will also include details from your **Version Plan**.
+
+To ensure every modification impacting a releasable project aligns with a version plan, you can run the following on your CI:
+
+```bash
+nx release plan:check
+```
+
+> **For more information, see the blog post** [**Nx 19.5 is here! Stackblitz, Bun, Incremental Builds for Vite, Gradle Test Atomizer**](https://nx.dev/blog/nx-19-5-adds-stackblitz-new-features-and-more#experimental-nx-release-adds-file-based-versioning-support)
+
+### Log Unchanged Project Only
+
+The version generator logs activity for every project, which can create noise in large monorepos where only a subset of projects is being released.
+
+To address this, a new `logUnchangedProjects` option has been introduced. This allows you to configure the generator to suppress logs for unchanged projects. The default behavior remains unchanged, and this option is opt-in.
+
+---
+
+## 🌐 Nx Cloud
+
+### Explain with AI
+
+Following the introduction of AI into Nx’s documentation (via [AI Chat](https://nx.dev/ai-chat)) and Nx Cloud (via [Tusky](https://www.youtube.com/watch?v=Xfvv09wSoM8)), a new [Explain With AI](https://nx.dev/ci/troubleshooting/explain-with-ai) feature is now available. This tool helps developers quickly understand complex errors and provides suggestions for improvements, streamlining the debugging process.
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1723702508275/bc946c14-72d9-41ef-8633-6310798a5d9c.png)](https://nx.dev/blog/explain-with-ai)
+
+---
+
+## 💫 Upgrades
+
+### Support of Angular v18.2.0
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1723714090402/a21b5708-e420-40c1-8e0a-d58ab7698b07.png)](https://blog.ninja-squad.com/2024/08/14/what-is-new-angular-18.2/)
+
+### Support Storybook 8
+
+<UrlEmbed url="https://storybook.js.org/blog/storybook-8/" /> 
+
+### Upgrade to Jest v29.7.0
+
+<UrlEmbed url="https://github.com/jestjs/jest/releases/tag/v29.7.0" /> 
+
+---
+
+## 📣 Monorepo World Conference
+
+![](https://cdn-images-1.medium.com/max/800/0*f3DpsJO3OaI_EHX_)
+
+The [Monorepo World conference](https://monorepo.world/) is coming up soon on October 7, 2024 at the Computer History museum in Mountain View, California.
+
+[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)

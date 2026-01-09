@@ -1,0 +1,84 @@
+---
+title: "🍒 Cherry-Picked Nx v18.1 Updates"
+subtitle: "Exploring My Selected Features from Nx Releases"
+publishedAt: 2024-03-21
+coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1711007208520/97b1d5c6-2599-4a2e-b6cb-911f91b49e07.webp
+canonicalUrl: https://gelinjo.hashnode.dev/cherry-picked-nx-v181-updates
+tags:
+  - nx
+  - monorepo
+  - angular
+  - devops
+  - reactjs
+author:
+  name: Jonathan Gelin
+  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+type: article
+draft: false
+---
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)
+
+## **\[Core\] Activate/Deactivate Project Crystal**
+
+Until now you could use the environment variable [NX\_ADD\_PLUGINS](https://nx.dev/reference/environment-variables#environment-variables) to activate or deactivate the inferred targets. A new property `useInferencePlugins: false` was added to the `nx.json` to do the same:
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1711006653588/ad64c0d2-11f5-41b3-908a-1a0664c10e25.png)](https://nx.dev/nx-api/devkit/documents/NxJsonConfiguration?source=post_page-----067889301e55--------------------------------#useinferenceplugins)
+
+---
+
+## **\[Angular\] Support Angular 17.2**
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1711006685239/86019e6f-3b4f-4029-a227-58a03d8f6485.png)](https://blog.angular.io/angular-v17-2-is-now-available-596cbe96242d)
+
+## **\[Angular\] New “extract-i18n” Executor**
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*i1ilOJ5eHAGMHG3jFZK6Kw.png)
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1711006738504/be486045-1b08-4734-8426-85c102a279ab.png)](https://nx.dev/nx-api/angular/executors/extract-i18n)
+
+---
+
+## **\[Remix\] Add Remix Presets in “**`create-nx-workspace"`
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*uVaUpRUzlR547tQ7_sYtKw.png)
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1711006782241/be263705-46aa-4a02-a2de-3205ba938f5d.png)](https://nx.dev/nx-api/nx/documents/create-nx-workspace#preset)
+
+## **\[Remix\] Plugin Remix uses CLI directly**
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1711007129279/e37d2a15-a882-425a-a75c-6f0fac688863.png)](https://github.com/nrwl/nx/pull/22234)
+
+---
+
+## **\[Gradle\] New Gradle Plugin**
+
+It is not documented yet but there is a new plugin for supporting [Gradle](https://gradle.org/):
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1711007085198/dde89f4f-3279-4aa3-9110-3e3329bfa1fa.png)](https://github.com/nrwl/nx/pull/21055)
+
+---
+
+## **\[Rollup\] Crystalize Rollup**
+
+It will look for look for `rollup.config.{js,mjs,cjs}` files and add a `build` target automatically:
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1711007056896/23306ea2-8b39-46ce-9697-723059e1a153.png)](https://github.com/nrwl/nx/pull/22045)
+
+---
+
+## **\[Release\] Use Nx release instead of custom publish script**
+
+![](https://miro.medium.com/v2/resize:fit:1400/1*Bos4jaGGF7r143bbXuYh7Q.png)
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1711007022777/b4d346f1-13a7-48a2-b7d9-0200193aa3de.png)](https://blog.nrwl.io/versioning-and-releasing-packages-in-a-monorepo-45ee194378d1)
+
+---
+
+## **\[CI\] Group CI Logs with NX\_SKIP\_LOG\_GROUPING**
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1711006991084/c69e96aa-64a0-4cb7-81f3-d5edf05a7ca3.png)](https://nx.dev/reference/environment-variables#environment-variables)
+
+---
+
+[![](https://cdn.hashnode.com/res/hashnode/image/upload/v1732700411009/addccafc-d9ce-469f-8bb2-d590c014f67b.png)](https://smartsdlc.dev)

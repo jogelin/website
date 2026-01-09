@@ -1,10 +1,12 @@
 import { defineCollection } from 'astro:content';
-import { hashnodePostsLoader } from '../loaders/hasnode/loaders';
+import { glob } from 'astro/loaders';
 import { notionLoader } from 'notion-astro-loader';
 import { TalksPageSchema, CFPsPageSchema, ConferencesPageSchema } from '../loaders/talks/schemas';
+import { blogSchema } from './blog/_schema';
 
 const posts = defineCollection({
-  loader: hashnodePostsLoader({ myHashnodeURL: 'gelinjo.hashnode.dev' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+  schema: blogSchema,
 });
 
 const talks = defineCollection({

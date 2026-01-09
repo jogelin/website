@@ -1,0 +1,200 @@
+---
+title: "🩹 Nx Crystal Plugin Picking the Essentials"
+subtitle: "Exploring Workarounds and Custom Solutions for Early Days of Nx 18"
+publishedAt: 2024-03-23
+coverImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1711192648342/08052194-52e9-44e8-b955-1bb521c25761.png
+canonicalUrl: https://gelinjo.hashnode.dev/nx-crystal-plugin-picking-the-essentials
+tags:
+  - nx
+  - monorepo
+  - typescript
+  - angular
+  - reactjs
+  - npm
+author:
+  name: Jonathan Gelin
+  profilePicture: https://cdn.hashnode.com/res/hashnode/image/upload/v1731233188598/d21e03db-7614-4d82-8d56-a3a8d1e6ef65.png?w=500&h=500&fit=crop&crop=entropy&auto=compress,format&format=webp
+type: article
+draft: false
+---
+
+import UrlEmbed from "../../components/embeds/UrlEmbed.astro";
+
+[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
+
+As specified in my article, [⛔ Target Exclusions in Nx Project Crystal](https://medium.com/@jgelin/target-exclusions-in-nx-project-crystal-fbabce816b21), there are use cases that necessitate extending the Nx Project Crystal. However, it is not possible to hook only a specific part of the plugin. You either take it all or you don’t use it at all. Only the `createNode` function is exposed, but that function does more than one thing.
+
+I started a discussion on GitHub concerning that subject:
+
+<UrlEmbed url="https://github.com/nrwl/nx/discussions/22099" /> 
+
+But there is a solution, don’t forget that nothing is impossible in JavaScript! If you want to access a library’s internal function, just patch it 😅
+
+## **My Use Case**
+
+I pursued this solution because I appreciate the Nx Project Configuration inference and, especially, the no-configuration idea. Yeah yeah, Nx will probably implement that, but I cannot wait 😬.
+
+However, with the current plugins, it is not possible because they enforce that only projects containing a `project.json` will be taken into account. For example, I would like to keep the benefit of dynamic test target assignment from the `@nx/jest/plugin` but without the filter on the `project.json`.
+
+You can check the section [Create Your Cyrstal Plugin](https://jgelin.medium.com/discovering-nx-project-crystals-magic-7f42faf2a135#8a48) of my article [💎 Discovering Nx Project Crystal’s Magic](https://jgelin.medium.com/discovering-nx-project-crystals-magic-7f42faf2a135) if you want to know what I am talking about 🙃
+
+So, if I want to use the `@nx/jest/plugin` for the generation of the `test` target, I’ll need to expose the internal function [`buildJestTargets`](https://github.com/nrwl/nx/blob/286e83dbe9233bd4fb227658a27bc79796694b85/packages/jest/src/plugins/plugin.ts#L116). To do so, I'll need to patch the `@nx/jest/plugin` library 😈
+
+## **Patch Nx Plugins**
+
+Be careful, the following content may offend your sensibility 🙃
+
+Patching your packages is supported by default for yarn and `pnpm`. But if you are using other package managers, you can always use the library `patch-package`.
+
+In my case, I am using `pnpm`, so I first ran:
+
+```bash
+pnpm patch @nx/jest
+
+You can now edit the following folder: /private/var/folders/6c/qvy5njbd5z92xgwvcnmpmgcm0000gn/T/9504b5672db3b12b750d6825857fbbb4
+
+Once you're done with your changes, run "pnpm patch-commit '/private/var/folders/6c/qvy5njbd5z92xgwvcnmpmgcm0000gn/T/9504b5672db3b12b750d6825857fbbb4'"
+```
+
+`pnpm` will copy the library into a temporary folder and tell you what step you should follow next.
+
+So, I can edit the plugin located at `/private/.....57f/src/plugins/plugin.js` and add an export in front of the internal function [`buildJestTargets`](https://github.com/nrwl/nx/blob/286e83dbe9233bd4fb227658a27bc79796694b85/packages/jest/src/plugins/plugin.ts#L116):
+
+```typescript
+export async function buildJestTargets(...
+```
+
+I should also inform TypeScript of the exposition by adding the declaration to the file `/private/.....57f/src/plugins/plugin.d.ts`:
+
+```typescript
+export declare async function buildJestTargets(
+    configFilePath: string,
+    projectRoot: string,
+    options: JestPluginOptions,
+    context: CreateNodesContext
+): Promise<Record<string, TargetConfiguration>>;
+```
+
+Then I run the patch command to apply my modification to my repository:
+
+```bash
+pnpm patch-commit '/private/var/folders/6c/qvy5njbd5z92xgwvcnmpmgcm0000gn/T/9504b5672db3b12b750d6825857fbbb4'
+```
+
+Then I see that `pnpm` updated my `package.json` to override the library with:
+
+```json
+{
+  "pnpm": {
+    "patchedDependencies": {
+      "@nx/jest@18.0.6": "patches/@nx__jest@18.0.6.patch"
+    }
+  }
+}
+```
+
+and I can see that I have a new patch file `patches/@nx__jest@18.0.6.patch`:
+
+```diff
+diff --git a/src/plugins/plugin.d.ts b/src/plugins/plugin.d.ts
+index 1976aa9371ddcc675643d8d13c38c5fdc73e9356..4416e2279b73e4623284fb6a0ec2d275a9bb131c 100644
+--- a/src/plugins/plugin.d.ts
++++ b/src/plugins/plugin.d.ts
+@@ -4,3 +4,9 @@ export interface JestPluginOptions {
+ }
+ export declare const createDependencies: CreateDependencies;
+ export declare const createNodes: CreateNodes<JestPluginOptions>;
++export declare async function buildJestTargets(
++    configFilePath: string,
++    projectRoot: string,
++    options: JestPluginOptions,
++    context: CreateNodesContext
++): Promise<Record<string, TargetConfiguration>>;
+\ No newline at end of file
+diff --git a/src/plugins/plugin.js b/src/plugins/plugin.js
+index 5e4162dc41c30b8b1649cd3e3d4661d1b7dccc6c..3de56fef3129d97c85a383e770f0031a68134121 100644
+--- a/src/plugins/plugin.js
++++ b/src/plugins/plugin.js
+@@ -60,7 +60,7 @@ exports.createNodes = [
+         };
+     },
+ ];
+-async function buildJestTargets(configFilePath, projectRoot, options, context) {
++export async function buildJestTargets(configFilePath, projectRoot, options, context) {
+     const config = await (0, jest_config_1.readConfig)({
+         _: [],
+         $0: undefined,
+```
+
+That means each time I run `pnpm install`, the patch will be applied along with the modification. Now, let's delve into crafting your custom plugin.
+
+## **Craft Your Custom Plugin Now**
+
+You’re now set to develop your custom Jest plugin without the filter. Here’s a prototype plugin, `tools/nx-plugins/my-jest-plugin.ts`:
+
+```typescript
+import { CreateNodes } from '@nx/devkit';
+import { dirname } from 'node:path';
+import { createNodes as createJestNodes, JestPluginOptions } from '@nx/jest/plugin';
+
+// IT IS AVAILABLE YEAAAH
+import { buildJestTargets } from '@nx/jest/src/plugins/plugin';
+
+export const createNodes: CreateNodes<JestPluginOptions> = [
+  createJestNodes[0],
+  async (configFilePath, options, context) => {
+    const projectRoot = dirname(configFilePath);
+
+    // SAME PLUGIN BUT WITHOUT THE PROJECT.JSON CONDITION
+    
+    return {
+      projects: {
+        [projectRoot]: {
+          root: projectRoot,
+          targets: await buildJestTargets(configFilePath, projectRoot, options, context),
+        },
+      },
+    };
+  },
+];
+```
+
+And then, in the `nx.json`, it should replace `@nx/jest/plugin` with:
+
+```json
+{
+  "plugins": [
+    // HERE, REPLACE "@nx/jest/plugin" WITH YOUR CUSTOM PLUGIN
+    {
+      "plugin": "./tools/nx-plugins/my-jest-plugin.ts",
+      "options": {
+        "targetName": "test"
+      }
+    }
+  ]
+}
+```
+
+## **⚠️ Cautions**
+
+* This is a temporary tip. Nx Crystal is still a baby, a powerful baby! Keep an eye on Nx updates to ensure this approach is still valid!
+    
+* Do you need it? You are exposed to breaking change!
+    
+* The patch is strictly linked to the version. If you update Nx, you’ll have to validate the patch.
+    
+* In my example, I remove the memoization of the plugin; I recommend implementing one each time you are implementing a custom plugin.
+    
+* *“But this is stupid; you can directly remove the filter on the existing plugin by using the same approach!”.* This is an example; I am doing other stuff too. 😉
+    
+
+## **In Conclusion**
+
+Got more ideas? Feel free to share, and I’ll eagerly incorporate them. Let’s keep the conversation going and make Nx Project Crystal even more versatile.
+
+---
+
+[![](https://cdn-images-1.medium.com/max/1600/1*eovVydp711USejlB4b7HfA.png)](https://smartsdlc.dev/)
+
+[  
+](https://medium.com/tag/npm?source=post_page-----16688f05228c---------------npm-----------------)
