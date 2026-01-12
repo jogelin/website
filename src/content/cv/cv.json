@@ -2,7 +2,7 @@
   "email": "smartsdlc.dev@gmail.com",
   "birthDate": "1985-05-08",
   "country": "Belgium",
-  "summary": "Whether it's as a Software Engineer, Tech Lead, or Architect, if it involves software development, I'm in!\n\nMy journey began 19 years ago in Java development before transitioning fully into the dynamic world of JavaScript/TypeScript and its powerful ecosystem. Now, I unify diverse technologies to enable seamless full-stack development, ensuring systems work efficiently and scale effortlessly.\n\nI support companies through their software development cycle challenges by utilizing Nx monorepos, micro frontends, robust testing strategies, and a touch of Extreme Programming philosophy.\n\nEvery day for me is like waiting for the next episode of my favorite series—filled with learning, sharing, and growing together. Indeed, I'm as passionate about coaching and sharing knowledge as I am about coding.\n\nI am the father of two incredible boys, and I am endlessly grateful to my wife for supporting my passion every day.",
+  "summary": "Whether it's as a Software Engineer, Tech Lead, or Architect, if it involves software development, I'm in!\n\nAfter 19 years evolving from Java to JavaScript/TypeScript, I now focus on the intersection of AI and developer experience. I build AI frameworks that support software development teams—from intelligent code analysis to architecture validation and automated workflows.\n\nI help companies scale through Nx monorepos, micro frontends, and a touch of Extreme Programming philosophy—now enhanced with AI-powered tooling.\n\nEvery day for me is like waiting for the next episode of my favorite series—filled with learning, sharing, and growing together. I'm as passionate about coaching as I am about coding.\n\nI am the father of two incredible boys, and I am endlessly grateful to my wife for supporting my passion every day.",
   "education": [
     {
       "institution": "HEB (ESI)",
@@ -46,7 +46,7 @@
         "Automated GitLab CI pipeline generation, removing manual overhead and improving long-term maintainability",
         "Enhanced CI/CD performance through Distributed Task Execution and optimized caching across multiple GitLab runners",
         "Implemented end-to-end test coverage with Playwright, along with targeted test suites validating the build system to ensure reliability, reproducibility, and architectural integrity",
-        "Introduced AI-powered tooling to assist with code analysis, architecture validation, and developer workflows, improving productivity and decision-making across teams",
+        "Introduced AI-powered tooling by implementing an AI Framework to assist with code analysis, architecture validation, and developer workflows, improving productivity and decision-making across teams",
         "Provided continuous coaching and support to engineering teams adopting Nx and modern development practices",
         "Planned and initiated the migration of hundreds of repositories into the internal cloud platform"
       ],
@@ -72,7 +72,8 @@
         "Python",
         "Helm",
         "Jib",
-        "AI-assisted Development"
+        "AI-Assisted Development",
+        "Claude Code"
       ]
     },
     {
