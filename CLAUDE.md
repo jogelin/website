@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio website for Jonathan Gelin built with Astro 5, TypeScript, and Tailwind CSS. Static site that pulls content from Hashnode (blog posts) and Notion (talks/conferences) at build time.
+Personal portfolio website for Jonathan Gelin built with Astro 5, TypeScript, and Tailwind CSS. Static site with local MDX blog posts and content from Notion (talks/conferences) loaded at build time.
 
 ## Commands
 
@@ -18,7 +18,7 @@ pnpm preview    # Preview production build locally
 
 ### Content Loading
 
-- **Blog posts**: Fetched via GraphQL from Hashnode API (`src/loaders/hasnode/`)
+- **Blog posts**: Local MDX files in `src/content/blog/` using Astro's glob loader
 - **Talks/Conferences/CFPs**: Loaded from Notion databases (`src/loaders/talks/`)
 - **CV data**: Static JSON file (`src/content/cv/cv.json`)
 - All external data validated with Zod schemas
@@ -28,7 +28,7 @@ pnpm preview    # Preview production build locally
 - `src/components/` - Astro components (see Component Architecture below)
 - `src/layouts/Layout.astro` - Main HTML layout with Calendly widget and fonts
 - `src/pages/` - File-based routing (index.astro, cv.astro)
-- `src/loaders/` - Custom content loaders for Hashnode and Notion
+- `src/loaders/` - Custom content loaders for Notion
 - `src/content/config.ts` - Content collections configuration
 - `context/` - Profile context markdown files for AI-assisted content generation
 
@@ -64,7 +64,6 @@ Use these files when generating LinkedIn posts, proposals, website content updat
 ### External Integrations
 
 - **Calendly** - Booking widget in Layout.astro
-- **Hashnode GraphQL** - `https://gql.hashnode.com` for blog posts
 - **Notion API** - via `notion-astro-loader` for talks/conferences
 - **Snappify** - Embedded presentation video
 

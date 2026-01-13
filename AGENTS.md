@@ -26,7 +26,7 @@ prettier --write src/      # Format source files only
 
 - **Framework**: Astro 5 with TypeScript
 - **Styling**: Tailwind CSS + scoped CSS in components
-- **Content**: Hashnode (blog) + Notion (talks/conferences) + static JSON (CV)
+- **Content**: Local MDX (blog) + Notion (talks/conferences) + static JSON (CV)
 - **Package Manager**: pnpm (required - see packageManager in package.json)
 
 ### Key Directories
@@ -244,7 +244,6 @@ const { title, subtitle, links } = Astro.props;
 ## Tools and Integrations
 
 - **Calendly**: Booking widget (loaded in Layout.astro)
-- **Hashnode**: GraphQL API for blog posts
 - **Notion**: Database API for talks/conferences
 - **Snappify**: Embedded presentations
 - **Social**: GitHub, X, Bluesky, LinkedIn integration
@@ -273,10 +272,10 @@ const { title, subtitle, links } = Astro.props;
 
 ## Content Loading Patterns
 
-### External APIs
+### Content Sources
 
-- **Hashnode GraphQL**: `https://gql.hashnode.com` for blog posts
-- **Notion API**: Via `notion-astro-loader` for structured data
+- **Blog posts**: Local MDX files in `src/content/blog/` using Astro's glob loader
+- **Notion API**: Via `notion-astro-loader` for talks/conferences
 - **Static JSON**: CV data in `src/content/cv/cv.json`
 
 ### Schema Validation
