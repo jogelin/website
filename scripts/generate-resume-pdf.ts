@@ -280,7 +280,7 @@ const html = `
     <!-- Header -->
     <div class="header">
       <h1 class="name">Jonathan Gelin</h1>
-      <div class="title">Software Engineer | AI Engineer | Nx Expert</div>
+      <div class="title">Developer Experience Architect | AI Tooling & Nx Expert</div>
       <div class="contact-line">
         ${cvData.email}
         <span class="contact-separator">|</span>
