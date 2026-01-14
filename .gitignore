@@ -30,3 +30,5 @@ pnpm-debug.log*
 .aider*
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
+
+.mise.local.toml
