@@ -1,120 +1,86 @@
 ---
+import { getOgMetadata } from '../../utils/og-metadata';
+
 interface Props {
   url: string;
 }
 
 const { url } = Astro.props;
 
-// Parse URL to extract useful info
+// Fetch OG metadata at build time
+const metadata = await getOgMetadata(url);
+
+// Parse URL for domain info
 const urlObj = new URL(url);
 const domain = urlObj.hostname.replace('www.', '');
-const path = urlObj.pathname;
 
-// Determine icon and color based on domain
-const getDomainInfo = (domain: string) => {
-  if (domain.includes('github.com')) {
-    return { icon: 'github', color: '#e2e8f0', name: 'GitHub' };
-  }
-  if (domain.includes('nx.dev')) {
-    return { icon: 'nx', color: '#58c4dc', name: 'Nx' };
-  }
-  if (domain.includes('smartsdlc.dev')) {
-    return { icon: 'article', color: '#10b981', name: domain };
-  }
-  if (domain.includes('twitter.com') || domain.includes('x.com')) {
-    return { icon: 'twitter', color: '#1da1f2', name: 'Twitter' };
-  }
-  if (domain.includes('linkedin.com')) {
-    return { icon: 'linkedin', color: '#0077b5', name: 'LinkedIn' };
-  }
-  if (domain.includes('youtube.com') || domain.includes('youtu.be')) {
-    return { icon: 'youtube', color: '#ff0000', name: 'YouTube' };
-  }
-  if (domain.includes('npmjs.com')) {
-    return { icon: 'npm', color: '#cb3837', name: 'npm' };
-  }
-  return { icon: 'link', color: '#94a3b8', name: domain };
+// Determine brand color based on domain
+const getBrandColor = (domain: string): string => {
+  if (domain.includes('github.com') || domain.includes('github.blog'))
+    return '#24292f';
+  if (domain.includes('nx.dev')) return '#143055';
+  if (domain.includes('twitter.com') || domain.includes('x.com'))
+    return '#1da1f2';
+  if (domain.includes('linkedin.com')) return '#0077b5';
+  if (domain.includes('youtube.com') || domain.includes('youtu.be'))
+    return '#ff0000';
+  if (domain.includes('npmjs.com')) return '#cb3837';
+  if (domain.includes('martinfowler.com')) return '#64748b';
+  if (domain.includes('modelcontextprotocol.io')) return '#9b8ac4';
+  if (domain.includes('anthropic.com')) return '#d4a574';
+  if (domain.includes('google.com') || domain.includes('workspace.google.com'))
+    return '#4285f4';
+  if (domain.includes('bmad-method.org')) return '#9b8ac4';
+  if (domain.includes('conventionalcommits.org')) return '#fe5196';
+  if (domain.includes('swagger.io')) return '#85ea2d';
+  if (domain.includes('mermaid.js.org')) return '#ff3670';
+  if (domain.includes('v0.dev')) return '#000000';
+  if (domain.includes('renovatebot.com')) return '#1a1f6c';
+  if (domain.includes('coderabbit.ai')) return '#ff6b35';
+  return '#64748b';
 };
 
-const domainInfo = getDomainInfo(domain);
+const brandColor = getBrandColor(domain);
 
-// Create a readable title from the path
-const getTitle = () => {
-  // For GitHub, extract repo/path info
-  if (domain.includes('github.com')) {
-    const parts = path.split('/').filter(Boolean);
-    if (parts.length >= 2) {
-      const [owner, repo, ...rest] = parts;
-      if (rest[0] === 'releases' && rest[1] === 'tag') {
-        return `${owner}/${repo} - Release ${rest[2]}`;
-      }
-      if (rest[0] === 'discussions') {
-        return `${owner}/${repo} - Discussion #${rest[1]}`;
-      }
-      if (rest[0] === 'issues') {
-        return `${owner}/${repo} - Issue #${rest[1]}`;
-      }
-      if (rest[0] === 'pull') {
-        return `${owner}/${repo} - PR #${rest[1]}`;
-      }
-      return `${owner}/${repo}${rest.length ? '/' + rest.join('/') : ''}`;
-    }
-  }
-
-  // For other URLs, clean up the path
-  const cleanPath = path
-    .replace(/^\//, '')
-    .replace(/\/$/, '')
-    .replace(/-/g, ' ')
-    .replace(/\//g, ' / ');
-
-  return cleanPath || domain;
+// Truncate description to ~120 chars
+const truncateDescription = (text: string, maxLength = 120): string => {
+  if (!text || text.length <= maxLength) return text;
+  return text.slice(0, maxLength).replace(/\s+\S*$/, '') + '...';
 };
 
-const title = getTitle();
+const description = truncateDescription(metadata.description);
+const hasImage = !!metadata.image;
 ---
 
 <a href={url} class="url-embed" target="_blank" rel="noopener noreferrer">
-  <div class="embed-icon" style={`color: ${domainInfo.color};`}>
-    {domainInfo.icon === 'github' && (
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-      </svg>
-    )}
-    {domainInfo.icon === 'nx' && (
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M11.987 14.138l-3.132 4.923-5.193-8.427-.012 8.822H0V4.544h3.691l5.247 8.833.005-3.998 3.044 4.759zm.601-5.761c.024-.048 0-3.784.008-3.833h-3.65c.028.27-.072.799-.072 1.255v3.182h3.714v-.604zm7.461 9.078h-3.6v-9.39l3.6 5.596v3.794z"/>
-      </svg>
-    )}
-    {domainInfo.icon === 'article' && (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="16" y1="13" x2="8" y2="13"/>
-        <line x1="16" y1="17" x2="8" y2="17"/>
-        <line x1="10" y1="9" x2="8" y2="9"/>
-      </svg>
-    )}
-    {domainInfo.icon === 'npm' && (
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"/>
-      </svg>
-    )}
-    {domainInfo.icon === 'link' && (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-      </svg>
-    )}
+  <div class="embed-image">
+    {
+      hasImage ? (
+        <img
+          src={metadata.image}
+          alt=""
+          loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="embed-placeholder" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+          </svg>
+        </div>
+      ) : (
+        <div class="embed-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+          </svg>
+        </div>
+      )
+    }
   </div>
   <div class="embed-content">
-    <span class="embed-domain">{domainInfo.name}</span>
-    <span class="embed-title">{title}</span>
-  </div>
-  <div class="embed-arrow">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M7 17L17 7M17 7H7M17 7V17"/>
-    </svg>
+    <span class="embed-site" style={`color: ${brandColor};`}>
+      {metadata.siteName || domain}
+    </span>
+    <span class="embed-title">{metadata.title}</span>
   </div>
 </a>
 
@@ -123,34 +89,18 @@ const title = getTitle();
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 16px;
-    margin: 1.5rem 0;
-    background: #0f172a;
-    border: 1px solid #334155;
-    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 1rem 0;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
     text-decoration: none;
     transition: all 0.2s;
   }
 
   .url-embed:hover {
-    border-color: #10b981;
-    background: #1e293b;
-  }
-
-  .embed-icon {
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #1e293b;
-  }
-
-  .embed-icon svg {
-    width: 20px;
-    height: 20px;
+    border-color: #cbd5e1;
+    background: #f8fafc;
   }
 
   .embed-content {
@@ -161,40 +111,61 @@ const title = getTitle();
     gap: 2px;
   }
 
-  .embed-domain {
+  .embed-site {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    color: #94a3b8;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
   }
 
   .embed-title {
     font-size: 14px;
     font-weight: 500;
-    color: #f1f5f9;
+    color: #1e293b;
+    line-height: 1.3;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .embed-arrow {
+  .url-embed:hover .embed-title {
+    color: #0f172a;
+  }
+
+  .embed-image {
     flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .embed-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .embed-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
     color: #94a3b8;
-    transition: all 0.2s;
   }
 
-  .embed-arrow svg {
-    width: 18px;
-    height: 18px;
+  .embed-placeholder svg {
+    width: 24px;
+    height: 24px;
   }
 
-  .url-embed:hover .embed-arrow {
-    color: #10b981;
-    transform: translate(2px, -2px);
-  }
-
-  @media (max-width: 480px) {
+  @media (max-width: 560px) {
     .embed-title {
       font-size: 13px;
     }

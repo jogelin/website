@@ -1,0 +1,28 @@
+{
+  "https://docs.anthropic.com/en/docs/claude-code": {
+    "url": "https://docs.anthropic.com/en/docs/claude-code",
+    "title": "Not Found - Claude Docs",
+    "description": "Page not found",
+    "image": "https://platform.claude.com/docs/images/og-claude-docs.png",
+    "siteName": "docs.anthropic.com",
+    "favicon": "https://docs.anthropic.com/favicon.ico",
+    "fetchedAt": "2026-01-14T14:41:42.132Z"
+  },
+  "https://modelcontextprotocol.io": {
+    "url": "https://modelcontextprotocol.io",
+    "title": "What is the Model Context Protocol (MCP)? - Model Context Protocol",
+    "description": "",
+    "image": "https://raw.githubusercontent.com/modelcontextprotocol/docs/2eb6171ddbfeefde349dc3b8d5e2b87414c26250/images/og-image.png",
+    "siteName": "Model Context Protocol",
+    "favicon": "https://modelcontextprotocol.io/mintlify-assets/_mintlify/favicons/mcp/nMRF3-ucbVB_YX-J/_generated/favicon/favicon-16x16.png",
+    "fetchedAt": "2026-01-14T14:41:55.697Z"
+  },
+  "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html": {
+    "url": "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html",
+    "title": "Understanding Spec-Driven-Development: Kiro, spec-kit, and Tessl",
+    "description": "",
+    "siteName": "martinfowler.com",
+    "favicon": "https://martinfowler.com/favicon.ico",
+    "fetchedAt": "2026-01-14T14:42:04.559Z"
+  }
+}
