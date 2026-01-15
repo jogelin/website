@@ -1,18 +1,29 @@
 ---
 interface Props {
   title: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: string;
+  canonicalUrl?: string;
 }
 
-const { title } = Astro.props;
+const {
+  title,
+  description = "Jonathan Gelin - Developer Experience Architect specializing in Nx, AI tooling, and scalable developer workflows. Helping teams align architecture, tooling, and practices.",
+  ogImage = "https://smartsdlc.dev/linkedin-banner.png",
+  ogType = "website",
+  canonicalUrl = "https://smartsdlc.dev/"
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en" class="dark bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-900 dark:text-slate-100">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Jonathan Gelin - Developer Experience Architect specializing in Nx, AI tooling, and scalable developer workflows. Helping teams align architecture, tooling, and practices." />
+    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl} />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,20 +33,19 @@ const { title } = Astro.props;
     <title>{title}</title>
 
     <!-- Open Graph / LinkedIn -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://smartsdlc.dev/" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content="Jonathan Gelin - Developer Experience Architect specializing in Nx, AI tooling, and scalable developer workflows. Helping teams align architecture, tooling, and practices." />
-    <meta property="og:image" content="https://smartsdlc.dev/linkedin-banner.png" />
-    <meta property="og:image:width" content="1584" />
-    <meta property="og:image:height" content="396" />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="smartSDLC.dev" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://smartsdlc.dev/" />
+    <meta name="twitter:url" content={canonicalUrl} />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content="Jonathan Gelin - Developer Experience Architect specializing in Nx, AI tooling, and scalable developer workflows. Helping teams align architecture, tooling, and practices." />
-    <meta name="twitter:image" content="https://smartsdlc.dev/twitter-banner.png" />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     <!-- Calendly popup widget -->
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
