@@ -15,11 +15,6 @@ const { post, readingTime } = Astro.props;
     {post.subtitle && <p class="subtitle">{post.subtitle}</p>}
 
     <div class="post-meta">
-      {post.tags.length > 0 && (
-        <div class="tags">
-          {post.tags.map((tag) => <span class="tag">{tag}</span>)}
-        </div>
-      )}
       <div class="meta-info">
         <div class="author">
           {post.author.profilePicture && (
@@ -83,27 +78,12 @@ const { post, readingTime } = Astro.props;
     margin-bottom: 1rem;
   }
 
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
   .meta-info {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     font-size: 14px;
     color: #64748b;
-  }
-
-  .tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    background: rgba(16, 185, 129, 0.1);
-    color: #10b981;
   }
 
   :global(.dark) .meta-info {
