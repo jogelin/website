@@ -11,18 +11,10 @@ const { post, readingTime } = Astro.props;
 
 <article class="blog-post">
   <header class="post-header">
-    {post.coverImage && (
-      <div class="cover-image">
-        <img src={post.coverImage} alt={post.title} />
-      </div>
-    )}
+    <h1>{post.title}</h1>
+    {post.subtitle && <p class="subtitle">{post.subtitle}</p>}
 
     <div class="post-meta">
-      {post.tags.length > 0 && (
-        <div class="tags">
-          {post.tags.map((tag) => <span class="tag">{tag}</span>)}
-        </div>
-      )}
       <div class="meta-info">
         <div class="author">
           {post.author.profilePicture && (
@@ -31,6 +23,8 @@ const { post, readingTime } = Astro.props;
           <span>{post.author.name}</span>
         </div>
         <span class="separator">·</span>
+        <span class="read-time">{readingTime} min read</span>
+        <span class="separator">·</span>
         <time datetime={post.publishedAt.toISOString()}>
           {post.publishedAt.toLocaleDateString('en-US', {
             day: '2-digit',
@@ -38,13 +32,19 @@ const { post, readingTime } = Astro.props;
             year: 'numeric',
           })}
         </time>
-        <span class="separator">·</span>
-        <span class="read-time">{readingTime} min read</span>
       </div>
+      {post.tags.length > 0 && (
+        <div class="tags">
+          {post.tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      )}
     </div>
 
-    <h1>{post.title}</h1>
-    {post.subtitle && <p class="subtitle">{post.subtitle}</p>}
+    {post.coverImage && (
+      <div class="cover-image">
+        <img src={post.coverImage} alt={post.title} />
+      </div>
+    )}
   </header>
 
   <div class="prose">
@@ -66,7 +66,7 @@ const { post, readingTime } = Astro.props;
   .cover-image {
     border-radius: 12px;
     overflow: hidden;
-    margin-bottom: 2rem;
+    margin-top: 2rem;
   }
 
   .cover-image img {
@@ -129,7 +129,7 @@ const { post, readingTime } = Astro.props;
   .subtitle {
     font-size: 20px;
     color: #64748b;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     line-height: 1.5;
   }
 
