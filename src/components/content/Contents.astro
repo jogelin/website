@@ -45,16 +45,17 @@ const columns = 3;
 const masonryContents = groupContentsForMasonry(sortedContents, columns);
 ---
 
-<div class="section-header">
-  <span class="section-label">Content</span>
-  <h2 class="section-title">Articles & Talks</h2>
-  <p class="section-subtitle">Sharing knowledge on Nx, AI tooling, and developer experience</p>
-</div>
+<div class="section-container">
+  <div class="section-header">
+    <span class="section-label">Content</span>
+    <h2 class="section-title">Articles & Talks</h2>
+    <p class="section-subtitle">Sharing knowledge on Nx, AI tooling, and developer experience</p>
+  </div>
 
-<div class="mb-2 columns-1 gap-4 md:columns-3">
+  <div class="posts-masonry">
   {
     masonryContents.map((col) => (
-      <div class="column space-y-2">
+      <div class="column">
         {col.map((content) =>
           isInstanceOfBlogPost(content.data) ? (
             <PostCard post={content as { id: string; data: any }} />
@@ -67,9 +68,33 @@ const masonryContents = groupContentsForMasonry(sortedContents, columns);
       </div>
     ))
   }
+  </div>
 </div>
 
 <style>
+  .section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .posts-masonry {
+    columns: 1;
+    gap: 16px;
+  }
+
+  @media (min-width: 768px) {
+    .posts-masonry {
+      columns: 3;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .section-container {
+      padding: 0 16px;
+    }
+  }
+
   .section-header {
     text-align: center;
     margin-bottom: 40px;
@@ -108,5 +133,8 @@ const masonryContents = groupContentsForMasonry(sortedContents, columns);
 
   .column {
     break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 </style>
