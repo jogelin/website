@@ -1,0 +1,155 @@
+---
+interface Props {
+  description?: string;
+}
+
+const { description = "If you're looking to improve your Developer Experience, build AI Frameworks, or optimize your CI/CD pipelines with Nx, feel free to reach out — I'm always happy to share real-world setups and practical tips." } = Astro.props;
+---
+
+<section class="want-to-go-further">
+  <h2>Want to go further?</h2>
+  <p class="description">{description}</p>
+
+  <a href="https://smartsdlc.dev/" target="_blank" rel="noopener noreferrer" class="card">
+    <img src="/avatar.png" alt="Jonathan Gelin" class="avatar" />
+
+    <div class="info">
+      <h3 class="title">
+        Build on <span class="hl">Foundations</span>,<br />Scale with <span class="hl">AI</span>.
+      </h3>
+      <p class="subtitle">
+        I design <span class="hl">AI-powered workflows</span> and <span class="hl">engineering foundations</span> that make teams faster, happier, and more consistent.
+      </p>
+    </div>
+  </a>
+</section>
+
+<style>
+  .want-to-go-further {
+    margin-top: 2.5rem;
+  }
+
+  .want-to-go-further h2 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #e2e8f0;
+  }
+
+  .description {
+    color: rgba(226, 232, 240, 0.7);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .card,
+  .card:hover,
+  .card:visited,
+  .card:active,
+  .card:focus {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(15, 17, 23, 0.9) 0%, rgba(26, 29, 46, 0.9) 100%);
+    border: 1px solid rgba(226, 232, 240, 0.1);
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .card:hover {
+    border-color: rgba(16, 185, 129, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(16, 185, 129, 0.15);
+  }
+
+  .avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid rgba(16, 185, 129, 0.5);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #ffffff;
+    margin: 0;
+    text-decoration: none;
+  }
+
+  .title .hl {
+    color: #10b981;
+    text-decoration: none;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    color: rgba(226, 232, 240, 0.7);
+    line-height: 1.5;
+    margin: 0;
+    text-decoration: none;
+  }
+
+  .subtitle .hl {
+    color: #10b981;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .card * {
+    text-decoration: none !important;
+  }
+
+  @media (max-width: 600px) {
+    .card {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 60px;
+      height: 60px;
+    }
+
+    .title {
+      font-size: 1.1rem;
+    }
+
+    .info {
+      align-items: center;
+    }
+  }
+</style>
