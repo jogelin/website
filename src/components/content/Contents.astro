@@ -31,7 +31,21 @@ const getTime = (content: any) => {
 
   return 0;
 };
-const sortedContents = [...posts, ...talks].sort((a, b) => getTime(b) - getTime(a));
+
+const now = Date.now();
+const sortedContents = [...posts, ...talks].sort((a, b) => {
+  const timeA = getTime(a);
+  const timeB = getTime(b);
+  const isFutureA = timeA > now;
+  const isFutureB = timeB > now;
+
+  // Published articles come before future-scheduled ones
+  if (isFutureA && !isFutureB) return 1;
+  if (!isFutureA && isFutureB) return -1;
+
+  // Within each group, sort by most recent first
+  return timeB - timeA;
+});
 
 function groupContentsForMasonry<T>(contents: T[], columns: number): T[][] {
   const grouped = Array.from({ length: columns }, () => []) as T[][];
