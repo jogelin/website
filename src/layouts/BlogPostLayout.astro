@@ -12,7 +12,7 @@ const { post, readingTime } = Astro.props;
 <article class="blog-post">
   <header class="post-header">
     <h1>{post.title}</h1>
-    {post.subtitle && <p class="subtitle">{post.subtitle}</p>}
+    {post.subtitle && <h2 class="subtitle">{post.subtitle}</h2>}
 
     <div class="post-meta">
       <div class="meta-info">
@@ -106,14 +106,15 @@ const { post, readingTime } = Astro.props;
     color: #e2e8f0;
   }
 
-  .subtitle {
+  h2.subtitle {
     font-size: 20px;
+    font-weight: 400;
     color: #64748b;
-    margin-bottom: 1.5rem;
+    margin: 0 0 1.5rem 0;
     line-height: 1.5;
   }
 
-  :global(.dark) .subtitle {
+  :global(.dark) h2.subtitle {
     color: #94a3b8;
   }
 
