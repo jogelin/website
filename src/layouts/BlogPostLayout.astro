@@ -15,6 +15,11 @@ const { post, readingTime } = Astro.props;
     {post.subtitle && <p class="subtitle">{post.subtitle}</p>}
 
     <div class="post-meta">
+      {post.tags.length > 0 && (
+        <div class="tags">
+          {post.tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      )}
       <div class="meta-info">
         <div class="author">
           {post.author.profilePicture && (
@@ -33,11 +38,6 @@ const { post, readingTime } = Astro.props;
           })}
         </time>
       </div>
-      {post.tags.length > 0 && (
-        <div class="tags">
-          {post.tags.map((tag) => <span class="tag">{tag}</span>)}
-        </div>
-      )}
     </div>
 
     {post.coverImage && (
